@@ -11,8 +11,12 @@ public class MainService{
 	@GET
 	public Response getHelloMessage() {
 		CreateUser  cu = new CreateUser();
-		System.out.println("calling\n");
-		cu.dbChecker();
 		return Response.ok("Hello world!").build();
+	}
+	
+	@GET
+	@Path("/hello")
+	public Response getMessage() {
+		return Response.ok("Dastan pidr!").build();
 	}
 }
