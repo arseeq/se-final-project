@@ -1,4 +1,4 @@
-package kz.edu.nu.cs;
+package kz.edu.nu.cs.Services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,7 +10,9 @@ public class MainService{
 	
 	@GET
 	public Response getHelloMessage() {
-		
+		CreateUser  cu = new CreateUser();
+		System.out.println("calling\n");
+		cu.dbChecker();
 		return Response.ok("Hello world!").build();
 	}
 }

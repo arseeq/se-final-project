@@ -1,4 +1,4 @@
-package kz.edu.nu.cs;
+package kz.edu.nu.cs.Services;
 
 import java.util.HashSet;
 import java.util.Set;

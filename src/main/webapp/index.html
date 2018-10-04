@@ -5,8 +5,24 @@
 <title>Software Engineering Homework 2</title>
 <script src="scripts/jquery.min.js"></script>
 <link href="styles/style.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+function callDb() {
+	$.ajax({
+        url : 'main',
+        type: "get",
+        dataType : 'json',
+        success : function(r) {
+        },
+        error: function(xhr){
+        	console.log(xhr);
+        }
+    });
+}
+</script>
 </head>
 <body>
 <p>Hello, world!</p>
+<button onclick="callDb">Click me</button>
+
 </body>
 </html>
