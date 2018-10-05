@@ -13,9 +13,9 @@
       <class>kz.edu.nu.cs.Model.Message</class>
 
       <properties>
-         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/introvert"/>
-         <property name="javax.persistence.jdbc.user" value="root"/>
-         <property name="javax.persistence.jdbc.password" value="root"/>
+         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.10.3.14:3306/testdatabase361"/>
+         <property name="javax.persistence.jdbc.user" value="user361"/>
+         <property name="javax.persistence.jdbc.password" value="secret"/>
          <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
          <property name="eclipselink.logging.level" value="FINE"/>
          <property name="eclipselink.ddl-generation" value="create-tables"/>

@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table
 @SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize=1)
+@NamedQueries({
+	@NamedQuery(name = "User.findByLogin", query = "select u from User u where u.email = :login")
+})
 public class User {
 	
 	private static final long serialVersionUID = 1236544789532171L;

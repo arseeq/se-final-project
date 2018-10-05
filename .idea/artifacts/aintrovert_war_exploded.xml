@@ -1,0 +1,53 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="aintrovert:war exploded">
+    <output-path>$PROJECT_DIR$/target/aintrovert</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="aintrovert" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.json:json:20180813" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.bundles:jaxrs-ri:2.0" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:sources:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-common:2.0" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0" />
+          <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.2" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:14.0.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-api:2.1.88" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-utils:2.1.88" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:javax.inject:2.1.88" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.1.88" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:asm-all-repackaged:2.1.88" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:cglib:2.1.88" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-client:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-server:2.0" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-common:sources:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-client:sources:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-server:sources:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:sources:2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet:sources:2.0" />
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:eclipselink:2.5.0-RC1" />
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:javax.persistence:2.2.1" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.12" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:2.6.0" />
+          <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-api:0.10.5" />
+          <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-impl:0.10.5" />
+          <element id="library" level="project" name="Maven: io.jsonwebtoken:jjwt-jackson:0.10.5" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.6" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.6" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/aintrovert/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="aintrovert/web/Web" />
+    </root>
+  </artifact>
+</component>

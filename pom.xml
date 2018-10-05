@@ -11,6 +11,13 @@
   <url>http://maven.apache.org</url>
   
   <dependencies>
+  	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20180813</version>
+	</dependency>
+	  
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -49,6 +56,23 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.12</version>
 		</dependency>
+		<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-api</artifactId>
+	    <version>0.10.5</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-impl</artifactId>
+	    <version>0.10.5</version>
+	    <scope>runtime</scope>
+	</dependency>
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt-jackson</artifactId>
+	    <version>0.10.5</version>
+	    <scope>runtime</scope>
+	</dependency>
   </dependencies>
   <repositories>
 		<repository>
