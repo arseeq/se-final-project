@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed62bf5b-b0e1-40b8-8fae-9ef27e2b2ce6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aintrovert.iml" beforeDir="false" afterPath="$PROJECT_DIR$/aintrovert.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/build/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/build/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/precache-manifest.838d96877a30076160bcbb68f9086528.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/build/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/static/css/1.aaad4579.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/static/css/1.aaad4579.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/1.d34af482.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/1.d34af482.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/main.c5fc49b7.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/main.c5fc49b7.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/src/IndexRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/src/IndexRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/src/components/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/src/components/Layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/front/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/src/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/precache-manifest.838d96877a30076160bcbb68f9086528.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/1.aaad4579.chunk.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/1.aaad4579.chunk.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/1.d34af482.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/1.d34af482.chunk.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/main.c5fc49b7.chunk.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/main.c5fc49b7.chunk.js.map" beforeDir="false" />
-    </list>
+    <list default="true" id="ed62bf5b-b0e1-40b8-8fae-9ef27e2b2ce6" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -51,23 +24,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Layout.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Layout.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/src/components/Layout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="296">
+              <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/front/src/config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+            <state relative-caret-position="57">
+              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -75,7 +45,7 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
+            <state relative-caret-position="114">
               <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
             </state>
           </provider>
@@ -318,11 +288,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1765000" />
+    <option name="totallyTimeSpent" value="1847000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="0" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5002764" side_tool="true" weight="0.22094241" />
@@ -341,7 +310,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4997236" weight="0.2759706" />
-      <window_info anchor="bottom" id="Version Control" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="6" weight="0.32948583" />
       <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.32948583" />
       <window_info content_ui="combo" id="Project" order="7" visible="true" weight="0.25262576" />
       <window_info anchor="right" id="Bean Validation" order="8" />
@@ -349,16 +318,41 @@
       <window_info anchor="right" id="SciView" order="4" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="9" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="3" />
-      <window_info anchor="bottom" id="Inspection" order="12" weight="0.4" />
-      <window_info id="Persistence" order="0" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="8" />
-      <window_info anchor="right" id="CDI" order="2" />
-      <window_info anchor="bottom" id="Cvs" order="11" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="7" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="11" weight="0.25" />
+      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4997236" weight="0.2759706" />
+      <window_info id="Structure" order="8" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="7" visible="true" weight="0.25262576" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="right" id="Ant Build" order="10" weight="0.25" />
+      <window_info anchor="bottom" id="Java Enterprise" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5002764" side_tool="true" weight="0.22094241" />
+      <window_info anchor="right" id="SciView" order="4" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.32948583" />
       <window_info anchor="bottom" id="Application Servers" order="0" weight="0.32984293" />
+      <window_info anchor="right" id="Palette" order="0" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="3" visible="true" weight="0.16749585" />
+      <window_info id="Web" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="5" show_stripe_button="false" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="11" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="right" id="Bean Validation" order="8" />
+      <window_info id="Persistence" order="0" side_tool="true" />
+      <window_info anchor="right" id="Database" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="6" />
+      <window_info anchor="right" id="CDI" order="2" />
+      <window_info anchor="bottom" id="TODO" order="13" />
+      <window_info anchor="bottom" id="Inspection" order="12" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="11" weight="0.25" />
+      <window_info id="UI Designer" order="3" />
+      <window_info anchor="bottom" id="Find" order="8" />
+      <window_info anchor="bottom" id="Debug" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="3" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="9" type="SLIDING" weight="0.4" />
+      <window_info id="Designer" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,6 +379,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/components/Layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="60" column="41" lean-forward="true" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/front/src/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -392,13 +393,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/IndexRouter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="871">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/front/src/components/Layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="296">
+          <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
         </state>
       </provider>
     </entry>
