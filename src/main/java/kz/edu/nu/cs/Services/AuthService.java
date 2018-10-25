@@ -1,5 +1,6 @@
 package kz.edu.nu.cs.Services;
 
+import java.io.Serializable;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +20,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import kz.edu.nu.cs.Model.User;
 
 @Path("/auth")
-public class AuthService{
+public class AuthService implements Serializable {
 	private static final long serialVersionUID = 1236544789552114471L;
 	private static KeyGenerator keyGenerator;
 	private CreateUser cu; //make EJB in future 
