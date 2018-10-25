@@ -1,23 +1,14 @@
 package kz.edu.nu.cs.Services;
 
 import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.CookieParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 
 import org.json.JSONObject;
 
@@ -25,16 +16,15 @@ import com.google.gson.Gson;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoder;
 import kz.edu.nu.cs.Model.User;
 
 @Path("/auth")
 public class AuthService{
 	private static final long serialVersionUID = 1236544789552114471L;
-	private KeyGenerator keyGenerator;
+	private static KeyGenerator keyGenerator;
 	private CreateUser cu; //make EJB in future 
 	
-	private SecretKey sk;
+	private static SecretKey sk;
 	private Key pk;
 	
 	@GET
@@ -69,12 +59,46 @@ public class AuthService{
 	@POST
 	@Path("/signup")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response signup(String json) {		
+	public Response signup(String json) {
+		System.out.println("\nsignup start");
+		System.out.println("json=" + json);
 		Gson g = new Gson();
-		User user  = g.fromJson(json, User.class);
-		System.out.println(" - signup: " + user);
+		User user;
+
+
+		System.out.println("\ng=");
+		try {
+			user  = g.fromJson(json, User.class);
+		} catch (Exception e) {
+			return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+		}
+		System.out.println("\nafter try");
+
+		if (user == null) {
+			return Response.status(Response.Status.FORBIDDEN).entity("user is null").build();
+		}
+
+        Pattern emailPattern = Pattern.compile("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+		System.out.println("\n email");
+        if (!emailPattern.matcher(user.getEmail()).matches()) {
+            System.out.println("\n\nbad email\n");
+            return Response.status(Response.Status.FORBIDDEN).entity("bad email").build();
+        }
+        Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+        if (!passwordPattern.matcher(user.getPassword()).matches()) {
+            System.out.println("\n\nbad password\n");
+			return Response.status(Response.Status.FORBIDDEN).entity("bad password").build();
+        }
+
 		cu = getCreateUser();
-		cu.createUser(user);		
+		try {
+            cu.createUser(user);
+        }
+        catch (Exception e) {
+            System.out.println("\n\nerror creating user: " + e.getMessage() + "\n");
+//            return Response.status(Response.Status.FORBIDDEN).entity("email exists").build();
+			return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+        }
 		String token = issueToken(user.getEmail());
 		NewCookie cookie = new NewCookie("token", token);
 		
@@ -118,38 +142,33 @@ public class AuthService{
 	
 	private boolean authenticate(String login, String password) {
 		cu = getCreateUser();
-		String passwordObt = cu.getUserPasswordByLogin(login);
-		if(passwordObt!=null && passwordObt.equals(password)) {
-			return true;
-		}
-		return false;
-	}
+		String passwordObt = cu.getUserPasswordByLogin(login).getPassword();
+        return passwordObt != null && passwordObt.equals(password);
+    }
 	
 	private String issueToken(String login) {
     	keyGenerator = getKeyGenerator();
         SecretKey key = getKey();
-        
         Calendar date = Calendar.getInstance();
         long t= date.getTimeInMillis();
         Date afterAddingTenMins=new Date(t + (10 * 60000));
-        String jwtToken = Jwts.builder()
-                .setSubject(login)
-                .setIssuer("baktybek")
-                .setIssuedAt(new Date())
-                .setExpiration(afterAddingTenMins)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
-        return jwtToken;
+		return Jwts.builder()
+				.setSubject(login)
+				.setIssuer("baktybek")
+				.setIssuedAt(new Date())
+				.setExpiration(afterAddingTenMins)
+				.signWith(key, SignatureAlgorithm.HS256)
+				.compact();
     }
 	
-	public CreateUser getCreateUser() {
+	private CreateUser getCreateUser() {
 		if(cu==null) {
 			cu = new CreateUser();
 		}
 		return cu;
 	}
 	
-	public KeyGenerator getKeyGenerator() {
+	public static KeyGenerator getKeyGenerator() {
 		if(keyGenerator == null)
 			try {
 				keyGenerator = KeyGenerator.getInstance("HmacSHA256");
@@ -159,7 +178,7 @@ public class AuthService{
 		return keyGenerator;
 	}
 	
-	public SecretKey getKey() {
+	public static SecretKey getKey() {
 		if(sk==null)
 			sk = keyGenerator.generateKey();
 		return sk;
@@ -170,8 +189,9 @@ public class AuthService{
 			pk= keyGenerator.generateKey();
 		return pk;
 	}
-	
-	public String isValidToken(String token) {
+
+
+	public static String isValidToken(String token) {
 		keyGenerator = getKeyGenerator();
 		String res;
 		Key key = getKey();

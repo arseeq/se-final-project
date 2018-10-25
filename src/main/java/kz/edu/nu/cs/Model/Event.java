@@ -1,12 +1,11 @@
 package kz.edu.nu.cs.Model;
 
-import java.util.Date;
-
 import javax.persistence.*;
 
 @Entity
 @Table
 @SequenceGenerator(name = "EventSeq", sequenceName = "Event_Seq", allocationSize=1)
+@NamedQuery(name="Event.findAll", query="select e from Event e")
 public class Event {
 	
 	private static final long serialVersionUID = 12252632212171L;
@@ -17,8 +16,7 @@ public class Event {
 	
 	private String name;
 	private String description;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date meetingTime;
+	private String meetingtime;
 	private String location;
 	private int price;
 	private int points;
@@ -26,11 +24,6 @@ public class Event {
 	public Event() {
 		
 	}
-	
-	
-	
-	
-
 
 	public int getId() {
 		return id;
@@ -47,11 +40,11 @@ public class Event {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getMeetingTime() {
-		return meetingTime;
+	public String getMeetingtime() {
+		return meetingtime;
 	}
-	public void setMeetingTime(Date meetingTime) {
-		this.meetingTime = meetingTime;
+	public void setMeetingtime(String meetingTime) {
+		this.meetingtime = meetingTime;
 	}
 	public String getLocation() {
 		return location;
@@ -79,7 +72,7 @@ public class Event {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((meetingTime == null) ? 0 : meetingTime.hashCode());
+		result = prime * result + ((meetingtime == null) ? 0 : meetingtime.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + points;
 		result = prime * result + price;
@@ -109,10 +102,10 @@ public class Event {
 				return false;
 		} else if (!location.equals(other.location))
 			return false;
-		if (meetingTime == null) {
-			if (other.meetingTime != null)
+		if (meetingtime == null) {
+			if (other.meetingtime != null)
 				return false;
-		} else if (!meetingTime.equals(other.meetingTime))
+		} else if (!meetingtime.equals(other.meetingtime))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -121,10 +114,6 @@ public class Event {
 			return false;
 		if (points != other.points)
 			return false;
-		if (price != other.price)
-			return false;
-		return true;
+		return price == other.price;
 	}
-
-	
 }

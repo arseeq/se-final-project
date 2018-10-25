@@ -10,8 +10,9 @@ import javax.persistence.*;
 @Table
 @SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize=1)
 @NamedQueries({
-	@NamedQuery(name = "User.findByLogin", query = "select u from User u where u.email = :login")
+	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
 })
+
 public class User {
 	
 	private static final long serialVersionUID = 1236544789532171L;
@@ -20,8 +21,6 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserSeq")
 	private int id;
 	
-	
-
 	@Column(nullable=false)
 	private String name;
 	

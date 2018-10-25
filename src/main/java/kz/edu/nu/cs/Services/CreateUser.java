@@ -1,8 +1,5 @@
 package kz.edu.nu.cs.Services;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -10,11 +7,11 @@ import javax.persistence.Persistence;
 
 import kz.edu.nu.cs.Model.User;
 
-public class CreateUser {
-	EntityManagerFactory emfactory;
-	EntityManager em;
+class CreateUser {
+	private EntityManagerFactory emfactory;
+	private EntityManager em;
 	
-	public void createUser(User user) {
+	void createUser(User user) {
 		emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 		em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -25,20 +22,21 @@ public class CreateUser {
 	}
 	
 	
-	public String getUserPasswordByLogin(String login) {
+	User getUserPasswordByLogin(String email) {
 		emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 		em = emfactory.createEntityManager();
 		em.getTransaction().begin();
 		User u;
 		try {
-			u = (User)em.createNamedQuery("User.findByLogin").setParameter("login", login).getSingleResult();
+			u = (User)em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
 		}catch(NoResultException e) {
 			return null;
 		}
 		em.getTransaction().commit();
 		em.close();
 		emfactory.close();
-		return u.getPassword();
+		return u;
 	}
-	
+
+
 }

@@ -15,6 +15,7 @@ public class MainAppilication extends Application {
 	    public MainAppilication() {
 	        singletons.add(new MainService());
 	        singletons.add(new AuthService());
+			singletons.add(new EventService());
 	    }
 	    
 	    @Override
