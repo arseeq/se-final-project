@@ -102,7 +102,7 @@ class SignIn extends Component {
                             </div>
                         </div>
                         <AvField name="email" label="Email" onChange ={this.handleChange} type="email" value={this.state.email} />
-                        <AvField name="password" label="Password" onChange ={this.handleChange} type="text" value={this.state.password} />
+                        <AvField name="password" label="Password" onChange ={this.handleChange} type="password" value={this.state.password} />
                         <Button color="primary" onClick={this.signin}>Submit</Button>
                     </AvForm>
 
