@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Collapse,Navbar,NavbarToggler,NavbarBrand,Nav,NavItem,NavLink,UncontrolledDropdown,DropdownToggle,DropdownMenu,DropdownItem } from 'reactstrap';
 import { Card, CardFooter, Container, Col, Form,FormGroup, Label, Input,Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import con from '../config.js'
 
 export default class Layout extends Component {
 
@@ -48,10 +49,10 @@ export default class Layout extends Component {
 		              		!self.props.auth &&
 		              			<>
 		              			{self.props.id != "signin" ? (<NavItem>
-		                			<Link className = "nav" to='/signin'>Sign In</Link>
+		                			<Link className = "nav" to={con.addr + '/signin'}>Sign In</Link>
 		              			</NavItem>) : ''}
 		              			{self.props.id != "signup" ? (<NavItem>
-		                			<Link to='/signup'>Sign Up</Link>
+		                			<Link to={con.addr + '/signup'}>Sign Up</Link>
 		              			</NavItem>) : ''}
 		   		              	</>
 		   				}
@@ -59,7 +60,7 @@ export default class Layout extends Component {
 		   		            (this.props.auth && self.props.id != 'dashboard') &&
 		   		            	<>
 		   		            	<NavItem>
-		                			<Link to='/dashboard'>Dashboard</Link>
+		                			<Link to={con.addr + '/dashboard'}>Dashboard</Link>
 		         				</NavItem>
 		              			</>
 		              	}

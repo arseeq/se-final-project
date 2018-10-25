@@ -1,3 +1,4 @@
 export default {
-	addr: ""
+	addr: "/aintrovert",
+	projectName: "/aintrovert"
 }
