@@ -13,8 +13,12 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
 })
+<<<<<<< HEAD
 
 public class User implements Serializable {
+=======
+public class User {
+>>>>>>> b914050a15db0def828fa618a0614da78d66e6ca
 	
 	private static final long serialVersionUID = 1236544789532171L;
 	
