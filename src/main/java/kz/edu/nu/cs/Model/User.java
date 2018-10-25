@@ -12,7 +12,6 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
 })
-
 public class User {
 	
 	private static final long serialVersionUID = 1236544789532171L;

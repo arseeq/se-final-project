@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="aintrovert:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="aintrovert.war">
-      <element id="artifact" artifact-name="aintrovert:war exploded" />
-    </root>
-  </artifact>
-</component>

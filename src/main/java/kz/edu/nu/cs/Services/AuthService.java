@@ -26,35 +26,7 @@ public class AuthService{
 	
 	private static SecretKey sk;
 	private Key pk;
-	
-	@GET
-	@Path("/aaa")
-	public Response si(@CookieParam("token") Cookie cookie) {
-		//System.out.println("Dastan has come                                 ");
-		String token = cookie.getValue();
-		System.out.println(token);
-		if (token == null || token.equals("")) {
-			return Response.status(403).build();
-		}
-		String res = isValidToken(token);
-		if (res!=null && !res.equals("")) {
-			return Response.ok(res).build();
-		} else return Response.ok("Not correct").build();
-	}
-	
-//	@GET
-//	@Path("/checkToken")
-//	public Response signin(@CookieParam("token") Cookie cookie) {
-//		String token = cookie.getValue();
-//		if (token == null || token.equals("")) {
-//			return Response.status(403).build();
-//		}
-//		System.out.println(token);
-//		String res = isValidToken(token);
-//		if (res!=null && !res.equals("")) {
-//			return Response.ok(res).build();
-//		} else return Response.ok("Not correct").build();
-//	}
+
 	
 	@POST
 	@Path("/signup")
@@ -142,7 +114,7 @@ public class AuthService{
 	
 	private boolean authenticate(String login, String password) {
 		cu = getCreateUser();
-		String passwordObt = cu.getUserPasswordByLogin(login).getPassword();
+		String passwordObt = cu.getUserByEmail(login).getPassword();
         return passwordObt != null && passwordObt.equals(password);
     }
 	

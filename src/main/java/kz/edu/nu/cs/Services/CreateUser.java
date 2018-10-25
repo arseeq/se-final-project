@@ -11,7 +11,7 @@ class CreateUser {
 	private EntityManagerFactory emfactory;
 	private EntityManager em;
 	
-	void createUser(User user) {
+	public void createUser(User user) {
 		emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 		em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -22,7 +22,7 @@ class CreateUser {
 	}
 	
 	
-	User getUserPasswordByLogin(String email) {
+	public User getUserByEmail(String email) {
 		emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 		em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -30,13 +30,14 @@ class CreateUser {
 		try {
 			u = (User)em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
 		}catch(NoResultException e) {
-			return null;
+			u = null;
 		}
 		em.getTransaction().commit();
 		em.close();
 		emfactory.close();
 		return u;
 	}
+
 
 
 }

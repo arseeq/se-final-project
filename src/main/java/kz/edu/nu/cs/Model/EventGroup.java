@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="EventGroup")
 @SequenceGenerator(name = "GroupSeq", sequenceName = "Group_Seq", allocationSize=1)
+@NamedQueries({
+		@NamedQuery(name = "Group.findById", query = "select u from EventGroup u where u.id = :id")
+})
 public class EventGroup {
 	
 	private static final long serialVersionUID = 123121121891L;
