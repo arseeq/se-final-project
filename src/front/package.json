@@ -2,7 +2,7 @@
   "name": "appreact",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://localhost:9090/aintrovert",
+  "homepage": "http://localhost:8080/aintrovert",
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",

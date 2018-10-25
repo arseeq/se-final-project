@@ -77,10 +77,10 @@ class IndexRouter extends React.Component{
             <div>
                 <Router>
                     <Switch>
-                        <Route exact path={con.addr +  "/dashboard"} render={() => self.state.authorized ? <Dashboard user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.addr + '/signin'} /> }/>
-                        <Route exact path={con.addr + "/signin"} render={() => self.state.authorized ? <Redirect to={con.addr + '/dashboard'} /> : <SignIn login={self.login.bind(this)} />} />
-                        <Route exact path={con.addr + "/signup"} render={() => self.state.authorized ? <Redirect to={con.addr + '/dashboard'} /> : <SignUp login={self.login.bind(this)} />} />
-                        <Route path={con.addr + '/'} render={() => <Redirect to={con.addr + '/signin'} />} />
+                        <Route exact path={con.projectName +  "/dashboard"} render={() => self.state.authorized ? <Dashboard user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/signin"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/dashboard'} /> : <SignIn login={self.login.bind(this)} />} />
+                        <Route exact path={con.projectName + "/signup"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/dashboard'} /> : <SignUp login={self.login.bind(this)} />} />
+                        <Route path={con.projectName + '/'} render={() => <Redirect to={con.projectName + '/signin'} />} />
                     </Switch>
                 </Router>
                 <LayoutFooter />

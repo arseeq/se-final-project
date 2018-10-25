@@ -48,19 +48,19 @@ export default class Layout extends Component {
 		              	{
 		              		!self.props.auth &&
 		              			<>
-		              			{self.props.id != "signin" ? (<NavItem>
-		                			<Link className = "nav" to={con.addr + '/signin'}>Sign In</Link>
+		              			{self.props.id !== "signin" ? (<NavItem>
+		                			<Link className = "nav" to={con.projectName + '/signin'}>Sign In</Link>
 		              			</NavItem>) : ''}
-		              			{self.props.id != "signup" ? (<NavItem>
-		                			<Link to={con.addr + '/signup'}>Sign Up</Link>
+		              			{self.props.id !== "signup" ? (<NavItem>
+		                			<Link to={con.projectName + '/signup'}>Sign Up</Link>
 		              			</NavItem>) : ''}
 		   		              	</>
 		   				}
 		   				{
-		   		            (this.props.auth && self.props.id != 'dashboard') &&
+		   		            (this.props.auth && self.props.id !== 'dashboard') &&
 		   		            	<>
 		   		            	<NavItem>
-		                			<Link to={con.addr + '/dashboard'}>Dashboard</Link>
+		                			<Link to={con.projectName + '/dashboard'}>Dashboard</Link>
 		         				</NavItem>
 		              			</>
 		              	}
