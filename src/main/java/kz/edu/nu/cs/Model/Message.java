@@ -1,5 +1,6 @@
 package kz.edu.nu.cs.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -7,8 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table
 @SequenceGenerator(name = "MesSeq", sequenceName = "Mes_Seq", allocationSize=1)
-public class Message {
-	
+public class Message implements Serializable {
+	private static final long serialVersionUID = 1231123521891L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MesSeq")
 	private int id;

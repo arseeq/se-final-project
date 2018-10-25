@@ -25,6 +25,9 @@ public class EventService implements Serializable {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createGroup(String json) {
         Event event = new Gson().fromJson(json, Event.class);
+        String tokenToCheck = new JSONObject(json).getString("token");
+        String email = AuthService.isValidToken(tokenToCheck);
+
         try {
             new CreateEvent().createEvent(event);
         } catch (Exception e) {

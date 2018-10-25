@@ -22,7 +22,7 @@ class CreateUser {
 	}
 	
 	
-	User getUserPasswordByLogin(String email) {
+	public User getUserByEmail(String email) {
 		emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 		em = emfactory.createEntityManager();
 		em.getTransaction().begin();

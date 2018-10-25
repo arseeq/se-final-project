@@ -1,12 +1,13 @@
 package kz.edu.nu.cs.Model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table
 @SequenceGenerator(name = "EventSeq", sequenceName = "Event_Seq", allocationSize=1)
 @NamedQuery(name="Event.findAll", query="select e from Event e")
-public class Event {
+public class Event implements Serializable {
 	
 	private static final long serialVersionUID = 12252632212171L;
 	

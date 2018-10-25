@@ -1,7 +1,7 @@
 package kz.edu.nu.cs.Model;
 
 
-
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -10,39 +10,39 @@ import javax.persistence.*;
 @Table(name="EventGroup")
 @SequenceGenerator(name = "GroupSeq", sequenceName = "Group_Seq", allocationSize=1)
 public class EventGroup {
-	
+
 	private static final long serialVersionUID = 123121121891L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GroupSeq")
 	private int id;
-	
+
 	@Column(nullable=false)
 	private String name;
-	
+
 	@Column(nullable=false)
 	private String login;
-	
-	
+
+
 	@OneToOne
 	private Event event;
-	
-	
+
+
 
 	@ManyToMany(targetEntity=User.class)
 	private Set<User> participants;
-	
+
 	@ManyToOne
 	@PrimaryKeyJoinColumn(name = "admin_id", referencedColumnName = "id")
 	private User admin;
-	
-	
+
+
 
 	public EventGroup() {
-		
+
 	}
-	
-	
+
+
 	public int getId() {
 		return id;
 	}
@@ -58,7 +58,7 @@ public class EventGroup {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
+
 	public User getAdmin() {
 		return admin;
 	}
@@ -66,8 +66,8 @@ public class EventGroup {
 	public void setAdmin(User admin) {
 		this.admin = admin;
 	}
-	
-	
+
+
 
 	public Event getEvent() {
 		return event;
@@ -85,7 +85,7 @@ public class EventGroup {
 		this.participants = participants;
 	}
 
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
