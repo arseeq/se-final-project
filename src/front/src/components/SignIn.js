@@ -3,6 +3,7 @@ import Layout from './Layout';
 import { Card, CardFooter, Container, Col, Form, FormGroup, Label, Input, Button, FormText} from 'reactstrap';
 import axios from 'axios';
 import con from '../config'
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 
 class SignIn extends Component {
 
@@ -52,36 +53,63 @@ class SignIn extends Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-        <Layout id="signin" auth = {false} />
-        
-        <div className="container text-center" style={{marginTop: "20px", width: "500px"}}>
-          <div className="row">
-            <h1 style={{marginLeft: "190px"}}>Sign In</h1>
-          </div>
+  // render() {
+  //   return (
+  //     <div>
+  //       <Layout id="signin" auth = {false} />
+  //
+  //       <div className="container text-center" style={{marginTop: "20px", width: "500px"}}>
+  //         <div className="row">
+  //           <h1 style={{marginLeft: "190px"}}>Sign In</h1>
+  //         </div>
+  //
+  //         <Form className="form" style={{marginTop: "80px", marginBottom: "80px"}}>
+  //           <Col>
+  //             <FormGroup>
+  //               <Label>Email</Label>
+  //               <Input onChange={this.handleChange} type="email" name="email" id="exampleEmail" value={this.state.email}/>
+  //             </FormGroup>
+  //           </Col>
+  //           <Col>
+  //             <FormGroup>
+  //               <Label for="examplePassword">Password</Label>
+  //               <Input onChange={this.handleChange} type="password" name="password" id="examplePassword" value={this.state.password}/>
+  //             </FormGroup>
+  //           </Col>
+  //           <Button onClick={this.signin}>Submit</Button>
+  //         </Form>
+  //
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-          <Form className="form" style={{marginTop: "80px", marginBottom: "80px"}}>
-            <Col>
-              <FormGroup>
-                <Label>Email</Label>
-                <Input onChange={this.handleChange} type="email" name="email" id="exampleEmail" value={this.state.email}/>
-              </FormGroup>
-            </Col>
-            <Col>
-              <FormGroup>
-                <Label for="examplePassword">Password</Label>
-                <Input onChange={this.handleChange} type="password" name="password" id="examplePassword" value={this.state.password}/>
-              </FormGroup>
-            </Col>
-            <Button onClick={this.signin}>Submit</Button>
-          </Form>
 
-        </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Layout id="signin" auth = {false} />
+
+                <div className="container text-center" style={{marginTop: "20px", width: "500px"}}>
+                    <div className="row">
+                        <h1 style={{marginLeft: "190px"}}>Sign In</h1>
+                    </div>
+
+                    <AvForm id="loginForm" style={{marginTop: "80px", marginBottom: "80px"}}>
+                        <div className="incorrectEmailPasswordError" style={{display: this.state.errormsg ? 'block' : 'none'}}>
+                            <div className="alert alert-danger" role="alert">
+                                Invalid login! Try again
+                            </div>
+                        </div>
+                        <AvField name="email" label="Email" onChange ={this.handleChange} type="email" value={this.state.email} />
+                        <AvField name="password" label="Password" onChange ={this.handleChange} type="text" value={this.state.password} />
+                        <Button color="primary" onClick={this.signin}>Submit</Button>
+                    </AvForm>
+
+                </div>
+            </div>
+        );
+    }
 }
 
 export default SignIn;

@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed62bf5b-b0e1-40b8-8fae-9ef27e2b2ce6" name="Default" comment="" />
+    <list default="true" id="ed62bf5b-b0e1-40b8-8fae-9ef27e2b2ce6" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/front/src/modules/Validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/build/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/build/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/precache-manifest.74e9ef6fdf0b49e9b25b1a41daf86940.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/build/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/static/css/1.eb4a2376.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/static/css/1.eb4a2376.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/1.c11f1271.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/1.c11f1271.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/main.2eec95b4.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/build/static/js/main.2eec95b4.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/src/components/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/src/components/SignIn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/front/src/components/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/front/src/components/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/precache-manifest.74e9ef6fdf0b49e9b25b1a41daf86940.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/1.eb4a2376.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/1.eb4a2376.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/1.c11f1271.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/1.c11f1271.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/main.2eec95b4.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/main.2eec95b4.chunk.js.map" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,8 +42,7 @@
       <file leaf-file-name="IndexRouter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/src/IndexRouter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="871">
-              <caret line="59" selection-start-line="59" selection-end-line="59" />
+            <state>
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -33,11 +59,54 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/src/config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="57">
-              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+              <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SignIn.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/front/src/components/SignIn.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="488">
+              <caret line="103" column="128" selection-start-line="103" selection-start-column="128" selection-end-line="103" selection-end-column="128" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <marker date="1540494785214" expanded="true" signature="1335:2445" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SignUp.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/front/src/components/SignUp.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Validator.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/front/src/modules/Validator.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="169" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="169" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Auth.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/front/src/modules/Auth.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -46,7 +115,7 @@
         <entry file="file://$PROJECT_DIR$/src/front/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="114">
-              <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -68,6 +137,9 @@
         <option value="$PROJECT_DIR$/src/front/src/config.js" />
         <option value="$PROJECT_DIR$/src/front/package.json" />
         <option value="$PROJECT_DIR$/src/front/src/components/Layout.js" />
+        <option value="$PROJECT_DIR$/src/front/src/components/SignIn.js" />
+        <option value="$PROJECT_DIR$/src/front/src/modules/Validator.js" />
+        <option value="$PROJECT_DIR$/src/front/src/components/SignUp.js" />
       </list>
     </option>
   </component>
@@ -144,6 +216,14 @@
               <item name="front" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="aintrovert" type="b2602c69:ProjectViewProjectNode" />
+              <item name="se-final-project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="front" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -288,13 +368,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1847000" />
+    <option name="totallyTimeSpent" value="7288000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5002764" side_tool="true" weight="0.22094241" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5002764" side_tool="true" weight="0.32948583" />
       <window_info anchor="right" id="Maven Projects" order="3" visible="true" weight="0.16749585" />
       <window_info anchor="bottom" id="Database Changes" order="5" show_stripe_button="false" />
       <window_info id="Capture Tool" order="6" />
@@ -309,9 +390,9 @@
       <window_info id="Image Layers" order="2" />
       <window_info anchor="bottom" id="Java Enterprise" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4997236" weight="0.2759706" />
+      <window_info anchor="bottom" id="Run" order="9" sideWeight="0.4991708" weight="0.2759706" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.32948583" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.32948583" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4997236" visible="true" weight="0.32948583" />
       <window_info content_ui="combo" id="Project" order="7" visible="true" weight="0.25262576" />
       <window_info anchor="right" id="Bean Validation" order="8" />
       <window_info id="Web" order="4" side_tool="true" />
@@ -361,6 +442,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/front/package.json">
       <provider selected="true" editor-type-id="text-editor">
@@ -393,16 +479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/src/IndexRouter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="871">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/front/src/components/Layout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
@@ -413,14 +489,58 @@
     <entry file="file://$PROJECT_DIR$/src/front/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/front/src/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
-          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/components/SignIn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="103" column="128" selection-start-line="103" selection-start-column="128" selection-end-line="103" selection-end-column="128" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <marker date="1540494785214" expanded="true" signature="1335:2445" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/modules/Auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/IndexRouter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/modules/Validator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="169" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="169" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/src/components/SignUp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="113" column="69" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
