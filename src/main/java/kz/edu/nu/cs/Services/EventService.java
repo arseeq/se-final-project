@@ -10,13 +10,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
 @Path("/event")
-public class EventService {
+public class EventService implements Serializable {
     private static final long serialVersionUID = 12252632212171L;
 
     @POST
