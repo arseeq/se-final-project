@@ -22,7 +22,7 @@ import kz.edu.nu.cs.Model.User;
 
 @Path("/auth")
 public class AuthService implements Serializable {
-<<<<<<< HEAD
+
     private static final long serialVersionUID = 1236544789552114471L;
     private static KeyGenerator keyGenerator;
     private CreateUser cu; //make EJB in future
@@ -30,34 +30,26 @@ public class AuthService implements Serializable {
     private static SecretKey sk;
     private Key pk;
 
-    @POST
-    @Path("/signup")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response signup(String json) {
-        System.out.println("\nsignup start");
-        System.out.println("json=" + json);
-        JSONObject obj = new JSONObject(json);
-        String passwordConfirm = obj.getString("passwordConfirm");
+//    @POST
+//    @Path("/signup")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response signup(String json) {
+//        System.out.println("\nsignup start");
+//        System.out.println("json=" + json);
+//        JSONObject obj = new JSONObject(json);
+//        String passwordConfirm = obj.getString("passwordConfirm");
+//
+//        Gson g = new Gson();
+//        User user;
+//        try {
+//            user = g.fromJson(json, User.class);
+//        } catch (Exception e) {
+//            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+//        }
+//        if (!passwordConfirm.equals(user.getPassword())) {
+//            return Response.status(Response.Status.FORBIDDEN).entity("passwords dont match").build();
+//        }
 
-        Gson g = new Gson();
-        User user;
-        try {
-            user = g.fromJson(json, User.class);
-        } catch (Exception e) {
-            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
-        }
-        if (!passwordConfirm.equals(user.getPassword())) {
-            return Response.status(Response.Status.FORBIDDEN).entity("passwords dont match").build();
-        }
-=======
-	private static final long serialVersionUID = 1236544789552114471L;
-	private static KeyGenerator keyGenerator;
-	private CreateUser cu; //make EJB in future 
-	
-	private static SecretKey sk;
-	private Key pk;
-
-	
 	@POST
 	@Path("/signup")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -79,8 +71,6 @@ public class AuthService implements Serializable {
 		if (user == null) {
 			return Response.status(Response.Status.FORBIDDEN).entity("user is null").build();
 		}
->>>>>>> b914050a15db0def828fa618a0614da78d66e6ca
-
         Pattern emailPattern = Pattern.compile("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
         System.out.println("\n email");
         if (!emailPattern.matcher(user.getEmail()).matches()) {
@@ -135,61 +125,60 @@ public class AuthService implements Serializable {
         System.out.println(" - signin: " + email + ", " + password);
 
         Gson g = new Gson();
-        if (!authenticate(email, password)) {
-            return Response.status(Response.Status.FORBIDDEN).entity("wrong password").build();
+        try {
+            if (!authenticate(email, password)) {
+                return Response.status(Response.Status.FORBIDDEN).entity("wrong password").build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.FORBIDDEN).entity("wrong email or password").build();
         }
-<<<<<<< HEAD
         String token = issueToken(email);
         NewCookie cookie = new NewCookie("token", token);
         return Response.ok(token).cookie(cookie).build();
-=======
-		String token = issueToken(user.getEmail());
-		NewCookie cookie = new NewCookie("token", token);
-		
-		return Response.ok(token).cookie(cookie).build();
 	}
+//    @POST
+//    @Path("/signin")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response signin(String json) {
+//        JSONObject obj = new JSONObject(json);
+//        String login = obj.getString("email");
+//        String password = obj.getString("password");
+//
+//        System.out.println(" - signin: " + login + ", " + password);
+//
+//        Gson g = new Gson();
+//        if(!authenticate(login, password)) {
+//            return Response.status(403).build();
+//        }
+//        String token = issueToken(login);
+//        NewCookie cookie = new NewCookie("token", token);
+//        return Response.ok(token).cookie(cookie).build();
+//    }
 	
-	@POST
-	@Path("/checktoken")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response checkToken(String json) {
-		JSONObject obj = new JSONObject(json);
-		String tokenToCheck = obj.getString("token");
-		if (tokenToCheck == null || tokenToCheck.equals("")) {
-			return Response.status(403).build();
-		}
-		System.out.println(" - token: " + tokenToCheck);
-		String res = isValidToken(tokenToCheck);
-		if (res!=null && !res.equals("")) {
-			return Response.ok(res).build();
-		} else return Response.status(403).build();
-	}
-	
-	@POST
-	@Path("/signin")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response signin(String json) {
-		JSONObject obj = new JSONObject(json);
-		String login = obj.getString("email");
-		String password = obj.getString("password");
+//	@POST
+//	@Path("/checktoken")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response checkToken(String json) {
+//		JSONObject obj = new JSONObject(json);
+//		String tokenToCheck = obj.getString("token");
+//		if (tokenToCheck == null || tokenToCheck.equals("")) {
+//			return Response.status(403).build();
+//		}
+//		System.out.println(" - token: " + tokenToCheck);
+//		String res = isValidToken(tokenToCheck);
+//		if (res!=null && !res.equals("")) {
+//			return Response.ok(res).build();
+//		} else return Response.status(403).build();
+//	}
 
-		System.out.println(" - signin: " + login + ", " + password);
-		
-		Gson g = new Gson();
-		if(!authenticate(login, password)) {
-			return Response.status(403).build();
-		}
-		String token = issueToken(login);
-		NewCookie cookie = new NewCookie("token", token);
-		return Response.ok(token).cookie(cookie).build();
-	}
+
 	
-	private boolean authenticate(String login, String password) {
-		cu = getCreateUser();
-		String passwordObt = cu.getUserByEmail(login).getPassword();
-        return passwordObt != null && passwordObt.equals(password);
->>>>>>> b914050a15db0def828fa618a0614da78d66e6ca
-    }
+//	private boolean authenticate(String login, String password) {
+//		cu = getCreateUser();
+//		String passwordObt = cu.getUserByEmail(login).getPassword();
+//        return passwordObt != null && passwordObt.equals(password);
+//
+//    }
 
     private boolean authenticate(String email, String password) {
         cu = getCreateUser();

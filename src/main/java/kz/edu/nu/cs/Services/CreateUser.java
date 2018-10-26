@@ -20,7 +20,8 @@ class CreateUser {
 		em.close();
 		emfactory.close();
 	}
-	
+
+
 	
 	public User getUserByEmail(String email) {
 		emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");

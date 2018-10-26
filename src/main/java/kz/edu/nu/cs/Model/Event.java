@@ -6,7 +6,13 @@ import java.io.Serializable;
 @Entity
 @Table
 @SequenceGenerator(name = "EventSeq", sequenceName = "Event_Seq", allocationSize=1)
-@NamedQuery(name="Event.findAll", query="select e from Event e")
+@NamedQueries({
+	@NamedQuery(name="Event.findAll", query="select e from Event e"),
+	@NamedQuery(name="Event.getEventByEmail", query="select e from Event e where e.admin = :email"),
+	@NamedQuery(name="Event.getNameById", query="select e.name from Event e where e.id =:id"),
+	@NamedQuery(name = "Event.getEventsByEmail", query = "select e from UserGroup ug, Event e where ug.name = e.name and ug.email = :email")
+})
+
 public class Event implements Serializable {
 	
 	private static final long serialVersionUID = 12252632212171L;
@@ -16,8 +22,10 @@ public class Event implements Serializable {
 	private int id;
 	
 	private String name;
+	private String admin;
 	private String description;
 	private String meetingtime;
+	private String meetingdate;
 	private String location;
 	private int price;
 	private int points;
@@ -116,5 +124,21 @@ public class Event implements Serializable {
 		if (points != other.points)
 			return false;
 		return price == other.price;
+	}
+
+	public String getMeetingdate() {
+		return meetingdate;
+	}
+
+	public void setMeetingdate(String meetingdate) {
+		this.meetingdate = meetingdate;
+	}
+
+	public String getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = admin;
 	}
 }

@@ -18,11 +18,14 @@ public class EventGroupManager {
         em.getTransaction().begin();
         boolean res = false;
         EventGroup u;
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + groupId);
         try {
             u = (EventGroup) em.createNamedQuery("Group.findById").setParameter("id", groupId).getSingleResult();
+            System.out.println("1111111111111111111111111111111 User is" + u);
             if(u != null)
                 res = true;
         }catch(NoResultException e) {
+            System.out.println("\n\n\n\n\n\n" + e.getMessage());
         }
         em.getTransaction().commit();
         em.close();
