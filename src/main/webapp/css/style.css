@@ -1,0 +1,17 @@
+.event-create {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.paging {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.table h4{
+	color: black;
+}
+.table Button {
+	text-decoration: none;
+}
+span {
+	color: red;
+}
