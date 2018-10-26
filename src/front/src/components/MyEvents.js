@@ -1,24 +1,60 @@
 import React, { Component } from 'react';
 import Event from './Event';
 import { Container, Row, Col, Button } from 'reactstrap';
+import con from "../config";
+import axios from "axios/index";
 
 class MyEvents extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            page: 1,
+            list: [
+                {
+                    id: 1,
+                    name: 'football',
+                    meetingdate: '2018/11/11',
+                    meetingtime: '16:16',
+                    location: 'pole'
+                }
+            ]
+        }
+    }
+    componentWillMount(){
+        var self = this;
+        axios(con.addr+'/mainServices/event/getmyevents', {
+            method: "POST",
+            data: JSON.stringify({
+                token: localStorage.getItem('token'),
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                console.log(response.data);
+                self.setState({list: response.data});
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+                self.setState({authorized: false});
+            });
+    }
   render() {
+    	var self =this;
     return (
 	  	<Row className="border rounded">
-	  		<Row>
-		    	<Col md="4">
-			    	<Event title="Go to Football" date="08.02.2018 17:30" descr = "Play football" img="https://cdn.images.express.co.uk/img/dynamic/67/590x/Cristiano-Ronaldo-1008466.jpg?r=1535218537294"/>
-			    </Col>
-			    <Col md="4">
-			    	<Event title="Study for ACM ICPC" date="08.02.2018 17:30" descr = "Play football" img="https://www.acm.org/binaries/content/gallery/acm/ctas/icpc_finals_2016.jpg"/>
-			    </Col>
-			    <Col md="4">
-			    	<Event title="Watch Venom" date="08.02.2018 17:30" descr = "Play football" img="https://www.film.ru/sites/default/files/filefield_paths/venom-couldnt-include-the-spider-symbol-because-of-origin-change.jpg" />
-			    </Col>
-			    <Col md="4">
-			    	<Event title="Go to NinetyOne concert" date="08.02.2018 17:30" descr = "Play football" img="https://static.zakon.kz/uploads/posts/2017-09/2017090707592274159_1499681380wgzpj-725x.jpg" />
-			    </Col>
+	  		<Row style={{width:"100%"}}>
+                {
+                    self.state.list.map((item, index) => {
+                        return (
+                            <Col md="4" key = {item.id}>
+                                <Event title={item.name} date={item.meetingdate+item.meetingtime} descr={item.description} img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkEpDkrqjSyqbwBci92SQoZxyNR7eKqoL8b8CBuBJqjsvkkFXgMA"/>
+                            </Col>
+                        )
+                    })
+                }
 			</Row>
 			<Row className="paging">
 				<Col md={{offset: 10}}>

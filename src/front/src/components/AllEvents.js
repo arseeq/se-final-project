@@ -1,9 +1,70 @@
 import React, { Component } from 'react';
 import Event from './Event';
 import { Container, Row, Col, Table, Button } from 'reactstrap';
+import con from "../config";
+import axios from "axios/index";
 
 class AllEvents extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			page: 1,
+			list: [
+				{
+					id: 1,
+					name: 'football',
+					meetingdate: '2018/11/11',
+					meetingtime: '16:16',
+					location: 'pole'
+				}
+			]
+		}
+		this.join = this.join.bind(this);
+	}
+	join(e){
+        var self = this;
+        axios(con.addr+'/mainServices/event/join', {
+            method: "POST",
+            data: JSON.stringify({
+				id: e.target.name,
+                token: localStorage.getItem('token')
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                console.log(response.data);
+                // self.setState({list: response.data});
+				e.disabled = true;
+            })
+            .catch(function (error) {
+                console.log(error);
+                // self.setState({authorized: false});
+            });
+	}
+    componentWillMount(){
+		var self = this;
+        axios(con.addr+'/mainServices/event/getallevents', {
+            method: "GET",
+            data: JSON.stringify({
+                token: localStorage.getItem('token'),
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                console.log(response.data);
+                self.setState({list: response.data});
+            })
+            .catch(function (error) {
+                console.log(error);
+                self.setState({authorized: false});
+            });
+    }
   render() {
+		var self = this;
     return (
     	<div className="border rounded">
 	      <Table hover>
@@ -13,44 +74,28 @@ class AllEvents extends Component {
 	            <th>Group Name</th>
 	            <th>Date</th>
 	            <th>Time</th>
-	            <th>Place</th>
+	            <th>Location</th>
 	            <th>Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	          <tr>
-	            <th scope="row">1</th>
-	            <td>Go to football</td>
-	            <td>08.02.2018</td>
-	            <td>17:00</td>
-	            <td>Football field</td>
-	            <td>
-		            <Button color="danger">details</Button>{' '}
-		            <Button color="success">join</Button>{' '}
-	            </td>
-	          </tr>
-	          <tr>
-	            <th scope="row">2</th>
-	            <td>Study for ACM ICPC</td>
-	            <td>08.02.2018</td>
-	            <td>17:00</td>
-	            <td>Library</td>
-	            <td>
-		            <Button color="danger">details</Button>{' '}
-		            <Button color="success">join</Button>{' '}
-	            </td>
-	          </tr>
-	          <tr>
-	            <th scope="row">3</th>
-	            <td>Watch Venom</td>
-	            <td>08.02.2018</td>
-	            <td>17:00</td>
-	            <td>Cinema</td>
-	            <td>
-		            <Button color="danger">details</Button>{' '}
-		            <Button color="success">join</Button>{' '}
-	            </td>
-	          </tr>
+			{
+				self.state.list.map((item, index) => {
+					return (
+						<tr key={item.id}>
+                            <th scope="row">{index}</th>
+							<td>{item.name}</td>
+							<td>{item.meetingdate}</td>
+							<td>{item.meetingtime}</td>
+							<td>{item.location}</td>
+                            <td>
+                                <Button color="danger">details</Button>{' '}
+                                <Button disabled={item.admin === localStorage.getItem('email')} color="success" onClick={self.join} name={item.id}>join</Button>{' '}
+                            </td>
+						</tr>
+					)
+				})
+			}
 	        </tbody>
 	      </Table>
 	      <Row className="paging">

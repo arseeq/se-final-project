@@ -1,4 +1,4 @@
 export default {
-	addr: "http://192.168.0.105:9090/aintrovert",
+	addr: "http://192.168.0.107:8080/aintrovert",
 	projectName: "/aintrovert"
 }

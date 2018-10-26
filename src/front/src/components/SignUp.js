@@ -40,6 +40,7 @@ class SignUp extends Component {
             .then(function (response) {
                 console.log(response);
                 localStorage.setItem('token', response.data);
+                localStorage.setItem('email', self.state.email);
                 self.props.login(self.state.email);
             })
             .catch(function (error) {

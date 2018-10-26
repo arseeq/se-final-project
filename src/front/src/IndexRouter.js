@@ -61,6 +61,7 @@ class IndexRouter extends React.Component{
 
     login(usr){
         console.log(usr);
+        localStorage.setItem('email', usr);
         this.setState({authorized: true, user: usr});
     }
 
