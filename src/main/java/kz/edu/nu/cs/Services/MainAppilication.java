@@ -13,7 +13,6 @@ public class MainAppilication extends Application {
 	    private Set<Class<?>> empty = new HashSet<Class<?>>();
 	    
 	    public MainAppilication() {
-	        singletons.add(new MainService());
 	        singletons.add(new AuthService());
 			singletons.add(new EventService());
 	    }

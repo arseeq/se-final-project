@@ -1,5 +1,6 @@
 package kz.edu.nu.cs.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +14,9 @@ import javax.persistence.*;
 	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
 })
 
-public class User {
+
+public class User implements Serializable {
+
 	
 	private static final long serialVersionUID = 1236544789532171L;
 	

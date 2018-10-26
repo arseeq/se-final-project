@@ -1,6 +1,43 @@
 package kz.edu.nu.cs.Model;
 
-public class UserGroup {
-	private int userId;
-	private int groupId;
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@Table
+@SequenceGenerator(name = "UserGroupSeq", sequenceName = "UserGroup_Seq", allocationSize=1)
+@NamedQueries({
+        @NamedQuery(name = "UserGroup.findNameById", query = "select u from UserGroup u where u.id = :id")
+
+})
+public class UserGroup implements Serializable {
+    private static final long serialVersionUID = 1236598776754L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserGroupSeq")
+    private int id;
+
+    @Column(nullable=false)
+    private String email;
+
+    @Column(nullable=false)
+    private String name;
+
+    public UserGroup(){}
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

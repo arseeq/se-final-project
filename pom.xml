@@ -37,18 +37,26 @@
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
-			<version>2.5.0-RC1</version>
+			<!--<version>2.5.0-RC1</version>-->
+			<version>2.7.0</version>
 			<exclusions>
-				<exclusion>
-					<groupId>org.eclipse.persistence</groupId>
-					<artifactId>commonj.sdo</artifactId>
-				</exclusion>
+				<!--<exclusion>-->
+					<!--<groupId>org.eclipse.persistence</groupId>-->
+					<!--<artifactId>commonj.sdo</artifactId>-->
+				<!--</exclusion>-->
+                <!-- This works -->
+                <exclusion>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>javax.persistence</artifactId>
+                </exclusion>
+                <!--end-->
 			</exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>org.eclipse.persistence</groupId>
 		    <artifactId>javax.persistence</artifactId>
-		    <version>2.2.1</version>
+		    <!--<version>2.2.1</version>-->
+            <version>2.1.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
