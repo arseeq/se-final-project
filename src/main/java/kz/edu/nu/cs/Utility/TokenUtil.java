@@ -13,7 +13,7 @@ import java.util.Date;
 public class TokenUtil {
     private KeyGenerator keyGenerator;
     private SecretKey sk;
-    private Key pk;
+//    private Key pk;
 
     public TokenUtil() {
         try {
@@ -22,7 +22,7 @@ public class TokenUtil {
             e.printStackTrace();
         }
         sk = keyGenerator.generateKey();
-        pk = keyGenerator.generateKey();
+//        pk = keyGenerator.generateKey();
     }
 
     public String isValidToken(String token) {

@@ -11,6 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Path("/event")
@@ -21,12 +24,32 @@ public class EventService implements Serializable {
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createGroup(String json) {
-        Event event = new Gson().fromJson(json, Event.class);
-        String tokenToCheck = new JSONObject(json).getString("token");
+//        String
+        Event event = new Event();
+        event.setIsactive(1);
+        event.setDescription(getParamFromJson(json, "description"));
+        event.setImg(getParamFromJson(json, "img"));
+        event.setLocation(getParamFromJson(json, "location"));
+        event.setMaxsize(Integer.parseInt(getParamFromJson(json, "maxsize")));
+        event.setName(getParamFromJson(json, "name"));
+        event.setPoints(Integer.parseInt(getParamFromJson(json, "points")));
+        event.setPrice(Integer.parseInt(getParamFromJson(json, "price")));
 
-        if (tokenToCheck == null) return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        SimpleDateFormat formatter = new SimpleDateFormat("hh-mm dd/mm/yyyy");
+        Date d = null;
+        try {
+            d = formatter.parse(getParamFromJson(json, "meetingdate"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(d);
+        event.setMeetingdate(d);
 
-        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+        String email = getParamFromJson(json, "token");
+
+        if (email == null) {
+            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        }
 
         event.setAdmin(email);
         System.out.println("\n\n\n" + event + "\n" + email);
@@ -40,7 +63,8 @@ public class EventService implements Serializable {
     }
 
 
-    // TODO implement this!
+
+
 //    @POST
 //    @Path("/update")
 //    @Consumes(MediaType.APPLICATION_JSON)
@@ -59,15 +83,15 @@ public class EventService implements Serializable {
 //        }
 //        return Response.ok("success").build();
 //    }
+
     @POST
     @Path("/join")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response joinGroup(String json) {
-        JSONObject obj = new JSONObject(json);
-        String tokenToCheck = obj.getString("token");
-        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+        String email = getParamFromJson(json, "token");
+        String id = getParamFromJson(json, "id");
         if (email == null) return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
-        int groupId = Integer.parseInt(obj.getString("id"));
+        int groupId = Integer.parseInt(id);
         try {
             new EventDbManager().join(email, groupId);
         } catch (Exception e) {
@@ -95,6 +119,44 @@ public class EventService implements Serializable {
 //            return Response.ok("success").build();
 //        }
         return Response.ok().entity("success").build();
+    }
+
+
+
+    @POST
+    @Path("/leave")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response leaveGroup(String json) {
+        String email = getParamFromJson(json, "token");
+        String id = getParamFromJson(json, "id");
+        if (email == null) return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        try {
+            new EventDbManager().leaveGroup(email, Integer.parseInt(id));
+        } catch (Exception e) {
+            return Response.status(Response.Status.FORBIDDEN).entity("not participant").build();
+        }
+        return Response.ok().entity("success").build();
+    }
+
+    @POST
+    @Path("/deactivate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response removeGroup(String json) {
+        String email = getParamFromJson(json, "token");
+        String id = getParamFromJson(json, "id");
+        if (email == null) return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        boolean statusOk = new EventDbManager().deactivateGroup(email, Integer.parseInt(id));
+        if (statusOk) return Response.ok().entity("success").build();
+        return Response.status(Response.Status.FORBIDDEN).entity("not admin").build();
+    }
+
+    private String getParamFromJson(String json, String parameter) {
+        JSONObject obj = new JSONObject(json);
+        if (parameter.equals("token")) {
+            String tokenToCheck = obj.getString("token");
+            return AuthService.getTokenUtil().isValidToken(tokenToCheck);
+        }
+        return obj.getString(parameter);
     }
 
     @POST
