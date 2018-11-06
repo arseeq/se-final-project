@@ -50,6 +50,23 @@ class CreateEvent {
         closeConnection();
     }
 
+    public void leaveGroup(String email, int groupId) {
+        String name = (String)em.createNamedQuery("Event.getNameById").setParameter("id", groupId).getSingleResult();
+        em.createNamedQuery("UserGroup.deleteRow").setParameter("name", name).setParameter("email", email).getSingleResult();
+        closeConnection();
+    }
+
+    public boolean deactivateGroup(String email, int groupId) {
+        Event event = (Event) em.createNamedQuery("Event.getEventById").setParameter("id", groupId).getSingleResult();
+        if (!event.getAdmin().equals(email)) {
+            return false;
+        }
+        event.setIsactive(0);
+        em.merge(event);
+        em.getTransaction().commit();
+        return true;
+    }
+
     public void closeConnection() {
         em.close();
         emfactory.close();

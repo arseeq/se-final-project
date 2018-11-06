@@ -7,8 +7,8 @@ import java.io.Serializable;
 @Table
 @SequenceGenerator(name = "UserGroupSeq", sequenceName = "UserGroup_Seq", allocationSize=1)
 @NamedQueries({
-        @NamedQuery(name = "UserGroup.findNameById", query = "select u from UserGroup u where u.id = :id")
-
+        @NamedQuery(name = "UserGroup.findNameById", query = "select u from UserGroup u where u.id = :id"),
+        @NamedQuery(name = "UserGroup.deleteRow", query = "DELETE FROM UserGroup WHERE name = :name and email = :email")
 })
 public class UserGroup implements Serializable {
     private static final long serialVersionUID = 1236598776754L;

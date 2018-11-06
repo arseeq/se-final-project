@@ -2,6 +2,7 @@ package kz.edu.nu.cs.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @NamedQueries({
 	@NamedQuery(name="Event.findAll", query="select e from Event e"),
 	@NamedQuery(name="Event.getEventByEmail", query="select e from Event e where e.admin = :email"),
+	@NamedQuery(name="Event.getEventById", query="select e from Event e where e.id = :id"),
 	@NamedQuery(name="Event.getNameById", query="select e.name from Event e where e.id =:id"),
 	@NamedQuery(name = "Event.getEventsByEmail", query = "select e from UserGroup ug, Event e where ug.name = e.name and ug.email = :email")
 })
@@ -24,15 +26,16 @@ public class Event implements Serializable {
 	private String name;
 	private String admin;
 	private String description;
-	private String meetingtime;
-	private String meetingdate;
+	private String img;
+	private int maxsize;
+	private int isactive = 0;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date meetingdate;
 	private String location;
 	private int price;
 	private int points;
 	
-	public Event() {
-		
-	}
+	public Event() {}
 
 	public int getId() {
 		return id;
@@ -49,12 +52,12 @@ public class Event implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getMeetingtime() {
-		return meetingtime;
-	}
-	public void setMeetingtime(String meetingTime) {
-		this.meetingtime = meetingTime;
-	}
+//	public String getMeetingtime() {
+//		return meetingtime;
+//	}
+//	public void setMeetingtime(String meetingTime) {
+//		this.meetingtime = meetingTime;
+//	}
 	public String getLocation() {
 		return location;
 	}
@@ -81,14 +84,12 @@ public class Event implements Serializable {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((meetingtime == null) ? 0 : meetingtime.hashCode());
+//		result = prime * result + ((meetingtime == null) ? 0 : meetingtime.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + points;
 		result = prime * result + price;
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -111,11 +112,11 @@ public class Event implements Serializable {
 				return false;
 		} else if (!location.equals(other.location))
 			return false;
-		if (meetingtime == null) {
-			if (other.meetingtime != null)
-				return false;
-		} else if (!meetingtime.equals(other.meetingtime))
-			return false;
+//		if (meetingtime == null) {
+//			if (other.meetingtime != null)
+//				return false;
+//		} else if (!meetingtime.equals(other.meetingtime))
+//			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -126,11 +127,11 @@ public class Event implements Serializable {
 		return price == other.price;
 	}
 
-	public String getMeetingdate() {
+	public Date getMeetingdate() {
 		return meetingdate;
 	}
 
-	public void setMeetingdate(String meetingdate) {
+	public void setMeetingdate(Date meetingdate) {
 		this.meetingdate = meetingdate;
 	}
 
@@ -140,5 +141,29 @@ public class Event implements Serializable {
 
 	public void setAdmin(String admin) {
 		this.admin = admin;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public int getMaxsize() {
+		return maxsize;
+	}
+
+	public void setMaxsize(int maxsize) {
+		this.maxsize = maxsize;
+	}
+
+	public int getIsactive() {
+		return isactive;
+	}
+
+	public void setIsactive(int isactive) {
+		this.isactive = isactive;
 	}
 }
