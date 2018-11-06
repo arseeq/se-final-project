@@ -8,11 +8,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-class CreateEvent {
+class EventDbManager {
     private EntityManagerFactory emfactory;
     private EntityManager em;
 
-    public CreateEvent() {
+    public EventDbManager() {
         emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
         em = emfactory.createEntityManager();
         em.getTransaction().begin();

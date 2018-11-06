@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
-public class EventGroupManager {
+public class EventGroupDbManager {
     private EntityManagerFactory emfactory;
     private EntityManager em;
 

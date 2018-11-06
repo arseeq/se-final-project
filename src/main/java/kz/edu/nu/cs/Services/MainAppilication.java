@@ -13,8 +13,14 @@ public class MainAppilication extends Application {
 	    private Set<Class<?>> empty = new HashSet<Class<?>>();
 	    
 	    public MainAppilication() {
+			System.out.println("pooooooooooooooooooooooooooooooooooort" );
 	        singletons.add(new AuthService());
 			singletons.add(new EventService());
+			System.out.println("pooooooooooooooooooooooooooooooooooort" );
+			//int port = Integer.parseInt(System.getenv("PORT"));
+			//System.out.println("pooooooooooooooooooooooooooooooooooort" + port);
+			new ChatServer(10001).start();
+
 	    }
 	    
 	    @Override

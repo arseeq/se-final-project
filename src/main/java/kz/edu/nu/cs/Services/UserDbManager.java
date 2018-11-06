@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 
 import kz.edu.nu.cs.Model.User;
 
-class CreateUser {
+class UserDbManager {
 	private EntityManagerFactory emfactory;
 	private EntityManager em;
 	

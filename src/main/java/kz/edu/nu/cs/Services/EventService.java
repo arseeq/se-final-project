@@ -32,7 +32,7 @@ public class EventService implements Serializable {
         System.out.println("\n\n\n" + event + "\n" + email);
 
         try {
-            new CreateEvent().createEvent(event);
+            new EventDbManager().createEvent(event);
         } catch (Exception e) {
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
@@ -53,7 +53,7 @@ public class EventService implements Serializable {
 //        try {
 //
 //            Event event = new Gson().fromJson(json, Event.class);
-//            new CreateEvent().mergeEvent(event);
+//            new EventDbManager().mergeEvent(event);
 //        } catch (Exception e){
 //            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
 //        }
@@ -69,17 +69,17 @@ public class EventService implements Serializable {
         if (email == null) return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
         int groupId = Integer.parseInt(obj.getString("id"));
         try {
-            new CreateEvent().join(email, groupId);
+            new EventDbManager().join(email, groupId);
         } catch (Exception e) {
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
-//        EventGroupManager evm = new EventGroupManager();
+//        EventGroupDbManager evm = new EventGroupDbManager();
 //        EventGroup eg = evm.getGroupById(groupId);
 //        if(email != null){
 //            try {
 //                int groupId = Integer.parseInt(obj.getString("groupId"));
-//                User u = new CreateUser().getUserByEmail(email);
-//                EventGroupManager evm = new EventGroupManager();
+//                User u = new UserDbManager().getUserByEmail(email);
+//                EventGroupDbManager evm = new EventGroupDbManager();
 //                System.out.println("\n user=" + u);
 //                System.out.println("\n isvalid=" + evm.isValidId(groupId));
 //                if(evm.isValidId(groupId) && u != null){
@@ -112,18 +112,18 @@ public class EventService implements Serializable {
 
         System.out.println("\n\n\nemail=" + email);
         try {
-            List events = new CreateEvent().getMyEvents(email);
+            List events = new EventDbManager().getMyEvents(email);
             return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
-//        EventGroupManager evm = new EventGroupManager();
+//        EventGroupDbManager evm = new EventGroupDbManager();
 //        EventGroup eg = evm.getGroupById(groupId);
 //        if(email != null){
 //            try {
 //                int groupId = Integer.parseInt(obj.getString("groupId"));
-//                User u = new CreateUser().getUserByEmail(email);
-//                EventGroupManager evm = new EventGroupManager();
+//                User u = new UserDbManager().getUserByEmail(email);
+//                EventGroupDbManager evm = new EventGroupDbManager();
 //                System.out.println("\n user=" + u);
 //                System.out.println("\n isvalid=" + evm.isValidId(groupId));
 //                if(evm.isValidId(groupId) && u != null){
@@ -145,7 +145,7 @@ public class EventService implements Serializable {
     @Path("/getallevents")
     public Response getList() {
         try {
-            List result = new CreateEvent().getList();
+            List result = new EventDbManager().getList();
             return Response.ok(new Gson().toJson(result)).build();
         } catch (Exception e){
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();

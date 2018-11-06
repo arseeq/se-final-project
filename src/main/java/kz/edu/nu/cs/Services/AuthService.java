@@ -20,7 +20,7 @@ public class AuthService implements Serializable {
 
     private static final long serialVersionUID = 1236544789552114471L;
     private static TokenUtil tu = new TokenUtil();
-    private CreateUser cu; //make EJB in future
+    private UserDbManager cu; //make EJB in future
 
     public static TokenUtil getTokenUtil() {
         return tu;
@@ -151,9 +151,9 @@ public class AuthService implements Serializable {
 
 
 
-    private CreateUser getCreateUser() {
+    private UserDbManager getCreateUser() {
         if (cu == null) {
-            cu = new CreateUser();
+            cu = new UserDbManager();
         }
         return cu;
     }
