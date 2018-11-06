@@ -10,14 +10,14 @@ class SignUp extends Component {
 
     constructor(props) {
         super(props);
-        //this.props.history.push('/login');
         this.state = {
             name: "",
             surname: "",
             email: "",
             password: "",
             passwordConfirm: "",
-            sendDisabled: true
+            sendDisabled: true,
+            errormsg: false
         };
         this.signup = this.signup.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -45,6 +45,7 @@ class SignUp extends Component {
             })
             .catch(function (error) {
                 console.log(error);
+                self.setState({errormsg: true});
             });
     }
 
@@ -79,7 +80,7 @@ class SignUp extends Component {
 
                 <div className="container text-center" style={{paddingTop: "20px", width: "500px"}}>
                     <div className="row">
-                        <h2 style={{marginLeft: "80px", marginBottom: "20px"}}>Registratsiya zhasa</h2>
+                        <h2 style={{marginLeft: "80px", marginBottom: "20px"}}>Sign Up</h2>
                     </div>
                     <AvForm id="registerForm" style={{marginTop: "80px", marginBottom: "80px"}}>
                         <div className="userExists" style={{display: this.state.errormsg ? 'block' : 'none'}}>
@@ -92,7 +93,7 @@ class SignUp extends Component {
                                  validate={{
                                      required: {value: true},
                                      pattern: {
-                                         value: '[A-Z]{1}[a-z]',
+                                         value: '^([A-Z][a-z]+$)',
                                          errorMessage: 'Name should be in latin alphabetic starting with the first capital letter'
                                      },
                                      minLength: {value: 2}
@@ -102,10 +103,10 @@ class SignUp extends Component {
                                  validate={{
                                      required: {value: true},
                                      pattern: {
-                                         value: '[A-Z]{1}[a-z]',
+                                         value: '^([A-Z][a-z]+$)',
                                          errorMessage: 'Surname should be in latin alphabetic starting with the first capital letter'
                                      },
-                                     minLength: {value: 1}
+                                     minLength: {value: 2}
                                  }}/>
                         <AvField name="email" label="Email" onChange={this.handleChange} type="email"
                                  value={this.state.email} errorMessage="Invalid email format" validate={{
@@ -130,7 +131,7 @@ class SignUp extends Component {
                             required: {value: true},
                             pattern: {value: this.state.password}
                         }}/>
-                        <Button color="primary" onClick={this.signup} disabled={!validator.validateEmail(self.state.email) || !validator.validatePassword(self.state.password) || self.state.password !== self.state.passwordConfirm} >Submit</Button>
+                        <Button color="primary" onClick={this.signup} disabled={!validator.validateEmail(self.state.email) || !validator.validatePassword(self.state.password) || self.state.password !== self.state.passwordConfirm || !validator.validName(self.state.name) || !validator.validName(self.state.surname) } >Submit</Button>
                     </AvForm>
                 </div>
             </div>

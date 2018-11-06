@@ -4,8 +4,8 @@ self.__precacheManifest = [
     "url": "/aintrovert/static/js/runtime~main.74b772a3.js"
   },
   {
-    "revision": "8bfc36340492aad55d24",
-    "url": "/aintrovert/static/js/main.8bfc3634.chunk.js"
+    "revision": "906f08dfc82a283c8980",
+    "url": "/aintrovert/static/js/main.906f08df.chunk.js"
   },
   {
     "revision": "fad86b776018105e6ceb",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/aintrovert/static/css/1.e4dd0aec.chunk.css"
   },
   {
-    "revision": "278a224814555157ad41fd235bc10325",
+    "revision": "76220dda65572c3e11d9fc02c01d095e",
     "url": "/aintrovert/index.html"
   }
 ];
