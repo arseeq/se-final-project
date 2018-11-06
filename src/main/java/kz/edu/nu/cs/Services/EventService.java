@@ -2,14 +2,8 @@ package kz.edu.nu.cs.Services;
 
 import com.google.gson.Gson;
 import kz.edu.nu.cs.Model.Event;
-import kz.edu.nu.cs.Model.EventGroup;
-import kz.edu.nu.cs.Model.User;
-import kz.edu.nu.cs.Model.UserGroup;
 import org.json.JSONObject;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,9 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
 @Path("/event")
@@ -33,11 +24,9 @@ public class EventService implements Serializable {
         Event event = new Gson().fromJson(json, Event.class);
         String tokenToCheck = new JSONObject(json).getString("token");
 
-        if (tokenToCheck == null) {
-            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
-        }
+        if (tokenToCheck == null) return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
 
-        String email = AuthService.isValidToken(tokenToCheck);
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
 
         event.setAdmin(email);
         System.out.println("\n\n\n" + event + "\n" + email);
@@ -47,7 +36,7 @@ public class EventService implements Serializable {
         } catch (Exception e) {
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
-        return Response.ok().build();
+        return Response.ok().entity("success").build();
     }
 
 
@@ -76,31 +65,14 @@ public class EventService implements Serializable {
     public Response joinGroup(String json) {
         JSONObject obj = new JSONObject(json);
         String tokenToCheck = obj.getString("token");
-        String email = AuthService.isValidToken(tokenToCheck);
-
-        if (email == null) {
-            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
-        }
-
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+        if (email == null) return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
         int groupId = Integer.parseInt(obj.getString("id"));
-
-        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
-        EntityManager em = emfactory.createEntityManager();
-        em.getTransaction().begin();
         try {
-            String name = (String)em.createNamedQuery("Event.getNameById").setParameter("id", groupId).getSingleResult();
-            System.out.println("\n\n\n!!!!!!!!!!!!!!!!!111123123132123" + name);
-            UserGroup ug = new UserGroup();
-            ug.setEmail(email);
-            ug.setName(name);
-            em.persist(ug);
+            new CreateEvent().join(email, groupId);
         } catch (Exception e) {
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
-        em.getTransaction().commit();
-        em.close();
-        emfactory.close();
-
 //        EventGroupManager evm = new EventGroupManager();
 //        EventGroup eg = evm.getGroupById(groupId);
 //        if(email != null){
@@ -122,7 +94,7 @@ public class EventService implements Serializable {
 //            }
 //            return Response.ok("success").build();
 //        }
-        return Response.status(Response.Status.OK).entity("success").build();
+        return Response.ok().entity("success").build();
     }
 
     @POST
@@ -131,8 +103,7 @@ public class EventService implements Serializable {
     public Response getMyEvents(String json) {
         JSONObject obj = new JSONObject(json);
         String tokenToCheck = obj.getString("token");
-
-        String email = AuthService.isValidToken(tokenToCheck);
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
 
         if (email == null) {
             return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
@@ -140,20 +111,12 @@ public class EventService implements Serializable {
         Gson gson = new Gson();
 
         System.out.println("\n\n\nemail=" + email);
-        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
-        EntityManager em = emfactory.createEntityManager();
-        em.getTransaction().begin();
         try {
-            List events = em.createNamedQuery("Event.getEventsByEmail").setParameter("email", email).getResultList();
-            em.getTransaction().commit();
-            em.close();
-            emfactory.close();
+            List events = new CreateEvent().getMyEvents(email);
             return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
-
-
 //        EventGroupManager evm = new EventGroupManager();
 //        EventGroup eg = evm.getGroupById(groupId);
 //        if(email != null){
