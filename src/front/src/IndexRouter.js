@@ -15,7 +15,8 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import LayoutFooter from './components/LayoutFooter';
-import Groups from './components/Groups'
+import Groups from './components/Groups';
+import Chat from './components/Chat';
 //const jwt = require('jsonwebtoken');
 //const config = require('../../config');
 
@@ -80,6 +81,7 @@ class IndexRouter extends React.Component{
                 <Router>
                     <Switch>
                         <Route exact path={con.projectName +  "/dashboard"} render={() => self.state.authorized ? <Dashboard user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName +  "/chat"} render={() => self.state.authorized ? <Chat user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
                         <Route exact path={con.projectName +  "/groups"} render={() => self.state.authorized ? <Groups user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
                         <Route exact path={con.projectName + "/signin"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/dashboard'} /> : <SignIn login={self.login.bind(this)} />} />
                         <Route exact path={con.projectName + "/signup"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/dashboard'} /> : <SignUp login={self.login.bind(this)} />} />

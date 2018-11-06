@@ -16,7 +16,7 @@ class Validator {
 
     static validImageURL(url){
         let rx = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
-        return rx.test(String(url));
+        return rx.test(String(url)) || url.length === 0;
     }
 }
 
