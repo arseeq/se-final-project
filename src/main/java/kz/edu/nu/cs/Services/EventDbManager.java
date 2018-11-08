@@ -6,7 +6,10 @@ import kz.edu.nu.cs.Model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class EventDbManager {
     private EntityManagerFactory emfactory;
@@ -26,7 +29,27 @@ class EventDbManager {
 
 
     public List getMyEvents(String email) {
-        List events = em.createNamedQuery("Event.getEventsByEmail").setParameter("email", email).getResultList();
+//        List events = (List<Event>)em.createNativeQuery("SELECT e.ID, e.ADMIN, e.DESCRIPTION, e.IMG, e.ISACTIVE, e.LOCATION, e.MAXSIZE, e.MEETINGDATE, e.NAME, e.POINTS, e.PRICE FROM EVENT e, EVENT_USER eu, USER u where u.email=?1 and eu.participants_ID = u.id and e.id = eu.Event_ID", ).setParameter(1, email).getResultList();
+//        List events = em.createNamedQuery("Event.getEventsByEmail").setParameter("email", email).getResultList();
+
+        List<Event> events = (List<Event>)em.createNamedQuery("Event.getParticipants", Event.class).setParameter(1, email).getResultList();
+
+
+        for(Event event: events) {
+            List<User> participants = (List)em.createNamedQuery("Event.getParts", User.class).setParameter(1, event.getId()).getResultList();
+            Set<User> users = new HashSet<>();
+            for(User u1: participants){
+                User u = (User)new UserDbManager().getUserById(u1.getId());;
+                System.out.println( "2222222222222222222222222222   " + u);
+                users.add(u);
+            }
+            event.setParticipants(users);
+        }
+        /*User users = (User)new UserDbManager().getUserByEmail("vova.ruski@nu.edu.kz");
+        User user = (User)em.createNamedQuery("User.findByEmail").setParameter("email","vova.ruski@nu.edu.kz" ).getSingleResult();
+        System.out.println(users);
+        System.out.println("0000000000000000000000   " + user);*/
+        
         closeConnection();
         return events;
     }

@@ -13,7 +13,8 @@ import javax.persistence.*;
 @Table
 @SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize=1)
 @NamedQueries({
-	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
+	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email"),
+		@NamedQuery(name = "User.findById", query = "select u from User u where u.id = :id")
 })
 public class User implements Serializable {
 
@@ -24,7 +25,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserSeq")
 	private int id;
 
-	@Column(nullable=false)
+	@Column(nullable=false, unique = true)
 	private String email;
 
 	@Column(nullable=false)

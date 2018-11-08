@@ -92,7 +92,7 @@ public class AuthService implements Serializable {
                 return Response.status(Response.Status.FORBIDDEN).entity("wrong password").build();
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.FORBIDDEN).entity("wrong email or password").build();
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
         String token = tu.issueToken(email);
         NewCookie cookie = new NewCookie("token", token);

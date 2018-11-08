@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table
 @SequenceGenerator(name = "MesSeq", sequenceName = "Mes_Seq", allocationSize=1)
+@NamedQueries({
+		@NamedQuery(name = "Message.getMessagesByEventId", query = "select u from Message u where u.belGroup.id = :eventId ORDER BY u.date ASC")
+})
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1231123521891L;
 

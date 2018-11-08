@@ -1,9 +1,11 @@
 package kz.edu.nu.cs.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import kz.edu.nu.cs.Model.Event;
 import kz.edu.nu.cs.Model.Message;
 import kz.edu.nu.cs.Model.User;
+import kz.edu.nu.cs.Utility.SocketMsg;
 import kz.edu.nu.cs.Utility.TokenUtil;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -12,16 +14,14 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.core.Response;
 import java.net.InetSocketAddress;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ChatServer extends WebSocketServer {
 
     private final static Logger logger = LoggerFactory.getLogger(ChatServer.class);
-    private HashMap<User, WebSocket> users;
+    private Map<User, WebSocket> users;
     private Set<WebSocket> conns;
     private UserDbManager userManager;
     private EventDbManager eventDbManager;
@@ -51,35 +51,69 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket webSocket, String message) {
-        System.out.println( "------------------------------------------" + message);
-        //ObjectMapper mapper = new ObjectMapper();
-        Message msg = new Message();
+
         JSONObject obj = new JSONObject(message);
-        msg.setMsg(obj.getString("msg"));
+
+        String type = obj.getString("type");
+
         User user = getUserDbManager().getUserByEmail( AuthService.getTokenUtil().isValidToken(obj.getString("token")));
-        int eventId = obj.getInt("eventId");
-        Event event = getEventDbManager().getEventById(eventId);
-        System.out.println(event + "111111111111111111111111111111111111111111111111111");
+        System.out.println(type  + "   1111111111111111111111111111111111111111111111111111111111");
+        String eventId = obj.getString("eventId");
+        Event event=null;
         boolean isParticipant = false;
-        for ( User u : event.getParticipants() ) {
-            if(u.equals(user)) {
-                isParticipant=true;
-                break;
+        if(eventId==null)
+            System.out.println("event id is null");
+        else{
+            event = getEventDbManager().getEventById(Integer.parseInt(eventId));
+            if(event!=null){
+                for ( User u : event.getParticipants() ) {
+                    if(u.equals(user)) {
+                        isParticipant=true;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        if(type.equals("history")){
+
+            if(isParticipant ){
+                List<Message> result = getMessageDbManager().getAllGroupMsgByEventId(event.getId());
+                for(Message msg: result){
+                    msg.setBelGroup(null);
+                }
+
+                SocketMsg socketMsg = new SocketMsg();
+                socketMsg.setEventId(Integer.parseInt(eventId));
+                socketMsg.setType("history");
+                socketMsg.setData(result);
+                String textToSend = new Gson().toJson(socketMsg);
+                webSocket.send(textToSend);
+            }else{
+                //webSocket.send("You are not participant of this group");
+            }
+            //return Response.ok(new Gson().toJson(result)).build();
+
+        }else if(type.equals("message")){
+            Message msg = new Message();
+
+            msg.setMsg(obj.getString("msg"));
+
+            if(user != null && isParticipant ) {
+                System.out.println("22222222222222222222222222");
+                msg.setAuthor(user);
+
+                msg.setBelGroup(event);
+                msg.setDate(new Date());
+                users.put(user, webSocket);
+                broadCast(msg, user);
+                logger.info("Message from user: " + msg.getAuthor().getName() + ", text: " + msg.getMsg());
+            }else{
+                System.out.println("::::::::::::::::::::something went wrong on message JSON content :::::::::::::::::::");
             }
         }
-        if(user != null || isParticipant || event.getAdmin().equals(user.getEmail())) {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            msg.setAuthor(user);
 
-            msg.setBelGroup(event);
-            msg.setDate(new Date());
-            if(!users.containsKey(user))
-                users.put(user, webSocket);
-            broadCast(msg);
-            logger.info("Message from user: " + msg.getAuthor().getName() + ", text: " + msg.getMsg());
-        }else{
-            System.out.println("::::::::::::::::::::something went wrong:::::::::::::::::::");
-        }
 
     }
 
@@ -93,36 +127,57 @@ public class ChatServer extends WebSocketServer {
         logger.info("ERROR from " + webSocket.getRemoteSocketAddress().getAddress().getHostAddress());
     }
 
-    private void broadCast(Message msg) {
-
-
-        for(User user: msg.getBelGroup().getParticipants()){
-            System.out.println( "++++++++++++++++++++++++++++++++++++++++++"+ user);
-            if(users.containsKey(user))
-                users.get(user).send(msg.getMsg());
-        }
-        System.out.println("222222222222222222222222222222222 " + msg);
+    private void broadCast(Message msg, User me) {
         getMessageDbManager().insertMessage(msg);
+        System.out.println(msg.getBelGroup().getParticipants() + "44444444444444444444444\n\n\n\n\n\n\n");
+
+        SocketMsg socketMsg = new SocketMsg();
+
+        socketMsg.setType("message");
+
+        socketMsg.setEventId(msg.getBelGroup().getId());
+
+        List res = new ArrayList<Message>();
+        //msg.setBelGroup(null);
+        res.add(msg);
+
+        socketMsg.setData(res);
+
+        for(Map.Entry<User, WebSocket> entry: users.entrySet()){
+            System.out.println("Key: " + entry.getKey() + ", value: " + entry.getValue() + " 1212121212\n\n\n\n\n\n");
+        }
+
+        String sending = new Gson().toJson(socketMsg);
+        System.out.println("7777777\n\n\n\n\n\n\n\n\n\n\n");
+        for(User user: msg.getBelGroup().getParticipants()){
+            System.out.println(user + "\n\n\n\n\n\n\n\n\n");
+            if(users.containsKey(user)) {
+                System.out.println(user + "55555555555555555555555555555555555555555 " + users.get(user) + "\n\n\n\n\n\n\n");
+
+                users.get(user).send(sending);
+            }
+        }
+
     }
 
     private UserDbManager getUserDbManager(){
-        if( userManager == null) {
+        //if( userManager == null) {
             userManager = new UserDbManager();
-        }
+        //}
         return userManager;
     }
 
     private MessageDbManager getMessageDbManager(){
-        if( messageDbManager == null) {
+        //if( messageDbManager == null) {
             messageDbManager = new MessageDbManager();
-        }
+        //}
         return messageDbManager;
     }
 
     private EventDbManager getEventDbManager(){
-        if( eventDbManager == null) {
+        //if( eventDbManager == null) {
             eventDbManager = new EventDbManager();
-        }
+        //}
         return eventDbManager;
     }
 

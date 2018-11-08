@@ -57,7 +57,7 @@ public class TokenUtil {
         SecretKey key = getKey();
         Calendar date = Calendar.getInstance();
         long t = date.getTimeInMillis();
-        Date afterAddingTenMins = new Date(t + (10 * 60000));
+        Date afterAddingTenMins = new Date(t + (100 * 60000));
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuer("baktybek")

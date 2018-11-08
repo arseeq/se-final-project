@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,8 +15,14 @@ import java.util.Set;
 	@NamedQuery(name="Event.getEventByEmail", query="select e from Event e where e.admin = :email"),
 	@NamedQuery(name="Event.getEventById", query="select e from Event e where e.id = :id"),
 	@NamedQuery(name="Event.getNameById", query="select e.name from Event e where e.id =:id"),
-	@NamedQuery(name = "Event.getEventsByEmail", query = "select e from Event e where e.admin =:email")
+	//@NamedQuery(name = "Event.getEventsByEmail", query = "select e from Event e,User u where u.email=:email and e.participants.contains(u)")
 })
+@NamedNativeQueries({
+		@NamedNativeQuery(name="Event.getParticipants", query = "SELECT e.ID, e.ADMIN, e.DESCRIPTION, e.IMG, e.ISACTIVE, e.LOCATION, e.MAXSIZE, e.MEETINGDATE, e.NAME, e.POINTS, e.PRICE FROM EVENT e, EVENT_USER eu, USER u where u.email=?1 and eu.participants_ID = u.id and e.id = eu.Event_ID", resultClass = Event.class),
+		@NamedNativeQuery(name = "Event.getParts", query = "Select eu.participants_ID as id from EVENT_USER eu where eu.Event_ID=?1", resultClass = User.class)
+}
+
+)
 
 public class Event implements Serializable {
 	
@@ -34,7 +41,9 @@ public class Event implements Serializable {
 
 
 
-	@ManyToMany(targetEntity=User.class)
+	@ManyToMany(targetEntity=User.class, cascade = {CascadeType.PERSIST,
+			CascadeType.MERGE})
+	@JoinTable(name="EVENT_USER", joinColumns = @JoinColumn(name = "Event_ID"), inverseJoinColumns = @JoinColumn(name = "participants_ID"))
 	private Set<User> participants;
 
 	@Temporal(TemporalType.TIMESTAMP)

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class MessageDbManager {
     private EntityManagerFactory emfactory;
@@ -20,6 +21,17 @@ public class MessageDbManager {
         em.getTransaction().commit();
         em.close();
         emfactory.close();
+    }
+
+    public List<Message> getAllGroupMsgByEventId(int id) {
+        emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+        em = emfactory.createEntityManager();
+        em.getTransaction().begin();
+        List result = (List)em.createNamedQuery("Message.getMessagesByEventId").setParameter("eventId", id).getResultList();
+        em.getTransaction().commit();
+        em.close();
+        emfactory.close();
+        return  result;
     }
 
 
