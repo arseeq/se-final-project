@@ -74,7 +74,7 @@ public class ChatServer extends WebSocketServer {
             msg.setBelGroup(event);
             msg.setDate(new Date());
             if(!users.containsKey(user))
-                users.put(user, webSocket);
+//                users.put(user, webSocket.getReadyState());
             broadCast(msg);
             logger.info("Message from user: " + msg.getAuthor().getName() + ", text: " + msg.getMsg());
         }else{
@@ -90,12 +90,10 @@ public class ChatServer extends WebSocketServer {
             conns.remove(webSocket);
 
         assert webSocket!=null;
-        logger.info("ERROR from " + webSocket.getRemoteSocketAddress().getAddress().getHostAddress());
+        logger.error("ERROR from " + webSocket.getRemoteSocketAddress().getAddress().getHostAddress());
     }
 
     private void broadCast(Message msg) {
-
-
         for(User user: msg.getBelGroup().getParticipants()){
             System.out.println( "++++++++++++++++++++++++++++++++++++++++++"+ user);
             if(users.containsKey(user))

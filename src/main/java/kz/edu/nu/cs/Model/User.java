@@ -1,62 +1,53 @@
 package kz.edu.nu.cs.Model;
 
-import org.eclipse.persistence.annotations.PrimaryKey;
-
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.*;
 
 @Entity
 @Table
-@SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize=1)
+@SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize = 1)
 @NamedQueries({
-	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
+		@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
 })
 public class User implements Serializable {
 
-	
+
 	private static final long serialVersionUID = 1236544789532171L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserSeq")
 	private int id;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String email;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String name;
-	
-	
-	@Column(nullable=false)
+
+
+	@Column(nullable = false)
 	private String surname;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private int score;
-	
 
-
-	
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private boolean admin;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private boolean active;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String password;
-	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
-	
+
+
 	public User() {
 		this.active = true;
 		this.admin = false;
@@ -64,8 +55,6 @@ public class User implements Serializable {
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 	}
-	
-	
 
 
 	public Date getCreatedAt() {
@@ -84,13 +73,10 @@ public class User implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	
-	
 	public String getName() {
 		return name;
 	}
 
-	
 
 	public void setName(String name) {
 		this.name = name;
@@ -112,7 +98,6 @@ public class User implements Serializable {
 		this.score = score;
 	}
 
-	
 
 	public String getEmail() {
 		return email;
@@ -145,12 +130,12 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public int getId() {
 		return id;
 	}
 
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -207,14 +192,21 @@ public class User implements Serializable {
 	}
 
 
-
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", score=" + score + ", email=" + email
-				+ ", admin=" + admin + ", active=" + active + ", password=" + password + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + "]";
+		return "User{" +
+				"id=" + id +
+				", email='" + email + '\'' +
+				", name='" + name + '\'' +
+				", surname='" + surname + '\'' +
+				", score=" + score +
+				", admin=" + admin +
+				", active=" + active +
+				", password='" + password + '\'' +
+				", createdAt=" + createdAt +
+				", updatedAt=" + updatedAt +
+				'}';
 	}
-	
-	
+
+
 }
