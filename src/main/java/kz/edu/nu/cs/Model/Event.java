@@ -3,6 +3,8 @@ package kz.edu.nu.cs.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -12,7 +14,7 @@ import java.util.Date;
 	@NamedQuery(name="Event.getEventByEmail", query="select e from Event e where e.admin = :email"),
 	@NamedQuery(name="Event.getEventById", query="select e from Event e where e.id = :id"),
 	@NamedQuery(name="Event.getNameById", query="select e.name from Event e where e.id =:id"),
-	@NamedQuery(name = "Event.getEventsByEmail", query = "select e from UserGroup ug, Event e where ug.name = e.name and ug.email = :email")
+	@NamedQuery(name = "Event.getEventsByEmail", query = "select e from Event e where e.admin =:email")
 })
 
 public class Event implements Serializable {
@@ -29,13 +31,21 @@ public class Event implements Serializable {
 	private String img;
 	private int maxsize;
 	private int isactive = 0;
+
+
+
+	@ManyToMany(targetEntity=User.class)
+	private Set<User> participants;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date meetingdate;
 	private String location;
 	private int price;
 	private int points;
 	
-	public Event() {}
+	public Event() {
+		participants = new HashSet<>();
+	}
 
 	public int getId() {
 		return id;
@@ -151,6 +161,24 @@ public class Event implements Serializable {
 		this.img = img;
 	}
 
+	@Override
+	public String toString() {
+		return "Event{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", admin='" + admin + '\'' +
+				", description='" + description + '\'' +
+				", img='" + img + '\'' +
+				", maxsize=" + maxsize +
+				", isactive=" + isactive +
+				", participants=" + participants +
+				", meetingdate=" + meetingdate +
+				", location='" + location + '\'' +
+				", price=" + price +
+				", points=" + points +
+				'}';
+	}
+
 	public int getMaxsize() {
 		return maxsize;
 	}
@@ -165,5 +193,13 @@ public class Event implements Serializable {
 
 	public void setIsactive(int isactive) {
 		this.isactive = isactive;
+	}
+
+	public Set<User> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(Set<User> participants) {
+		this.participants = participants;
 	}
 }

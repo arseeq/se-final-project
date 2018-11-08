@@ -98,49 +98,6 @@ public class AuthService implements Serializable {
         NewCookie cookie = new NewCookie("token", token);
         return Response.ok(token).cookie(cookie).build();
 	}
-//    @POST
-//    @Path("/signin")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response signin(String json) {
-//        JSONObject obj = new JSONObject(json);
-//        String login = obj.getString("email");
-//        String password = obj.getString("password");
-//
-//        System.out.println(" - signin: " + login + ", " + password);
-//
-//        Gson g = new Gson();
-//        if(!authenticate(login, password)) {
-//            return Response.status(403).build();
-//        }
-//        String token = issueToken(login);
-//        NewCookie cookie = new NewCookie("token", token);
-//        return Response.ok(token).cookie(cookie).build();
-//    }
-	
-//	@POST
-//	@Path("/checktoken")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	public Response checkToken(String json) {
-//		JSONObject obj = new JSONObject(json);
-//		String tokenToCheck = obj.getString("token");
-//		if (tokenToCheck == null || tokenToCheck.equals("")) {
-//			return Response.status(403).build();
-//		}
-//		System.out.println(" - token: " + tokenToCheck);
-//		String res = isValidToken(tokenToCheck);
-//		if (res!=null && !res.equals("")) {
-//			return Response.ok(res).build();
-//		} else return Response.status(403).build();
-//	}
-
-
-	
-//	private boolean authenticate(String login, String password) {
-//		cu = getCreateUser();
-//		String passwordObt = cu.getUserByEmail(login).getPassword();
-//        return passwordObt != null && passwordObt.equals(password);
-//
-//    }
 
     private boolean authenticate(String email, String password) {
         cu = getCreateUser();
