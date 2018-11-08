@@ -162,21 +162,21 @@ public class ChatServer extends WebSocketServer {
 
     private UserDbManager getUserDbManager(){
         //if( userManager == null) {
-            userManager = new UserDbManager();
+        userManager = new UserDbManager();
         //}
         return userManager;
     }
 
     private MessageDbManager getMessageDbManager(){
         //if( messageDbManager == null) {
-            messageDbManager = new MessageDbManager();
+        messageDbManager = new MessageDbManager();
         //}
         return messageDbManager;
     }
 
     private EventDbManager getEventDbManager(){
         //if( eventDbManager == null) {
-            eventDbManager = new EventDbManager();
+        eventDbManager = new EventDbManager();
         //}
         return eventDbManager;
     }

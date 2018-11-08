@@ -10,20 +10,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Path("/auth")
 public class AuthService implements Serializable {
 
-    private static final long serialVersionUID = 1236544789552114471L;
-    private static TokenUtil tu = new TokenUtil();
-    private UserDbManager cu; //make EJB in future
-    private Logger logger;
+	private static final long serialVersionUID = 1236544789552114471L;
+	private static TokenUtil tu = new TokenUtil();
+	private String admin = "admin@admin.com";
+	private UserDbManager cu; //make EJB in future
+	private Logger logger;
 
 
     public static TokenUtil getTokenUtil() {
@@ -34,6 +39,33 @@ public class AuthService implements Serializable {
         logger = LoggerFactory.getLogger(AuthService.class);
 		cu = new UserDbManager();
     }
+
+	@POST
+	@Path("/admin")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getLog(String json) {
+		String tokenToCheck = new JSONObject(json).getString("token");
+		String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+		if (email == null) {
+			logger.error("token expired");
+			return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+		}
+		if (!email.equals(admin)) {
+			logger.error("access to {} denied", email);
+			return Response.status(Response.Status.FORBIDDEN).entity("access denied").build();
+		}
+		byte[] file;
+		try {
+			file = Files.readAllBytes(Paths.get("mainlog.log"));
+			String log = new String(file);
+			return Response.ok().entity(log).build();
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+		return Response.status(Response.Status.FORBIDDEN).entity("error").build();
+	}
+
+
 
 	@POST
 	@Path("/signup")
@@ -82,21 +114,26 @@ public class AuthService implements Serializable {
         return Response.ok(token).cookie(cookie).build();
     }
 
-    @POST
-    @Path("/checktoken")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response checkToken(String json) {
-        JSONObject obj = new JSONObject(json);
-        String tokenToCheck = obj.getString("token");
-        if (tokenToCheck == null || tokenToCheck.equals("")) {
-            return Response.status(Response.Status.FORBIDDEN).entity("bad token").build();
-        }
-        System.out.println(" - token: " + tokenToCheck);
-        String res = tu.isValidToken(tokenToCheck);
-        if (res != null && !res.equals("")) {
-            return Response.ok(res).build();
-        } else return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
-    }
+	@POST
+	@Path("/checktoken")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response checkToken(String json) {
+		JSONObject obj = new JSONObject(json);
+		String tokenToCheck = obj.getString("token");
+		logger.info("checking token");
+		if (tokenToCheck == null || tokenToCheck.equals("")) {
+			logger.error("token not valid");
+			return Response.status(Response.Status.FORBIDDEN).entity("bad token").build();
+		}
+		String res = tu.isValidToken(tokenToCheck);
+		if (res != null && !res.equals("")) {
+			logger.info("token of {} is valid", res);
+			return Response.ok(res).build();
+		} else {
+			logger.error("token expired");
+			return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+		}
+	}
 
     @POST
     @Path("/signin")
@@ -112,7 +149,8 @@ public class AuthService implements Serializable {
                 return Response.status(Response.Status.FORBIDDEN).entity("wrong password").build();
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.FORBIDDEN).entity("wrong email or password").build();
+			logger.error("{} doesn't exist", email);
+            return Response.status(Response.Status.FORBIDDEN).entity("wrong email").build();
         }
         String token = tu.issueToken(email);
 		if (token == null) {
@@ -124,24 +162,11 @@ public class AuthService implements Serializable {
         return Response.ok(token).cookie(cookie).build();
 	}
 
+
     private boolean authenticate(String email, String password) {
-        cu = getCreateUser();
+//        cu = getCreateUser();
         String passwordObt = cu.getUserByEmail(email).getPassword();
         String hashed = new PasswordHasher().getPasswordHash(password);
         return passwordObt != null && passwordObt.equals(hashed);
     }
-
-
-
-    private UserDbManager getCreateUser() {
-        if (cu == null) {
-            cu = new UserDbManager();
-        }
-        return cu;
-    }
-
-
-
-
-
 }
