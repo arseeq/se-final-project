@@ -1,7 +1,7 @@
 package kz.edu.nu.cs.Services;
 
 import kz.edu.nu.cs.Model.Event;
-import kz.edu.nu.cs.Model.UserGroup;
+import kz.edu.nu.cs.Model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,19 +19,11 @@ class EventDbManager {
     }
 
     public void createEvent(Event event) {
-        UserGroup ug = new UserGroup();
-        ug.setEmail(event.getAdmin());
-        ug.setName(event.getName());
-        em.persist(ug);
         em.persist(event);
         em.getTransaction().commit();
         closeConnection();
     }
-//    public void mergeEvent(Event event) {
-//        em.merge(event);
-//        em.getTransaction().commit();
-//        closeConnection();
-//    }
+
 
     public List getMyEvents(String email) {
         List events = em.createNamedQuery("Event.getEventsByEmail").setParameter("email", email).getResultList();
@@ -39,20 +31,26 @@ class EventDbManager {
         return events;
     }
 
+    public Event getEventById(int id){
+        Event event = (Event) em.createNamedQuery("Event.getEventById").setParameter("id", id).getSingleResult();
+        closeConnection();
+        return event;
+    }
+
     public void join(String email, int groupId) {
-        String name = (String)em.createNamedQuery("Event.getNameById").setParameter("id", groupId).getSingleResult();
-        System.out.println("\n\n\n!!!!!!!!!!!!!!!!!111123123132123" + name);
-        UserGroup ug = new UserGroup();
-        ug.setEmail(email);
-        ug.setName(name);
-        em.persist(ug);
+        Event event = (Event)em.createNamedQuery("Event.getEventById").setParameter("id", groupId).getSingleResult();
+        User user = (User)em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
+        event.getParticipants().add(user);
+        em.merge(event);
         em.getTransaction().commit();
         closeConnection();
     }
 
     public void leaveGroup(String email, int groupId) {
-        String name = (String)em.createNamedQuery("Event.getNameById").setParameter("id", groupId).getSingleResult();
-        em.createNamedQuery("UserGroup.deleteRow").setParameter("name", name).setParameter("email", email).getSingleResult();
+        User user = (User)em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
+        Event event = (Event)em.createNamedQuery("Event.getEventById").setParameter("id", groupId).getSingleResult();
+        event.getParticipants().remove(user);
+        em.merge(event);
         closeConnection();
     }
 
@@ -64,6 +62,7 @@ class EventDbManager {
         event.setIsactive(0);
         em.merge(event);
         em.getTransaction().commit();
+        closeConnection();
         return true;
     }
 

@@ -34,11 +34,11 @@ public class EventService implements Serializable {
         event.setName(getParamFromJson(json, "name"));
         event.setPoints(Integer.parseInt(getParamFromJson(json, "points")));
         event.setPrice(Integer.parseInt(getParamFromJson(json, "price")));
-
         SimpleDateFormat formatter = new SimpleDateFormat("hh-mm dd/mm/yyyy");
         Date d = null;
         try {
             d = formatter.parse(getParamFromJson(json, "meetingdate"));
+            event.setMeetingdate(d);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -52,6 +52,8 @@ public class EventService implements Serializable {
         }
 
         event.setAdmin(email);
+
+        event.getParticipants().add(new UserDbManager().getUserByEmail(email));
         System.out.println("\n\n\n" + event + "\n" + email);
 
         try {

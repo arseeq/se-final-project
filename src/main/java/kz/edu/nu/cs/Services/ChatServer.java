@@ -1,7 +1,7 @@
 package kz.edu.nu.cs.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kz.edu.nu.cs.Model.EventGroup;
+import kz.edu.nu.cs.Model.Event;
 import kz.edu.nu.cs.Model.Message;
 import kz.edu.nu.cs.Model.User;
 import kz.edu.nu.cs.Utility.TokenUtil;
@@ -12,8 +12,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,7 +24,7 @@ public class ChatServer extends WebSocketServer {
     private HashMap<User, WebSocket> users;
     private Set<WebSocket> conns;
     private UserDbManager userManager;
-    private EventGroupDbManager eventGroupDbManager;
+    private EventDbManager eventDbManager;
     private MessageDbManager messageDbManager;
 
     public ChatServer(int port) {
@@ -53,18 +51,36 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket webSocket, String message) {
-        ObjectMapper mapper = new ObjectMapper();
+        System.out.println( "------------------------------------------" + message);
+        //ObjectMapper mapper = new ObjectMapper();
         Message msg = new Message();
         JSONObject obj = new JSONObject(message);
         msg.setMsg(obj.getString("msg"));
         User user = getUserDbManager().getUserByEmail( AuthService.getTokenUtil().isValidToken(obj.getString("token")));
-        msg.setAuthor(user);
-        msg.setGroup(getEventGroupDbManager().getGroupById(obj.getInt("eventId")));
-        msg.setDate(new Date());
-        if(!users.containsKey(user))
-            users.put(user, webSocket);
-        broadCast(msg);
-        logger.info("Message from user: " + msg.getAuthor().getName() + ", text: " + msg.getMsg());
+        int eventId = obj.getInt("eventId");
+        Event event = getEventDbManager().getEventById(eventId);
+        System.out.println(event + "111111111111111111111111111111111111111111111111111");
+        boolean isParticipant = false;
+        for ( User u : event.getParticipants() ) {
+            if(u.equals(user)) {
+                isParticipant=true;
+                break;
+            }
+        }
+        if(user != null || isParticipant || event.getAdmin().equals(user.getEmail())) {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            msg.setAuthor(user);
+
+            msg.setBelGroup(event);
+            msg.setDate(new Date());
+            if(!users.containsKey(user))
+                users.put(user, webSocket);
+            broadCast(msg);
+            logger.info("Message from user: " + msg.getAuthor().getName() + ", text: " + msg.getMsg());
+        }else{
+            System.out.println("::::::::::::::::::::something went wrong:::::::::::::::::::");
+        }
+
     }
 
 
@@ -78,10 +94,14 @@ public class ChatServer extends WebSocketServer {
     }
 
     private void broadCast(Message msg) {
-        for(User user: msg.getGroup().getParticipants()){
-            users.get(user).send(msg.getMsg());
-        }
 
+
+        for(User user: msg.getBelGroup().getParticipants()){
+            System.out.println( "++++++++++++++++++++++++++++++++++++++++++"+ user);
+            if(users.containsKey(user))
+                users.get(user).send(msg.getMsg());
+        }
+        System.out.println("222222222222222222222222222222222 " + msg);
         getMessageDbManager().insertMessage(msg);
     }
 
@@ -99,11 +119,11 @@ public class ChatServer extends WebSocketServer {
         return messageDbManager;
     }
 
-    private EventGroupDbManager getEventGroupDbManager(){
-        if( eventGroupDbManager == null) {
-            eventGroupDbManager = new EventGroupDbManager();
+    private EventDbManager getEventDbManager(){
+        if( eventDbManager == null) {
+            eventDbManager = new EventDbManager();
         }
-        return eventGroupDbManager;
+        return eventDbManager;
     }
 
 }

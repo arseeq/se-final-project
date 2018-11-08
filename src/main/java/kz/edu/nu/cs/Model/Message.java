@@ -15,16 +15,16 @@ public class Message implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MesSeq")
 	private int id;
 	
-	@ManyToOne
-	@PrimaryKeyJoinColumn(name = "author_id", referencedColumnName = "id")
+	@ManyToOne(targetEntity = User.class)
+	//@PrimaryKeyJoinColumn(name = "AUTHOR")
 	private User author;
 	
 	
-	@ManyToOne(targetEntity = EventGroup.class)
-	@PrimaryKeyJoinColumn(name = "group_id", referencedColumnName = "id")
-	private EventGroup belGroup;
+	@ManyToOne(targetEntity = Event.class)
+	//@PrimaryKeyJoinColumn(name = "EVENT_ID")
+	private Event belGroup;
 	
-
+	@Column(name = "CONTENT")
 	private String msg;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -49,12 +49,12 @@ public class Message implements Serializable {
 		this.author = author;
 	}
 
-	public EventGroup getGroup() {
+	public Event getBelGroup() {
 		return belGroup;
 	}
 
-	public void setGroup(EventGroup eventGroup) {
-		this.belGroup = eventGroup;
+	public void setBelGroup(Event belGroup) {
+		this.belGroup = belGroup;
 	}
 
 	@Override
@@ -67,6 +67,17 @@ public class Message implements Serializable {
 		//result = prime * result + ((group == null) ? 0 : group.hashCode());
 		result = prime * result + id;
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Message{" +
+				"id=" + id +
+				", author=" + author +
+				", belGroup=" + belGroup +
+				", msg='" + msg + '\'' +
+				", date=" + date +
+				'}';
 	}
 
 

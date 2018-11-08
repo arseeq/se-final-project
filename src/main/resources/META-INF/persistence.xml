@@ -7,11 +7,10 @@
    
    <persistence-unit name="Eclipselink_JPA" transaction-type="RESOURCE_LOCAL">
    
-   	  <class>kz.edu.nu.cs.Model.EventGroup</class>
+
       <class>kz.edu.nu.cs.Model.User</class>
       <class>kz.edu.nu.cs.Model.Event</class>
       <class>kz.edu.nu.cs.Model.Message</class>
-      <class>kz.edu.nu.cs.Model.UserGroup</class>
 
       <properties>
          <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.10.3.14:3306/aintrovert"/>

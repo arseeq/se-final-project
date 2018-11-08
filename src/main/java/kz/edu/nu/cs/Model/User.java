@@ -1,5 +1,7 @@
 package kz.edu.nu.cs.Model;
 
+import org.eclipse.persistence.annotations.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -13,8 +15,6 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
 })
-
-
 public class User implements Serializable {
 
 	
@@ -23,7 +23,10 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserSeq")
 	private int id;
-	
+
+	@Column(nullable=false)
+	private String email;
+
 	@Column(nullable=false)
 	private String name;
 	
@@ -34,9 +37,8 @@ public class User implements Serializable {
 	@Column(nullable=false)
 	private int score;
 	
-	
-	@Column(nullable=false)
-	private String email;
+
+
 	
 	@Column(nullable=false)
 	private boolean admin;
