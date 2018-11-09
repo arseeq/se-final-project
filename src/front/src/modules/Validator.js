@@ -15,8 +15,40 @@ class Validator {
     }
 
     static validImageURL(url){
-        let rx = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
-        return rx.test(String(url)) || url.length === 0;
+        let rx = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/;
+        return rx.test(String(url)) || url.length === 0 ;
+    }
+
+    static validEventName(eventName){
+        return eventName.length > 0;
+    }
+
+    static validEventLocation(eventLocation){
+        return eventLocation.length > 0;
+    }
+
+    static validEventDate(eventDate){
+        return eventDate.length > 0;
+    }
+
+    static validEventTime(eventTime){
+        return eventTime.length > 0;
+    }
+
+    static validEventPrice(eventPrice){
+        return (eventPrice.length > 0 && eventPrice >= 0);
+    }
+
+    static validEventPoints(eventPoints){
+        return (eventPoints.length > 0 && eventPoints >= 0);
+    }
+
+    static validEventCategory(eventCategory){
+        return eventCategory.length > 0;
+    }
+
+    static validEventParticipants(eventParticipants){
+        return (eventParticipants.length > 0 && eventParticipants >= 2);
     }
 }
 
