@@ -10,28 +10,29 @@ import {
 import axios from 'axios';
 import con from './config';
 
-import Home from './components/Home';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import LayoutFooter from './components/LayoutFooter';
-//const jwt = require('jsonwebtoken');
-//const config = require('../../config');
+import Groups from './components/Groups';
+import Chat from './components/Chat';
 
 class IndexRouter extends React.Component{
     constructor(props){
         super(props);
-        this.state={authorized: null, user: ""};
-        //this.signin = this.signin.bind(this);
+        this.state={authorized: null, user: "", socketReady: false, onMsg: (message) =>{
+            console.log(message);
+        }};
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
     }
     componentWillMount(){
-        // axios.get('/api/check',{
-        // }).then((res) => {
-        //     this.setState({authorized: res.data});
-        // });
+        let self = this;
+        this.socket = new WebSocket(con.sockethost);
+        this.socket.onmessage = function(message) {
+            self.state.onMsg(message);
+        };
 
-        // setTimeout(() => {this.setState({authorized: false})} , 1000);
-        var self = this;
         console.log(con.addr+'/mainServices/auth/checktoken');
         if (localStorage.getItem('token')!=null){
             axios(con.addr+'/mainServices/auth/checktoken', {
@@ -55,11 +56,15 @@ class IndexRouter extends React.Component{
             self.setState({authorized: false});
         }
 
+    }
 
+    setOnMsg(onMsg){
+        this.setState({onMsg: onMsg});
     }
 
     login(usr){
         console.log(usr);
+        localStorage.setItem('email', usr);
         this.setState({authorized: true, user: usr});
     }
 
@@ -69,7 +74,7 @@ class IndexRouter extends React.Component{
     }
 
     render(){
-        var self = this;
+        let self = this;
         if (this.state.authorized==null){
             return <h1>Loading ... </h1>;
         }
@@ -77,16 +82,18 @@ class IndexRouter extends React.Component{
             <div>
                 <Router>
                     <Switch>
-                        <Route exact path={con.addr +  "/dashboard"} render={() => self.state.authorized ? <Dashboard user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.addr + '/signin'} /> }/>
-                        <Route exact path={con.addr + "/signin"} render={() => self.state.authorized ? <Redirect to={con.addr + '/dashboard'} /> : <SignIn login={self.login.bind(this)} />} />
-                        <Route exact path={con.addr + "/signup"} render={() => self.state.authorized ? <Redirect to={con.addr + '/dashboard'} /> : <SignUp login={self.login.bind(this)} />} />
-                        <Route path={con.addr + '/'} render={() => <Redirect to={con.addr + '/signin'} />} />
+                        <Route exact path={con.projectName +  "/dashboard"} render={() => self.state.authorized ? <Dashboard user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/chat/:id"} render={() => self.state.authorized ? <Chat setOnMsg={self.setOnMsg.bind(this)} socket={this.socket} user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName +  "/groups"} render={() => self.state.authorized ? <Groups user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/signin"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/groups'} /> : <SignIn login={self.login.bind(this)} />} />
+                        <Route exact path={con.projectName + "/signup"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/groups'} /> : <SignUp login={self.login.bind(this)} />} />
+                        <Route path={con.projectName + '/'} render={() => <Redirect to={con.projectName + '/signin'} />} />
                     </Switch>
                 </Router>
                 <LayoutFooter />
             </div>
         );
     }
-};
+}
 
 export default IndexRouter;
