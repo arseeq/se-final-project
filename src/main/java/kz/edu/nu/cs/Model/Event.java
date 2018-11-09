@@ -41,9 +41,8 @@ public class Event implements Serializable {
 
 
 
-	@ManyToMany(targetEntity=User.class, cascade = {CascadeType.PERSIST,
-			CascadeType.MERGE})
-	@JoinTable(name="EVENT_USER", joinColumns = @JoinColumn(name = "Event_ID"), inverseJoinColumns = @JoinColumn(name = "participants_ID"))
+	@ManyToMany(targetEntity=User.class)
+	//@JoinTable(name="EVENT_USER", joinColumns = @JoinColumn(name = "Event_ID"), inverseJoinColumns = @JoinColumn(name = "participants_ID"))
 	private Set<User> participants;
 
 	@Temporal(TemporalType.TIMESTAMP)

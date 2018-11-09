@@ -3,10 +3,14 @@ package kz.edu.nu.cs.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.*;
 
 @Entity
 @Table
-@SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize = 1)
+@SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize=1)
 @NamedQueries({
 	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email"),
 		@NamedQuery(name = "User.findById", query = "select u from User u where u.id = :id")
@@ -23,24 +27,26 @@ public class User implements Serializable {
 	@Column(nullable=false, unique = true)
 	private String email;
 
-	@Column(nullable = false)
+	@Column(nullable=false)
 	private String name;
 
 
-	@Column(nullable = false)
+	@Column(nullable=false)
 	private String surname;
 
-	@Column(nullable = false)
+	@Column(nullable=false)
 	private int score;
 	
 
-	@Column(nullable = false)
+
+
+	@Column(nullable=false)
 	private boolean admin;
 
-	@Column(nullable = false)
+	@Column(nullable=false)
 	private boolean active;
 
-	@Column(nullable = false)
+	@Column(nullable=false)
 	private String password;
 	
 
@@ -205,18 +211,9 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", email='" + email + '\'' +
-				", name='" + name + '\'' +
-				", surname='" + surname + '\'' +
-				", score=" + score +
-				", admin=" + admin +
-				", active=" + active +
-				", password='" + password + '\'' +
-				", createdAt=" + createdAt +
-				", updatedAt=" + updatedAt +
-				'}';
+		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", score=" + score + ", email=" + email
+				+ ", admin=" + admin + ", active=" + active + ", password=" + password + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + "]";
 	}
 	
 	
