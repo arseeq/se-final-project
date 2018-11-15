@@ -1,0 +1,239 @@
+2018-11-15 22:27:04,140 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:27:04,411 ERROR k.e.n.c.U.TokenUtil JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+2018-11-15 22:27:04,411 ERROR k.e.n.c.S.AuthService token expired
+2018-11-15 22:27:43,043 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:27:43,066 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:27:43,068 ERROR k.e.n.c.U.TokenUtil JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+2018-11-15 22:27:43,069 ERROR k.e.n.c.S.AuthService token expired
+2018-11-15 22:27:45,607 INFO k.e.n.c.S.ChatServer Connection closed to: 127.0.0.1
+2018-11-15 22:27:45,732 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:27:45,746 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:27:45,747 ERROR k.e.n.c.U.TokenUtil JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+2018-11-15 22:27:45,747 ERROR k.e.n.c.S.AuthService token expired
+2018-11-15 22:27:47,942 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:27:48,010 ERROR k.e.n.c.S.AuthService kepa@mail.ru doesn't exist
+2018-11-15 22:28:26,782 INFO k.e.n.c.S.AuthService new signup
+2018-11-15 22:28:26,927 INFO k.e.n.c.S.UserDbManager user persisted: User [id=20, name=Kepa, surname=Arrizabalaga, score=0, email=kepa@mail.ru, admin=false, active=true, password=37b02693fe1f8c84418c990483ca425aec813e20, createdAt=Thu Nov 15 22:28:26 ALMT 2018, updatedAt=Thu Nov 15 22:28:26 ALMT 2018]
+2018-11-15 22:28:26,928 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:28:26,968 INFO k.e.n.c.U.TokenUtil token issued: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZXBhQG1haWwucnUiLCJpc3MiOiJiYWt0eWJlayIsImlhdCI6MTU0MjI5OTMwNiwiZXhwIjoxNTQyMjk5OTA2fQ.0K0_mE88C7p5P7RUdoU2LIc-GW1NkzDNrX2RRsgTJxo for kepa@mail.ru
+2018-11-15 22:28:26,968 INFO k.e.n.c.S.AuthService user signed up: User [id=20, name=Kepa, surname=Arrizabalaga, score=0, email=kepa@mail.ru, admin=false, active=true, password=37b02693fe1f8c84418c990483ca425aec813e20, createdAt=Thu Nov 15 22:28:26 ALMT 2018, updatedAt=Thu Nov 15 22:28:26 ALMT 2018]
+2018-11-15 22:28:27,029 ERROR k.e.n.c.S.EventService Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: java.sql.SQLSyntaxErrorException: Unknown column 'IMG' in 'field list'
+Error Code: 1054
+Call: SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT
+Query: ReadAllQuery(name="Event.findAll" referenceClass=Event sql="SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT")
+2018-11-15 22:28:34,185 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:28:34,185 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:28:34,226 ERROR k.e.n.c.S.EventService Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: java.sql.SQLSyntaxErrorException: Unknown column 'e.IMG' in 'field list'
+Error Code: 1054
+Call: SELECT e.ID, e.ADMIN, e.DESCRIPTION, e.IMG, e.ISACTIVE, e.LOCATION, e.MAXSIZE, e.MEETINGDATE, e.NAME, e.POINTS, e.PRICE FROM EVENT e, EVENT_USER eu, USER u where u.email=? and eu.participants_ID = u.id and e.id = eu.Event_ID
+	bind => [kepa@mail.ru]
+Query: ReadAllQuery(name="Event.getParticipants" referenceClass=Event sql="SELECT e.ID, e.ADMIN, e.DESCRIPTION, e.IMG, e.ISACTIVE, e.LOCATION, e.MAXSIZE, e.MEETINGDATE, e.NAME, e.POINTS, e.PRICE FROM EVENT e, EVENT_USER eu, USER u where u.email=? and eu.participants_ID = u.id and e.id = eu.Event_ID")
+2018-11-15 22:28:35,157 ERROR k.e.n.c.S.EventService Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: java.sql.SQLSyntaxErrorException: Unknown column 'IMG' in 'field list'
+Error Code: 1054
+Call: SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT
+Query: ReadAllQuery(name="Event.findAll" referenceClass=Event sql="SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT")
+2018-11-15 22:28:37,198 INFO k.e.n.c.S.ChatServer Connection closed to: 127.0.0.1
+2018-11-15 22:28:37,527 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:28:37,548 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:28:37,550 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:28:37,550 INFO k.e.n.c.S.AuthService token of kepa@mail.ru is valid
+2018-11-15 22:28:37,630 ERROR k.e.n.c.S.EventService Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: java.sql.SQLSyntaxErrorException: Unknown column 'IMG' in 'field list'
+Error Code: 1054
+Call: SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT
+Query: ReadAllQuery(name="Event.findAll" referenceClass=Event sql="SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT")
+2018-11-15 22:28:42,439 INFO k.e.n.c.S.ChatServer Connection closed to: 127.0.0.1
+2018-11-15 22:28:42,625 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:28:42,641 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:28:42,642 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:28:42,643 INFO k.e.n.c.S.AuthService token of kepa@mail.ru is valid
+2018-11-15 22:28:42,716 ERROR k.e.n.c.S.EventService Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: java.sql.SQLSyntaxErrorException: Unknown column 'IMG' in 'field list'
+Error Code: 1054
+Call: SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT
+Query: ReadAllQuery(name="Event.findAll" referenceClass=Event sql="SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT")
+2018-11-15 22:28:49,237 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:28:49,238 ERROR k.e.n.c.U.TokenUtil JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+2018-11-15 22:28:49,238 ERROR k.e.n.c.S.AuthService token expired
+2018-11-15 22:28:56,807 ERROR k.e.n.c.S.EventService Exception [EclipseLink-4002] (Eclipse Persistence Services - 2.7.0.v20170811-d680af5): org.eclipse.persistence.exceptions.DatabaseException
+Internal Exception: java.sql.SQLSyntaxErrorException: Unknown column 'IMG' in 'field list'
+Error Code: 1054
+Call: SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT
+Query: ReadAllQuery(name="Event.findAll" referenceClass=Event sql="SELECT ID, ADMIN, DESCRIPTION, IMG, ISACTIVE, LOCATION, MAXSIZE, MEETINGDATE, NAME, POINTS, PRICE FROM EVENT")
+2018-11-15 22:35:56,233 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:35:56,466 ERROR k.e.n.c.U.TokenUtil JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+2018-11-15 22:35:56,467 ERROR k.e.n.c.S.AuthService token expired
+2018-11-15 22:36:29,659 INFO k.e.n.c.S.AuthService new signup
+2018-11-15 22:36:29,981 INFO k.e.n.c.S.UserDbManager user persisted: User [id=6, name=Kepa, surname=Arrizabalaga, score=0, email=kepa@mail.ru, admin=false, active=true, password=37b02693fe1f8c84418c990483ca425aec813e20, createdAt=Thu Nov 15 22:36:29 ALMT 2018, updatedAt=Thu Nov 15 22:36:29 ALMT 2018]
+2018-11-15 22:36:29,981 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:36:30,018 INFO k.e.n.c.U.TokenUtil token issued: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZXBhQG1haWwucnUiLCJpc3MiOiJiYWt0eWJlayIsImlhdCI6MTU0MjI5OTc4OSwiZXhwIjoxNTQyMzAwMzg5fQ.mzRX9dhLep2a2lXlYIbWWe7NqlfWl0YpEkhfWFqq97k for kepa@mail.ru
+2018-11-15 22:36:30,019 INFO k.e.n.c.S.AuthService user signed up: User [id=6, name=Kepa, surname=Arrizabalaga, score=0, email=kepa@mail.ru, admin=false, active=true, password=37b02693fe1f8c84418c990483ca425aec813e20, createdAt=Thu Nov 15 22:36:29 ALMT 2018, updatedAt=Thu Nov 15 22:36:29 ALMT 2018]
+2018-11-15 22:36:30,071 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:36:30,071 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:30,071 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:36:33,413 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:36:33,428 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:36:33,432 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:36:33,434 INFO k.e.n.c.S.AuthService token of kepa@mail.ru is valid
+2018-11-15 22:36:33,516 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:36:33,516 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:33,516 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:36:36,023 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:36:36,023 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:36:36,036 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:36,036 INFO k.e.n.c.S.EventService events sent to kepa@mail.ru
+2018-11-15 22:36:37,434 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:36:37,435 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:37,436 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:36:38,335 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:36:38,335 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:36:38,470 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:38,471 INFO k.e.n.c.S.EventService events sent to kepa@mail.ru
+2018-11-15 22:36:39,361 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:36:39,361 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:39,362 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:36:40,081 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:36:40,082 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:36:40,094 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:40,095 INFO k.e.n.c.S.EventService events sent to kepa@mail.ru
+2018-11-15 22:36:41,029 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:36:41,029 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:36:41,030 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:36:49,413 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:37:19,490 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:37:19,509 ERROR k.e.n.c.S.AuthService miki.tayan@nu.edu.kz doesn't exist
+2018-11-15 22:38:37,423 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:38:37,435 ERROR k.e.n.c.S.AuthService miki.tayan@nu.edu.kz doesn't exist
+2018-11-15 22:38:57,547 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:38:57,562 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = miki.taryan@nu.edu.kz
+2018-11-15 22:38:57,563 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:38:57,564 INFO k.e.n.c.U.TokenUtil token issued: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaWtpLnRhcnlhbkBudS5lZHUua3oiLCJpc3MiOiJiYWt0eWJlayIsImlhdCI6MTU0MjI5OTkzNywiZXhwIjoxNTQyMzAwNTM3fQ.yDIIyiTnKfmjNmP_cD13Q54ru2kmLfhQjQQY77nujCw for miki.taryan@nu.edu.kz
+2018-11-15 22:38:57,565 INFO k.e.n.c.S.AuthService signin for miki.taryan@nu.edu.kz
+2018-11-15 22:39:47,412 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:39:47,425 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = miki.taryan@nu.edu.kz
+2018-11-15 22:39:47,426 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:39:47,427 INFO k.e.n.c.U.TokenUtil token issued: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaWtpLnRhcnlhbkBudS5lZHUua3oiLCJpc3MiOiJiYWt0eWJlayIsImlhdCI6MTU0MjI5OTk4NywiZXhwIjoxNTQyMzAwNTg3fQ.CKyDnCg2XzQ69a_lclPtBsIXSL8SlsXO2qSM4RHhe14 for miki.taryan@nu.edu.kz
+2018-11-15 22:39:47,427 INFO k.e.n.c.S.AuthService signin for miki.taryan@nu.edu.kz
+2018-11-15 22:39:47,463 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:39:47,463 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:39:47,463 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:39:49,642 INFO k.e.n.c.U.TokenUtil token miki.taryan@nu.edu.kz is valid
+2018-11-15 22:39:49,643 INFO k.e.n.c.S.EventService miki.taryan@nu.edu.kz getting events
+2018-11-15 22:39:49,706 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:39:49,706 INFO k.e.n.c.S.EventService events sent to miki.taryan@nu.edu.kz
+2018-11-15 22:39:51,855 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:39:51,856 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:39:51,857 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:40:00,505 INFO k.e.n.c.U.TokenUtil token miki.taryan@nu.edu.kz is valid
+2018-11-15 22:40:00,505 INFO k.e.n.c.S.EventService miki.taryan@nu.edu.kz getting events
+2018-11-15 22:40:00,571 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:00,571 INFO k.e.n.c.S.EventService events sent to miki.taryan@nu.edu.kz
+2018-11-15 22:40:01,765 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:40:01,765 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:01,765 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:40:16,816 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:40:16,816 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:40:16,831 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:16,832 INFO k.e.n.c.S.EventService events sent to kepa@mail.ru
+2018-11-15 22:40:17,981 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:40:17,983 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:17,984 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:40:31,657 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:40:31,666 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:40:31,667 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:31,703 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = kepa@mail.ru
+2018-11-15 22:40:31,703 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:40:31,704 ERROR k.e.n.c.S.EventService this group name does not exist!
+2018-11-15 22:40:38,020 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:40:38,020 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:40:38,028 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:38,029 INFO k.e.n.c.S.EventService events sent to kepa@mail.ru
+2018-11-15 22:40:39,319 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:40:39,320 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:39,320 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:40:50,605 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:40:50,615 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:40:50,615 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:40:50,626 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = kepa@mail.ru
+2018-11-15 22:40:50,627 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:40:50,629 ERROR k.e.n.c.S.EventService this group name does not exist!
+2018-11-15 22:41:29,628 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:41:29,641 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = auba.taryan@nu.edu.kz
+2018-11-15 22:41:29,642 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:41:29,644 INFO k.e.n.c.U.TokenUtil token issued: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhdWJhLnRhcnlhbkBudS5lZHUua3oiLCJpc3MiOiJiYWt0eWJlayIsImlhdCI6MTU0MjMwMDA4OSwiZXhwIjoxNTQyMzAwNjg5fQ.zagBmG8t7zJNXFOZsKNvjYkI9mirixIT37ME6xMpJ0U for auba.taryan@nu.edu.kz
+2018-11-15 22:41:29,645 INFO k.e.n.c.S.AuthService signin for auba.taryan@nu.edu.kz
+2018-11-15 22:41:58,827 INFO k.e.n.c.U.TokenUtil token auba.taryan@nu.edu.kz is valid
+2018-11-15 22:41:58,834 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:41:58,834 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:41:58,843 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = auba.taryan@nu.edu.kz
+2018-11-15 22:41:58,843 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:41:58,844 ERROR k.e.n.c.S.EventService this group name does not exist!
+2018-11-15 22:49:26,299 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:49:26,343 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:49:26,355 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:49:26,663 ERROR k.e.n.c.U.TokenUtil JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+2018-11-15 22:49:26,663 ERROR k.e.n.c.U.TokenUtil JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+2018-11-15 22:49:26,664 ERROR k.e.n.c.S.AuthService token expired
+2018-11-15 22:49:26,664 ERROR k.e.n.c.S.AuthService token expired
+2018-11-15 22:49:35,641 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:49:35,671 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = kepa@mail.ru
+2018-11-15 22:49:35,675 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:49:35,727 INFO k.e.n.c.U.TokenUtil token issued: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrZXBhQG1haWwucnUiLCJpc3MiOiJiYWt0eWJlayIsImlhdCI6MTU0MjMwMDU3NSwiZXhwIjoxNTQyMzAxMTc1fQ.WoLniOfKUbG78yHJVXsjkCyW2RRwSaB0U7lWVLirji4 for kepa@mail.ru
+2018-11-15 22:49:35,728 INFO k.e.n.c.S.AuthService signin for kepa@mail.ru
+2018-11-15 22:49:35,780 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:49:35,781 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:49:35,781 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:49:37,477 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:49:37,478 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:49:37,490 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:49:37,490 INFO k.e.n.c.S.EventService events sent to kepa@mail.ru
+2018-11-15 22:49:38,786 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:49:38,787 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:49:38,788 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:49:41,424 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:49:41,431 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:49:41,444 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = kepa@mail.ru
+2018-11-15 22:49:41,444 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:49:41,474 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:49:41,474 INFO k.e.n.c.S.EventService joined kepa@mail.ru with se proj group
+2018-11-15 22:49:43,870 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:49:43,870 INFO k.e.n.c.S.EventService kepa@mail.ru getting events
+2018-11-15 22:49:43,944 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:49:43,945 INFO k.e.n.c.S.EventService events sent to kepa@mail.ru
+2018-11-15 22:50:19,608 INFO k.e.n.c.S.AuthService new signin
+2018-11-15 22:50:19,828 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = miki.taryan@nu.edu.kz
+2018-11-15 22:50:19,828 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:50:19,830 INFO k.e.n.c.U.TokenUtil token issued: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaWtpLnRhcnlhbkBudS5lZHUua3oiLCJpc3MiOiJiYWt0eWJlayIsImlhdCI6MTU0MjMwMDYxOSwiZXhwIjoxNTQyMzAxMjE5fQ.EAKgGNFQ_qKC1PPQcgExLQbnD22myHjVhogPv-hgjFU for miki.taryan@nu.edu.kz
+2018-11-15 22:50:19,831 INFO k.e.n.c.S.AuthService signin for miki.taryan@nu.edu.kz
+2018-11-15 22:50:19,867 INFO k.e.n.c.S.EventDbManager query: select e from Event e
+2018-11-15 22:50:19,867 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:50:19,868 INFO k.e.n.c.S.EventService all events were sent
+2018-11-15 22:50:21,290 INFO k.e.n.c.U.TokenUtil token miki.taryan@nu.edu.kz is valid
+2018-11-15 22:50:21,290 INFO k.e.n.c.S.EventService miki.taryan@nu.edu.kz getting events
+2018-11-15 22:50:21,361 INFO k.e.n.c.S.EventDbManager closing connection
+2018-11-15 22:50:21,362 INFO k.e.n.c.S.EventService events sent to miki.taryan@nu.edu.kz
+2018-11-15 22:50:22,876 INFO k.e.n.c.U.TokenUtil token miki.taryan@nu.edu.kz is valid
+2018-11-15 22:50:23,019 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = miki.taryan@nu.edu.kz
+2018-11-15 22:50:23,019 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:50:23,025 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:50:49,411 INFO k.e.n.c.S.ChatServer Connection established from: 127.0.0.1
+2018-11-15 22:50:49,428 INFO k.e.n.c.S.AuthService checking token
+2018-11-15 22:50:49,430 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:50:49,431 INFO k.e.n.c.S.AuthService token of kepa@mail.ru is valid
+2018-11-15 22:50:49,524 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:50:49,532 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = kepa@mail.ru
+2018-11-15 22:50:49,532 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:50:49,537 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:51:06,293 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:51:06,298 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = kepa@mail.ru
+2018-11-15 22:51:06,299 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:51:06,303 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:51:06,403 INFO k.e.n.c.S.ChatServer Message from user: Kepa, text: Hey It is good
+2018-11-15 22:51:21,887 INFO k.e.n.c.U.TokenUtil token miki.taryan@nu.edu.kz is valid
+2018-11-15 22:51:21,941 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = miki.taryan@nu.edu.kz
+2018-11-15 22:51:21,941 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:51:21,947 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:51:21,968 INFO k.e.n.c.S.ChatServer Message from user: danny, text: not so good pnh

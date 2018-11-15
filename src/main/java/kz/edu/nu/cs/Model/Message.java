@@ -8,36 +8,40 @@ import javax.persistence.*;
 @Entity
 @Table
 @SequenceGenerator(name = "MesSeq", sequenceName = "Mes_Seq", allocationSize=1)
+@NamedQueries({
+		@NamedQuery(name = "Message.getMessagesByEventId", query = "select u from Message u where u.belGroup.id = :eventId ORDER BY u.date ASC")
+})
 public class Message implements Serializable {
 	private static final long serialVersionUID = 1231123521891L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MesSeq")
 	private int id;
-	
-	@OneToOne
-	@PrimaryKeyJoinColumn(name = "id")
+
+	@ManyToOne(targetEntity = User.class)
+	//@PrimaryKeyJoinColumn(name = "AUTHOR")
 	private User author;
-	
-	
-	@ManyToOne(targetEntity = EventGroup.class)
-	@PrimaryKeyJoinColumn(name = "group_id", referencedColumnName = "id")
-	private EventGroup belGroup;
-	
-	
-	private String content;
+
+
+	@ManyToOne(targetEntity = Event.class)
+	//@PrimaryKeyJoinColumn(name = "EVENT_ID")
+	private Event belGroup;
+
+	@Column(name = "CONTENT")
+	private String msg;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-	
-	public Message() {}
-	
 
-	
+	public Message() {}
+
+
+
 
 
 	public int getId() {return id;}
-	public String getContent() {return content;}
-	public void setContent(String content) {this.content = content;}
+	public String getMsg() {return msg;}
+	public void setMsg(String msg) {this.msg = msg;}
 	public Date getDate() {return date;}
 	public void setDate(Date date) {this.date = date;}
 	public User getAuthor() {
@@ -48,24 +52,35 @@ public class Message implements Serializable {
 		this.author = author;
 	}
 
-	public EventGroup getGroup() {
+	public Event getBelGroup() {
 		return belGroup;
 	}
 
-	public void setGroup(EventGroup eventGroup) {
-		this.belGroup = eventGroup;
+	public void setBelGroup(Event belGroup) {
+		this.belGroup = belGroup;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		//result = prime * result + ((author == null) ? 0 : author.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((msg == null) ? 0 : msg.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		//result = prime * result + ((group == null) ? 0 : group.hashCode());
 		result = prime * result + id;
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Message{" +
+				"id=" + id +
+				", author=" + author +
+				", belGroup=" + belGroup +
+				", msg='" + msg + '\'' +
+				", date=" + date +
+				'}';
 	}
 
 

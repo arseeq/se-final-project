@@ -1,5 +1,6 @@
 package kz.edu.nu.cs.Model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -11,50 +12,51 @@ import javax.persistence.*;
 @Table
 @SequenceGenerator(name = "UserSeq", sequenceName = "User_Seq", allocationSize=1)
 @NamedQueries({
-	@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email")
+		@NamedQuery(name = "User.findByEmail", query = "select u from User u where u.email = :email"),
+		@NamedQuery(name = "User.findById", query = "select u from User u where u.id = :id")
 })
-
-
 public class User implements Serializable {
 
-	
+
 	private static final long serialVersionUID = 1236544789532171L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserSeq")
 	private int id;
-	
+
+	@Column(nullable=false, unique = true)
+	private String email;
+
 	@Column(nullable=false)
 	private String name;
-	
-	
+
+
 	@Column(nullable=false)
 	private String surname;
-	
+
 	@Column(nullable=false)
 	private int score;
-	
-	
-	@Column(nullable=false)
-	private String email;
-	
+
+
+
+
 	@Column(nullable=false)
 	private boolean admin;
-	
+
 	@Column(nullable=false)
 	private boolean active;
-	
+
 	@Column(nullable=false)
 	private String password;
-	
+
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
-	
+
+
 	public User() {
 		this.active = true;
 		this.admin = false;
@@ -62,8 +64,8 @@ public class User implements Serializable {
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 	}
-	
-	
+
+
 
 
 	public Date getCreatedAt() {
@@ -82,13 +84,13 @@ public class User implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	
-	
+
+
 	public String getName() {
 		return name;
 	}
 
-	
+
 
 	public void setName(String name) {
 		this.name = name;
@@ -110,7 +112,7 @@ public class User implements Serializable {
 		this.score = score;
 	}
 
-	
+
 
 	public String getEmail() {
 		return email;
@@ -147,8 +149,8 @@ public class User implements Serializable {
 		return id;
 	}
 
-	
-	
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -213,6 +215,6 @@ public class User implements Serializable {
 				+ ", admin=" + admin + ", active=" + active + ", password=" + password + ", createdAt=" + createdAt
 				+ ", updatedAt=" + updatedAt + "]";
 	}
-	
-	
+
+
 }

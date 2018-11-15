@@ -6,17 +6,15 @@
    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
    
    <persistence-unit name="Eclipselink_JPA" transaction-type="RESOURCE_LOCAL">
-   
-   	  <class>kz.edu.nu.cs.Model.EventGroup</class>
+
       <class>kz.edu.nu.cs.Model.User</class>
       <class>kz.edu.nu.cs.Model.Event</class>
       <class>kz.edu.nu.cs.Model.Message</class>
-      <class>kz.edu.nu.cs.Model.UserGroup</class>
 
       <properties>
-         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.10.3.14:3306/testdatabase361"/>
-         <property name="javax.persistence.jdbc.user" value="user361"/>
-         <property name="javax.persistence.jdbc.password" value="secret"/>
+         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.10.3.14:3306/aintrovert"/>
+         <property name="javax.persistence.jdbc.user" value="aintrovert"/>
+         <property name="javax.persistence.jdbc.password" value="password"/>
          <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
          <property name="eclipselink.logging.level" value="FINE"/>
          <property name="eclipselink.ddl-generation" value="create-tables"/>
