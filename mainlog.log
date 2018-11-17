@@ -237,3 +237,14 @@ Query: ReadAllQuery(name="Event.findAll" referenceClass=Event sql="SELECT ID, AD
 2018-11-15 22:51:21,941 INFO k.e.n.c.S.UserDbManager closing connection
 2018-11-15 22:51:21,947 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
 2018-11-15 22:51:21,968 INFO k.e.n.c.S.ChatServer Message from user: danny, text: not so good pnh
+2018-11-15 22:55:42,899 INFO k.e.n.c.U.TokenUtil token kepa@mail.ru is valid
+2018-11-15 22:55:42,904 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = kepa@mail.ru
+2018-11-15 22:55:42,905 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:55:42,908 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:55:42,961 INFO k.e.n.c.S.ChatServer Message from user: Kepa, text: Deep water horizon accident happened in Mexican bay
+2018-11-15 22:56:07,077 INFO k.e.n.c.U.TokenUtil token miki.taryan@nu.edu.kz is valid
+2018-11-15 22:56:07,082 INFO k.e.n.c.S.UserDbManager query: select u from User u where u.email = miki.taryan@nu.edu.kz
+2018-11-15 22:56:07,084 INFO k.e.n.c.S.UserDbManager closing connection
+2018-11-15 22:56:07,090 INFO k.e.n.c.S.EventDbManager query: select e from Event e where e.id = 1
+2018-11-15 22:56:07,146 INFO k.e.n.c.S.ChatServer Message from user: danny, text: why you are telling it to me i am not interested inh
+2018-11-15 22:57:17,997 INFO k.e.n.c.S.ChatServer Connection closed to: 127.0.0.1
