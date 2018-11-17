@@ -19,28 +19,21 @@ public class ChatServer extends WebSocketServer {
 
     private final static Logger logger = LoggerFactory.getLogger(ChatServer.class);
     private Map<User, WebSocket> users;
-    private Set<WebSocket> conns;
-    private UserDbManager userManager;
-    private EventDbManager eventDbManager;
-    private MessageDbManager messageDbManager;
 
     public ChatServer(int port) {
         super(new InetSocketAddress(port));
         users = new HashMap<>();
-        conns = new HashSet<>();
     }
 
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
         System.out.println("Connection established from: " + webSocket.getRemoteSocketAddress().getHostString());
-        conns.add(webSocket);
         logger.info("Connection established from: " + webSocket.getRemoteSocketAddress().getHostString());
 
     }
 
     @Override
     public void onClose(WebSocket webSocket, int i, String s, boolean b) {
-        conns.remove(webSocket);
         users.remove(webSocket);
         logger.info("Connection closed to: " + webSocket.getRemoteSocketAddress().getHostString());
 
@@ -50,15 +43,12 @@ public class ChatServer extends WebSocketServer {
     public void onMessage(WebSocket webSocket, String message) {
 
         JSONObject obj = new JSONObject(message);
-
         String type = obj.getString("type");
-
         User user = getUserDbManager().getUserByEmail( AuthService.getTokenUtil().isValidToken(obj.getString("token")));
-        System.out.println(type  + "   1111111111111111111111111111111111111111111111111111111111");
         String eventId = obj.getString("eventId");
-        Event event=null;
+        Event event = null;
         boolean isParticipant = false;
-        if(eventId==null)
+        if( eventId == null )
             System.out.println("event id is null");
         else{
             event = getEventDbManager().getEventById(Integer.parseInt(eventId));
@@ -89,9 +79,8 @@ public class ChatServer extends WebSocketServer {
                 users.put(user, webSocket);
                 webSocket.send(textToSend);
             }else{
-                //webSocket.send("You are not participant of this group");
+                webSocket.send("You are not participant of this group");
             }
-            //return Response.ok(new Gson().toJson(result)).build();
 
         }else if(type.equals("message")){
             Message msg = new Message();
@@ -105,11 +94,15 @@ public class ChatServer extends WebSocketServer {
                 msg.setBelGroup(event);
                 msg.setDate(new Date());
                 users.put(user, webSocket);
-                broadCast(msg, user);
+                broadCast(msg);
                 logger.info("Message from user: " + msg.getAuthor().getName() + ", text: " + msg.getMsg());
             }else{
-                System.out.println("::::::::::::::::::::something went wrong on message JSON content :::::::::::::::::::");
+                webSocket.send("your message format doesn't match the protocol or you are not participant of this group");
             }
+        }else if(type.equals("connect") && isParticipant){
+            users.put(user, webSocket);
+        }else{
+            webSocket.send("your message format doesn't match the protocol or you are not participant of this group");
         }
 
 
@@ -119,15 +112,14 @@ public class ChatServer extends WebSocketServer {
     @Override
     public void onError(WebSocket webSocket, Exception e) {
         if(webSocket != null)
-            conns.remove(webSocket);
+            users.remove(webSocket);
 
         assert webSocket!=null;
         logger.info("ERROR from " + webSocket.getRemoteSocketAddress().getAddress().getHostAddress());
     }
 
-    private void broadCast(Message msg, User me) {
+    private void broadCast(Message msg) {
         getMessageDbManager().insertMessage(msg);
-        System.out.println(msg.getBelGroup().getParticipants() + "44444444444444444444444\n\n\n\n\n\n\n");
 
         SocketMsg socketMsg = new SocketMsg();
 
@@ -141,17 +133,9 @@ public class ChatServer extends WebSocketServer {
 
         socketMsg.setData(res);
 
-        for(Map.Entry<User, WebSocket> entry: users.entrySet()){
-            System.out.println("Key: " + entry.getKey() + ", value: " + entry.getValue() + " 1212121212\n\n\n\n\n\n");
-        }
-
         String sending = new Gson().toJson(socketMsg);
-        System.out.println("7777777\n\n\n\n\n\n\n\n\n\n\n");
         for(User user: msg.getBelGroup().getParticipants()){
-            System.out.println(user + "\n\n\n\n\n\n\n\n\n");
             if(users.containsKey(user)) {
-                System.out.println(user + "55555555555555555555555555555555555555555 " + users.get(user) + "\n\n\n\n\n\n\n");
-
                 users.get(user).send(sending);
             }
         }
@@ -159,24 +143,18 @@ public class ChatServer extends WebSocketServer {
     }
 
     private UserDbManager getUserDbManager(){
-        //if( userManager == null) {
-            userManager = new UserDbManager();
-        //}
-        return userManager;
+
+        return new UserDbManager();
     }
 
     private MessageDbManager getMessageDbManager(){
-        //if( messageDbManager == null) {
-            messageDbManager = new MessageDbManager();
-        //}
-        return messageDbManager;
+
+        return new MessageDbManager();
     }
 
     private EventDbManager getEventDbManager(){
-        //if( eventDbManager == null) {
-            eventDbManager = new EventDbManager();
-        //}
-        return eventDbManager;
+
+        return new EventDbManager();
     }
 
 }
