@@ -5,14 +5,8 @@ import {
     NavbarToggler,
     NavbarBrand,
     Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
+    NavItem
 } from 'reactstrap';
-import {Card, CardFooter, Container, Col, Form, FormGroup, Label, Input, Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import con from '../config.js'
 
@@ -33,53 +27,37 @@ export default class Layout extends Component {
     }
 
     render() {
-        var self = this;
+        let self = this;
         return (
-            <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">AIntrovert</NavbarBrand>
+            <Navbar expand="md" style={{marginBottom: "10px", backgroundColor: "#4E729A"}}>
+                <NavbarBrand href="/aintrovert" style={{color: "white"}}>AIntrovert</NavbarBrand>
                 <NavbarToggler onClick={this.toggle}/>
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Options
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem>
-                                    Option 1
-                                </DropdownItem>
-                                <DropdownItem>
-                                    Option 2
-                                </DropdownItem>
-                                <DropdownItem divider/>
-                                <DropdownItem>
-                                    Reset
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
                         {
                             !self.props.auth &&
                             <>
                                 {self.props.id !== "signin" ? (<NavItem>
-                                    <Link className="nav" to={con.projectName + '/signin'}>Sign In</Link>
+                                    <Link className="nav navlink" to={con.projectName + '/signin'}>Sign In</Link>
                                 </NavItem>) : ''}
                                 {self.props.id !== "signup" ? (<NavItem>
-                                    <Link to={con.projectName + '/signup'}>Sign Up</Link>
+                                    <Link className="navlink" to={con.projectName + '/signup'}>Sign Up</Link>
                                 </NavItem>) : ''}
                             </>
                         }
                         {
                             (this.props.auth && self.props.id !== 'dashboard') &&
                             <>
-                                <NavItem>
-                                    <Link to={con.projectName + '/dashboard'}>Dashboard</Link>
+                                <NavItem style={{marginTop: "7px"}}>
+                                    <Link className="navlink" to={con.projectName + '/dashboard'}>Dashboard</Link>
                                 </NavItem>
                             </>
                         }
                         {
                             this.props.auth &&
                             <>
-                                <NavItem className="btn btn-link" onClick={self.props.logout}>Sign Out</NavItem>
+                                <NavItem className="btn" onClick={self.props.logout} style={{color: "white"}}>Sign
+                                    Out</NavItem>
                             </>
                         }
                     </Nav>

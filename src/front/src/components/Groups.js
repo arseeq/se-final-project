@@ -28,7 +28,7 @@ class Groups extends Component {
     }
 
     render() {
-        var self = this;
+        let self = this;
         if (this.state.st === 1) {
             return (
                 <div>

@@ -30,7 +30,7 @@ class SignUp extends Component {
             data: JSON.stringify({
                 name: self.state.name,
                 surname: self.state.surname,
-                email: self.state.email,
+                email: self.state.email.toLowerCase(),
                 password: self.state.password
             }),
             headers: {
@@ -40,8 +40,8 @@ class SignUp extends Component {
             .then(function (response) {
                 console.log(response);
                 localStorage.setItem('token', response.data);
-                localStorage.setItem('email', self.state.email);
-                self.props.login(self.state.email);
+                localStorage.setItem('email', self.state.email.toLowerCase());
+                self.props.login(self.state.email.toLowerCase());
             })
             .catch(function (error) {
                 console.log(error);
