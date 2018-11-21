@@ -15,6 +15,7 @@ public class MainAppilication extends Application {
 	public MainAppilication() {
 		singletons.add(new AuthService());
 		singletons.add(new EventService());
+		singletons.add(new UserService());
 		new ChatServer(10001).start();
 
 	}

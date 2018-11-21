@@ -4,20 +4,20 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table
 @SequenceGenerator(name = "EventSeq", sequenceName = "Event_Seq", allocationSize=1)
 @NamedQueries({
-		@NamedQuery(name="Event.findAll", query="select e from Event e"),
+		@NamedQuery(name="Event.findAll", query="select e from Event e where e.isCompleted = false"),
 		@NamedQuery(name="Event.getEventByAdmin", query="select e from Event e where e.admin = :email"),
 		@NamedQuery(name="Event.getEventById", query="select e from Event e where e.id = :id"),
 		@NamedQuery(name="Event.getNameById", query="select e.name from Event e where e.id =:id"),
-		@NamedQuery(name="Event.getEventsByParticipantId", query = "select e from Event e left outer join e.participants s where s.email=:email")
+		@NamedQuery(name="Event.getActiveEventsByParticipantEmail", query = "select e from Event e left outer join e.participants s where s.email=:email and e.isCompleted=false"),
+		@NamedQuery(name="Event.getPassiveEventsByParticipantEmail", query = "select e from Event e left outer join e.participants s where s.email=:email and e.isCompleted=true"),
+		@NamedQuery(name="Event.getEventsByParticipantId", query = "select e from Event e left outer join e.participants s where s.id=:id")
 })
-
 public class Event implements Serializable {
 
 	private static final long serialVersionUID = 12252632212171L;
@@ -32,6 +32,12 @@ public class Event implements Serializable {
 	private String img;
 	private int maxsize;
 	private int isactive = 0;
+	private boolean isCompleted;
+
+	@Transient
+	private boolean amIParticipant;
+
+
 
 
 
@@ -47,6 +53,8 @@ public class Event implements Serializable {
 
 	public Event() {
 		participants = new HashSet<>();
+		setAmIParticipant(false);
+		setCompleted(false);
 	}
 
 	public int getId() {
@@ -203,5 +211,21 @@ public class Event implements Serializable {
 
 	public void setParticipants(Set<User> participants) {
 		this.participants = participants;
+	}
+
+	public boolean isAmIParticipant() {
+		return amIParticipant;
+	}
+
+	public void setAmIParticipant(boolean amIParticipant) {
+		this.amIParticipant = amIParticipant;
+	}
+
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+
+	public void setCompleted(boolean completed) {
+		isCompleted = completed;
 	}
 }

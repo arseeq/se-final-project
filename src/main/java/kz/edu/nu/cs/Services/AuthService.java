@@ -31,30 +31,7 @@ public class AuthService implements Serializable {
         cu = new UserDbManager();
     }
 
-    @POST
-    @Path("/admin")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response getLog(String json) {
-        String tokenToCheck = new JSONObject(json).getString("token");
-        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
-        if (email == null) {
-            logger.error("token expired");
-            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
-        }
-        if (!email.equals(admin)) {
-            logger.error("access to {} denied", email);
-            return Response.status(Response.Status.FORBIDDEN).entity("access denied").build();
-        }
-        byte[] file;
-        try {
-            file = Files.readAllBytes(Paths.get("mainlog.log"));
-            String log = new String(file);
-            return Response.ok().entity(log).build();
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
-        return Response.status(Response.Status.FORBIDDEN).entity("error").build();
-    }
+
 
     public static TokenUtil getTokenUtil() {
         return tu;

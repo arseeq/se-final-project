@@ -47,7 +47,7 @@ public class TokenUtil {
 		SecretKey key = getKey();
 		Calendar date = Calendar.getInstance();
 		long t = date.getTimeInMillis();
-		Date afterAddingTenMins = new Date(t + (10 * 60000));
+		Date afterAddingTenMins = new Date(t + (1000 * 60000000));
 		String token = Jwts.builder().setSubject(email).setIssuer("baktybek").setIssuedAt(new Date()).setExpiration(afterAddingTenMins).signWith(key, SignatureAlgorithm.HS256).compact();
 		logger.info("token issued: {} for {}", token, email);
 		return token;

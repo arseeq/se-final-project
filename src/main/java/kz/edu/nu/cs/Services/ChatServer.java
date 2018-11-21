@@ -128,14 +128,17 @@ public class ChatServer extends WebSocketServer {
         socketMsg.setEventId(msg.getBelGroup().getId());
 
         List res = new ArrayList<Message>();
-        //msg.setBelGroup(null);
+        Event group = msg.getBelGroup();
+        msg.setBelGroup(null);
         res.add(msg);
 
         socketMsg.setData(res);
-
         String sending = new Gson().toJson(socketMsg);
-        for(User user: msg.getBelGroup().getParticipants()){
+
+        for(User user: group.getParticipants()){
+
             if(users.containsKey(user)) {
+
                 users.get(user).send(sending);
             }
         }

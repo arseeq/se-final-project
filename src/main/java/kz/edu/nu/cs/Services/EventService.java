@@ -7,13 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -93,12 +91,19 @@ public class EventService implements Serializable {
             logger.error("{} token expired", email);
             return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
         }
+        if(id == null){
+            logger.error("incorrect event id");
+            return Response.status(Response.Status.FORBIDDEN).entity("incorrect event id").build();
+        }
         String groupName;
         try {
             groupName = new EventDbManager().leaveGroup(email, Integer.parseInt(id));
         } catch (Exception e) {
             logger.error("{} is not in {}", email, id);
             return Response.status(Response.Status.FORBIDDEN).entity("not participant").build();
+        }
+        if(groupName==null){
+            return Response.status(Response.Status.FORBIDDEN).entity("incorrect event id or you are admin of this group").build();
         }
         logger.info("{} left group {}", email, groupName);
         return Response.ok().entity("success").build();
@@ -133,9 +138,9 @@ public class EventService implements Serializable {
     }
 
     @POST
-    @Path("/getmyevents")
+    @Path("/getmyactiveevents")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getMyEvents(String json) {
+    public Response getMyActiveEvents(String json) {
         JSONObject obj = new JSONObject(json);
         String tokenToCheck = obj.getString("token");
         String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
@@ -147,7 +152,7 @@ public class EventService implements Serializable {
         Gson gson = new Gson();
         logger.info("{} getting events", email);
         try {
-            List events = new EventDbManager().getMyEvents(email);
+            List events = new EventDbManager().getActiveEventsByEmail(email);
             logger.info("events sent to {}", email);
             return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
         } catch (Exception e) {
@@ -156,14 +161,141 @@ public class EventService implements Serializable {
         }
     }
 
-    @GET
-    @Path("/getallevents")
-    public Response getList() {
+    @POST
+    @Path("/getmypassiveevents")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getMyPassiveEvents(String json) {
+        JSONObject obj = new JSONObject(json);
+        String tokenToCheck = obj.getString("token");
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+
+        if (email == null) {
+            logger.error("token expired");
+            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        }
+        Gson gson = new Gson();
+        logger.info("{} getting events", email);
         try {
-            List result = new EventDbManager().getList();
+            List events = new EventDbManager().getPassiveEventsByEmail(email);
+            logger.info("events sent to {}", email);
+            return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+        }
+    }
+
+    @POST
+    @Path("/getallevents")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getList(String json) {
+        JSONObject obj = new JSONObject(json);
+        String tokenToCheck = obj.getString("token");
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+
+        if (email == null) {
+            logger.error("token expired");
+            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        }
+        try {
+
+            List result = new EventDbManager().getList(email);
             logger.info("all events were sent", result);
-            return Response.ok(new Gson().toJson(result)).build();
+            String jsonText = new Gson().toJson(result);
+            System.out.println( "111111111111111111111111111111" + jsonText);
+            return Response.ok(jsonText).build();
         } catch (Exception e){
+            logger.error(e.getMessage());
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+        }
+    }
+
+    @POST
+    @Path("/getEventById")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getEventById(String json) {
+        JSONObject obj = new JSONObject(json);
+        String tokenToCheck = obj.getString("token");
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+
+        if (email == null) {
+            logger.error("token expired");
+            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        }
+        String eventId = obj.getString("id");
+        if(eventId == null) {
+            logger.error("no event with this id");
+            return Response.status(Response.Status.FORBIDDEN).entity("no event with this id").build();
+        }
+        try {
+
+            Event result = new EventDbManager().getEventById(Integer.parseInt(eventId));
+            logger.info("get event by id was sent", result);
+            String jsonText = new Gson().toJson(result);
+            return Response.ok(jsonText).build();
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+        }
+    }
+
+    @POST
+    @Path("/completeEvent")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response completeEvent(String json) {
+        JSONObject obj = new JSONObject(json);
+        String tokenToCheck = obj.getString("token");
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+
+        if (email == null) {
+            logger.error("token expired");
+            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        }
+        String eventId = obj.getString("id");
+        if(eventId == null) {
+            logger.error("no event with this id");
+            return Response.status(Response.Status.FORBIDDEN).entity("no event with this id").build();
+        }
+        try {
+
+            Event result = new EventDbManager().getEventById(Integer.parseInt(eventId));
+            if(!result.getAdmin().equals(email)){
+                logger.error("you are not admin of this event");
+                return Response.status(Response.Status.FORBIDDEN).entity("you are not admin of this event").build();
+            }
+            result.setCompleted(true);
+            new EventDbManager().updateEvent(result);
+            return Response.ok("updated the with id {}", eventId).build();
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+        }
+    }
+
+    @POST
+    @Path("/getUserEvents")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getUserEvents(String json) {
+        JSONObject obj = new JSONObject(json);
+        String tokenToCheck = obj.getString("token");
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+        String userId = obj.getString("id");
+
+        if (email == null) {
+            logger.error("token expired");
+            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        }
+        if(userId == null) {
+            logger.error("user id cannot be null");
+            return Response.status(Response.Status.FORBIDDEN).entity("user id cannot be null").build();
+        }
+        Gson gson = new Gson();
+        logger.info("{} getting events", userId);
+        try {
+            List events = new EventDbManager().getEventsByPartId(userId);
+            logger.info("events sent to {}", email);
+            return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
+        } catch (Exception e) {
             logger.error(e.getMessage());
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
