@@ -19,6 +19,8 @@ import Chat from './components/Chat';
 import MyEvents from "./components/MyEvents";
 import AllEvents from "./components/AllEvents";
 import CreateEvent from "./components/CreateEvent";
+import Group from"./components/Group";
+import User from "./components/User";
 
 class IndexRouter extends React.Component{
     constructor(props){
@@ -68,6 +70,7 @@ class IndexRouter extends React.Component{
     login(usr){
         console.log(usr);
         localStorage.setItem('email', usr);
+        localStorage.setItem('userId', );
         this.setState({authorized: true, user: usr});
     }
 
@@ -87,6 +90,8 @@ class IndexRouter extends React.Component{
                     <Switch>
                         <Route exact path={con.projectName +  "/dashboard"} render={() => self.state.authorized ? <Dashboard user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
                         <Route exact path={con.projectName + "/chat/:id"} render={() => self.state.authorized ? <Chat setOnMsg={self.setOnMsg.bind(this)} socket={this.socket} user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/group/:id"} render={() => self.state.authorized ? <Group user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/user/:id"} render={() => self.state.authorized ? <User user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
                         <Route exact path={con.projectName +  "/myevents"} render={() => self.state.authorized ? <MyEvents logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
                         <Route exact path={con.projectName + "/signin"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/myevents'} /> : <SignIn login={self.login.bind(this)} />} />
                         <Route exact path={con.projectName + "/signup"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/myevents'} /> : <SignUp login={self.login.bind(this)} />} />

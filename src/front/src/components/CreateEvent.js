@@ -227,15 +227,7 @@ class CreateEvent extends Component {
                         <AvField name="participants" id="participants" onChange={this.handleChange} type="number"
                                  value={this.state.participants} min="2" required/>
                         <AvField name="img" label="Link to image" id="img" onChange={this.handleChange} type="text"
-                                 value={this.state.img} errorMessage="URL input is incorrect"
-                                 validate={{
-                                     required: {value: true},
-                                     pattern: {
-                                         value: '(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)',
-                                         errorMessage: 'URL input is incorrect'
-                                     },
-                                     minLength: {value: 0}
-                                 }} required/>
+                                 value={this.state.img} />
                         <div className="eventCreated" style={{display: this.state.createmsg ? 'block' : 'none'}}>
                             <div className="alert alert-success">
                                 Event successfully created!
@@ -251,7 +243,7 @@ class CreateEvent extends Component {
                                 Date is from past! Choose future date!
                             </div>
                         </div>
-                        <Button color="primary" onClick={this.send}
+                        <Button style={{backgroundColor: "#2A5885"}} onClick={this.send}
                                 disabled={!validator.validEventParticipants(self.state.participants) || !validator.validEventPoints(self.state.points) || !validator.validEventPrice(self.state.price) || !validator.validEventTime(self.state.time) || !validator.validEventDate(self.state.date) || !validator.validImageURL(self.state.img) || !validator.validEventLocation(self.state.location) || !validator.validEventName(self.state.name)}>Submit</Button>
                     </AvForm>
                 </Row>

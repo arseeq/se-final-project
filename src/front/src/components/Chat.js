@@ -4,7 +4,8 @@ import Message from './Message';
 import {Container, Row, Col, Button} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
 import EventsLayout from './EventsLayout';
-import con from '../config';
+import con from "../config";
+import axios from "axios/index";
 // import SocketMethods from '../modules/SocketMethods';
 
 function sendMessage(ws, msg){
@@ -38,7 +39,10 @@ class Chat extends Component {
         super(props);
         this.state = {
             msg: "",
-            history: []
+            history: [],
+            data: {
+                name: ""
+            }
         };
         this.sendMsg = this.sendMsg.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -46,6 +50,25 @@ class Chat extends Component {
     componentWillMount() {
         let { match: { params } } = this.props;
         let self = this;
+
+        axios(con.addr + '/mainServices/event/getEventById', {
+            method: "POST",
+            data: JSON.stringify({
+                token: localStorage.getItem('token'),
+                id: params.id.toString()
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                console.log(response.data);
+                self.setState({data: response.data});
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         this.props.setOnMsg((msgEvent) => {
             let msg = JSON.parse(msgEvent.data);
             console.log("    -");
@@ -66,8 +89,6 @@ class Chat extends Component {
             eventId: params.id
         }));
     }
-
-
 
     sendMsg(){
         let self = this;
@@ -100,7 +121,7 @@ class Chat extends Component {
                     <EventsLayout />
                     <Container className="text-center" style={{border: "1px solid #909090", borderRadius: "5px", marginTop: "10px", marginBottom: "10px", width:"75%", marginLeft: "30px"}}>
                         <Row style={{borderBottom: "1px solid #C3CBD4", backgroundColor: "#4E729A",
-                            color: "white", paddingLeft:"420px", fontSize: "40px", fontFamily: "bold"}}>Chat</Row>
+                            color: "white", paddingLeft:"420px", fontSize: "40px", fontFamily: "bold"}}>{self.state.data.name}</Row>
                         {
                             self.state.history.map((item) => {
                                 // console.log(item);
@@ -116,7 +137,7 @@ class Chat extends Component {
                                     <textarea onChange={self.handleChange} name="newMsg" style={{width: "90%", padding: "5px", borderRadius: "5px"}}
                                     value={self.state.msg}/>
                             </Col>
-                            <Button onClick={self.sendMsg} type="submit" style={{height: "45px", marginTop: "7px", backgroundColor: "#4E729A"}} >Send message</Button>
+                            <Button disabled={self.state.msg === ""}  onClick={self.sendMsg} type="submit" style={{height: "45px", marginTop: "7px", backgroundColor: "#4E729A"}} >Send message</Button>
                         </Row>
                     </Container>
                 </Row>

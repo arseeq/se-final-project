@@ -17,7 +17,7 @@ class MyEvents extends Component {
 
     componentWillMount() {
         let self = this;
-        axios(con.addr + '/mainServices/event/getmyevents', {
+        axios(con.addr + '/mainServices/event/getmyactiveevents', {
             method: "POST",
             data: JSON.stringify({
                 token: localStorage.getItem('token'),
@@ -28,7 +28,7 @@ class MyEvents extends Component {
         })
             .then(function (response) {
                 console.log("my List:");
-                console.log(response.data[0]);
+                console.log(response.data);
                 self.setState({list: response.data});
             })
             .catch(function (error) {
@@ -52,18 +52,12 @@ class MyEvents extends Component {
                                         <Col md="4" key={item.id}>
                                             <Event name={item.name} id={item.id}
                                                    description={item.description} meetingdate={item.meetingdate}
-                                                   img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkEpDkrqjSyqbwBci92SQoZxyNR7eKqoL8b8CBuBJqjsvkkFXgMA"
+                                                   img={item.img}
                                                    />
                                         </Col>
                                     )
                                 })
                             }
-                        </Row>
-                        <Row className="paging">
-                            <Col md={{offset: 10}}>
-                                <Button color="primary">previous</Button>{' '}
-                                <Button color="info">next</Button>{' '}
-                            </Col>
                         </Row>
                     </Container>
                 </Row>

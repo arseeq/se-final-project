@@ -5,7 +5,6 @@ import CreateEvent from './CreateEvent';
 import Layout from './Layout';
 import {Container, Row, Col, Button} from 'reactstrap';
 
-
 class Groups extends Component {
     constructor(props) {
         super(props);
