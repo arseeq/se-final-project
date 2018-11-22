@@ -30,7 +30,7 @@ class EventDbManager {
         List<Event> events = (List<Event>)em.createNamedQuery("Event.getActiveEventsByParticipantEmail").setParameter("email", email).getResultList();
         for(Event ev: events){
             ev.setCurrentSize(ev.getParticipants().size());
-            ev.setParticipants(null);
+//            ev.setParticipants(null);
         }
 
         System.out.println( "0000000000000000000000000000000000000000000000000000000000000" + events);
@@ -41,7 +41,7 @@ class EventDbManager {
         List<Event> events = (List<Event>)em.createNamedQuery("Event.getPassiveEventsByParticipantEmail").setParameter("email", email).getResultList();
         for(Event ev: events){
             ev.setCurrentSize(ev.getParticipants().size());
-            ev.setParticipants(null);
+//            ev.setParticipants(null);
         }
         System.out.println( "0000000000000000000000000000000000000000000000000000000000000" + events);
         closeConnection();
@@ -52,7 +52,7 @@ class EventDbManager {
         List<Event> events = (List<Event>)em.createNamedQuery("Event.getEventsByParticipantId").setParameter("id", Integer.parseInt(userId)).getResultList();
         for(Event ev: events){
             ev.setCurrentSize(ev.getParticipants().size());
-            ev.setParticipants(null);
+//            ev.setParticipants(null);
         }
         System.out.println( "0000000000000000000000000000000000000000000000000000000000000" + events);
         closeConnection();
@@ -138,12 +138,18 @@ class EventDbManager {
     public List<Event> getList(String email) {
         List<Event> result = (List<Event>)em.createNamedQuery("Event.findAll").getResultList();
         List<Event> myEvents = getActiveEventsByEmail(email);
+
         for(Event ev: result){
+            if(ev.getParticipants()==null)
+                System.out.println("\n\n\n\nevent parts are null");
+            System.out.println("\n\n\n\n\naaaa" + ev.getParticipants());
             ev.setCurrentSize(ev.getParticipants().size());
+            System.out.println("\n\n\n\n\n\nbefore");
             if (myEvents.contains(ev))
                 ev.setAmIParticipant(true);
-            ev.setParticipants(null);
+//            ev.setParticipants(null);
         }
+        System.out.println("\n\n\n\n\n\nafter");
         logger.info("query: select e from Event e");
         return result;
     }

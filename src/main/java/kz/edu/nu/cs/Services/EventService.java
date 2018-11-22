@@ -155,7 +155,10 @@ public class EventService implements Serializable {
         Gson gson = new Gson();
         logger.info("{} getting events", email);
         try {
-            List events = new EventDbManager().getActiveEventsByEmail(email);
+            List<Event> events = new EventDbManager().getActiveEventsByEmail(email);
+            for (Event event: events){
+                event.setParticipants(null);
+            }
             logger.info("events sent to {}", email);
             return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
         } catch (Exception e) {
@@ -179,7 +182,10 @@ public class EventService implements Serializable {
         Gson gson = new Gson();
         logger.info("{} getting events", email);
         try {
-            List events = new EventDbManager().getPassiveEventsByEmail(email);
+            List<Event> events = new EventDbManager().getPassiveEventsByEmail(email);
+            for (Event event: events){
+                event.setParticipants(null);
+            }
             logger.info("events sent to {}", email);
             return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
         } catch (Exception e) {
@@ -202,10 +208,14 @@ public class EventService implements Serializable {
         }
         try {
 
-            List result = new EventDbManager().getList(email);
+            List<Event> result = new EventDbManager().getList(email);
             logger.info("all events were sent", result);
+
+
+            for (Event event: result){
+                event.setParticipants(null);
+            }
             String jsonText = new Gson().toJson(result);
-            System.out.println( "111111111111111111111111111111" + jsonText);
             return Response.ok(jsonText).build();
         } catch (Exception e){
             logger.error(e.getMessage());
@@ -293,7 +303,10 @@ public class EventService implements Serializable {
         Gson gson = new Gson();
         logger.info("{} getting events", userId);
         try {
-            List events = new EventDbManager().getEventsByPartId(userId);
+            List<Event> events = new EventDbManager().getEventsByPartId(userId);
+            for (Event event: events){
+                event.setParticipants(null);
+            }
             logger.info("events sent to {}", email);
             return Response.status(Response.Status.OK).entity(gson.toJson(events)).build();
         } catch (Exception e) {
