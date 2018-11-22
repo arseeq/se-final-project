@@ -71,6 +71,9 @@ public class EventService implements Serializable {
         String groupName;
         try {
             groupName = new EventDbManager().join(email, groupId);
+            if(groupName == null){
+                return Response.status(Response.Status.FORBIDDEN).entity("event is full sorry(((").build();
+            }
         } catch (Exception e) {
             logger.error("this group name does not exist!");
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
@@ -258,14 +261,12 @@ public class EventService implements Serializable {
         }
         try {
 
-            Event result = new EventDbManager().getEventById(Integer.parseInt(eventId));
-            if(!result.getAdmin().equals(email)){
-                logger.error("you are not admin of this event");
-                return Response.status(Response.Status.FORBIDDEN).entity("you are not admin of this event").build();
+            String eventName = new EventDbManager().updateEvent(Integer.parseInt(eventId), email);
+            if(eventName == null) {
+                return Response.status(Response.Status.FORBIDDEN).entity("you're not admin of this event or event with this id is not found or event is already completed").build();
             }
-            result.setCompleted(true);
-            new EventDbManager().updateEvent(result);
-            return Response.ok("updated the with id {}", eventId).build();
+
+            return Response.ok("updated the with id " + eventId).build();
         } catch (Exception e){
             logger.error(e.getMessage());
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();

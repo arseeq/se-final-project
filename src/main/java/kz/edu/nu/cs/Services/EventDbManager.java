@@ -61,6 +61,11 @@ class EventDbManager {
 
     public String join(String email, int groupId) {
         Event event = getEventById(groupId);
+        if(event.getMaxsize()==event.getParticipants().size())
+        {
+            logger.error("event is full");
+            return  null;
+        }
         User user = new UserDbManager().getUserByEmail(email);
         event.getParticipants().add(user);
         openConnection();
@@ -134,8 +139,32 @@ class EventDbManager {
         return result;
     }
 
-    public void updateEvent(Event event) {
-        em.merge(event);
+    public String updateEvent(int eventId, String email) {
+
+        Event event = (Event) em.createNamedQuery("Event.getEventById").setParameter("id", eventId).getSingleResult();
+        if(event==null){
+            logger.error("event by id {} not found", eventId);
+            return null;
+        }
+        em.getTransaction().commit();
+
+
+        em.getTransaction().begin();
+        if(!event.getAdmin().equals(email)){
+            logger.error("you are not admin of this event");
+            return null;
+        }
+        if(event.isCompleted()){
+            logger.error("event already is completed");
+            return null;
+        }
+        event.setCompleted(true);
+
+        for(User user: event.getParticipants()){
+            user.setScore(user.getScore() + event.getPoints());
+        }
+        em.getTransaction().commit();
         closeConnection();
+        return event.getName();
     }
 }

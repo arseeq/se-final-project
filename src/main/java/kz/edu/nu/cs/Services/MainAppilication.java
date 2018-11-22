@@ -13,11 +13,12 @@ public class MainAppilication extends Application {
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 
 	public MainAppilication() {
+		new ChatServer(10001).start();
 		singletons.add(new AuthService());
 		singletons.add(new EventService());
 		singletons.add(new UserService());
 		singletons.add(new LogService());
-		new ChatServer(10001).start();
+
 
 	}
 

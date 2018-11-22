@@ -1,5 +1,6 @@
 package kz.edu.nu.cs.Services;
 
+import kz.edu.nu.cs.Model.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.persistence.EntityManager;
@@ -59,6 +60,14 @@ class UserDbManager {
 		return u;
 	}
 
+	public void updateUserScores(Event event) {
+		em.getTransaction().commit();
+		for(User user: event.getParticipants()) {
+			em.getTransaction().begin();
+			user.setScore(user.getScore() + event.getPoints());
+			em.getTransaction().commit();
+		}
 
+	}
 
 }
