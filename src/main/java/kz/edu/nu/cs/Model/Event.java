@@ -36,8 +36,8 @@ public class Event implements Serializable {
 
 	@Transient
 	private boolean amIParticipant;
-
-
+	@Transient
+	private int currentSize;
 
 
 
@@ -228,4 +228,11 @@ public class Event implements Serializable {
 	public void setCompleted(boolean completed) {
 		isCompleted = completed;
 	}
+	public int getCurrentSize() {
+		return participants.size();
+	}
+	public int setCurrentSize(int size) {
+		return this.currentSize = size;
+	}
+
 }

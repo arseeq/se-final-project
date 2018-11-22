@@ -34,7 +34,8 @@ public class ChatServer extends WebSocketServer {
 
     @Override
     public void onClose(WebSocket webSocket, int i, String s, boolean b) {
-        users.remove(webSocket);
+        users.values().remove(webSocket);
+        System.out.println("Connection closed to: " + webSocket.getRemoteSocketAddress().getHostString());
         logger.info("Connection closed to: " + webSocket.getRemoteSocketAddress().getHostString());
 
     }

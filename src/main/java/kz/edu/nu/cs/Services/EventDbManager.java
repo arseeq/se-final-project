@@ -28,16 +28,21 @@ class EventDbManager {
 
     public List getActiveEventsByEmail(String email) {
         List<Event> events = (List<Event>)em.createNamedQuery("Event.getActiveEventsByParticipantEmail").setParameter("email", email).getResultList();
-        for(Event ev: events)
+        for(Event ev: events){
+            ev.setCurrentSize(ev.getParticipants().size());
             ev.setParticipants(null);
+        }
+
         System.out.println( "0000000000000000000000000000000000000000000000000000000000000" + events);
         closeConnection();
         return events;
     }
     public List getPassiveEventsByEmail(String email) {
         List<Event> events = (List<Event>)em.createNamedQuery("Event.getPassiveEventsByParticipantEmail").setParameter("email", email).getResultList();
-        for(Event ev: events)
+        for(Event ev: events){
+            ev.setCurrentSize(ev.getParticipants().size());
             ev.setParticipants(null);
+        }
         System.out.println( "0000000000000000000000000000000000000000000000000000000000000" + events);
         closeConnection();
         return events;
@@ -45,8 +50,10 @@ class EventDbManager {
 
     public List getEventsByPartId(String userId) {
         List<Event> events = (List<Event>)em.createNamedQuery("Event.getEventsByParticipantId").setParameter("id", Integer.parseInt(userId)).getResultList();
-        for(Event ev: events)
+        for(Event ev: events){
+            ev.setCurrentSize(ev.getParticipants().size());
             ev.setParticipants(null);
+        }
         System.out.println( "0000000000000000000000000000000000000000000000000000000000000" + events);
         closeConnection();
         return events;
@@ -55,6 +62,7 @@ class EventDbManager {
     public Event getEventById(int id){
         Event event = (Event) em.createNamedQuery("Event.getEventById").setParameter("id", id).getSingleResult();
         logger.info("query: select e from Event e where e.id = {}", id);
+        event.setCurrentSize(event.getParticipants().size());
         closeConnection();
         return event;
     }
@@ -131,6 +139,7 @@ class EventDbManager {
         List<Event> result = (List<Event>)em.createNamedQuery("Event.findAll").getResultList();
         List<Event> myEvents = getActiveEventsByEmail(email);
         for(Event ev: result){
+            ev.setCurrentSize(ev.getParticipants().size());
             if (myEvents.contains(ev))
                 ev.setAmIParticipant(true);
             ev.setParticipants(null);

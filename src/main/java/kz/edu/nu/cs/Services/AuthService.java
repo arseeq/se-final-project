@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Path("/auth")
@@ -82,7 +84,12 @@ public class AuthService implements Serializable {
         }
         NewCookie cookie = new NewCookie("token", token);
         logger.info("user signed up: {}", user.toString());
-        return Response.ok(token).cookie(cookie).build();
+
+        List<String> res = new ArrayList<>();
+        res.add(token);
+        res.add(String.valueOf(user.getId()));
+
+        return Response.ok(this.getJson(res)).cookie(cookie).build();
     }
 
     @POST
@@ -96,10 +103,23 @@ public class AuthService implements Serializable {
             logger.error("token not valid");
             return Response.status(Response.Status.FORBIDDEN).entity("bad token").build();
         }
-        String res = tu.isValidToken(tokenToCheck);
-        if (res != null && !res.equals("")) {
-            logger.info("token of {} is valid", res);
-            return Response.ok(res).build();
+        String userMail = tu.isValidToken(tokenToCheck);
+        List<String> res = new ArrayList<>();
+        if(userMail==null){
+            logger.error("invalid token or expired");
+            return Response.status(Response.Status.FORBIDDEN).entity("invalid token or expired").build();
+        }
+        User user = new UserDbManager().getUserByEmail(userMail);
+        if(user ==null){
+            logger.error("user with this email is not registered");
+            return Response.status(Response.Status.FORBIDDEN).entity("user with this email is not registered").build();
+        }
+        res.add(userMail);
+        res.add(String.valueOf(user.getId()));
+
+        if (userMail != null && !userMail.equals("")) {
+            logger.info("token of {} is valid", userMail);
+            return Response.ok(this.getJson(res)).build();
         } else {
             logger.error("token expired");
             return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
@@ -130,7 +150,16 @@ public class AuthService implements Serializable {
         }
         NewCookie cookie = new NewCookie("token", token);
         logger.info("signin for {}", email);
-        return Response.ok(token).cookie(cookie).build();
+        List<String> res = new ArrayList<>();
+        User user = new UserDbManager().getUserByEmail(email);
+        if(user ==null){
+            logger.error("user with this email is not registered");
+            return Response.status(Response.Status.FORBIDDEN).entity("user with this email is not registered").build();
+        }
+        res.add(token);
+        res.add(String.valueOf(user.getId()));
+
+        return Response.ok(this.getJson(res)).build();
     }
 
     private boolean authenticate(String email, String password) {
@@ -140,5 +169,8 @@ public class AuthService implements Serializable {
         return passwordObt != null && passwordObt.equals(hashed);
     }
 
-
+    private String getJson(List<String> res) {
+        String jsonText = new Gson().toJson(res);
+        return jsonText;
+    }
 }
