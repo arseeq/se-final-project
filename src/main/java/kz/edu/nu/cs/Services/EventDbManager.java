@@ -69,11 +69,13 @@ class EventDbManager {
 
     public String join(String email, int groupId) {
         Event event = getEventById(groupId);
-        if(event.getMaxsize()==event.getParticipants().size())
+        if(event.getMaxsize()==event.getParticipants().size()
+            || event.isCompleted())
         {
-            logger.error("event is full");
+            logger.error("event is full or is completed");
             return  null;
         }
+
         User user = new UserDbManager().getUserByEmail(email);
         event.getParticipants().add(user);
         openConnection();

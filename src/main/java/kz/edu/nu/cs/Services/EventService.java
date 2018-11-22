@@ -72,7 +72,7 @@ public class EventService implements Serializable {
         try {
             groupName = new EventDbManager().join(email, groupId);
             if(groupName == null){
-                return Response.status(Response.Status.FORBIDDEN).entity("event is full sorry(((").build();
+                return Response.status(Response.Status.FORBIDDEN).entity("event is full or is completed").build();
             }
         } catch (Exception e) {
             logger.error("this group name does not exist!");

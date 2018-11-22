@@ -87,7 +87,7 @@ public class ChatServer extends WebSocketServer {
             Message msg = new Message();
 
             msg.setMsg(obj.getString("msg"));
-            if (msg.getMsg() == null || msg.getMsg().equals(""))
+            if (msg.getMsg().charAt(0) == '\r' || msg.getMsg().charAt(0) == '\n')
                 return;
 
             if(user != null && isParticipant ) {
