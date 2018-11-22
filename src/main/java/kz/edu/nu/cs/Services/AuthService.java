@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 public class AuthService implements Serializable {
 
     private static final long serialVersionUID = 1236544789552114471L;
-    private static TokenUtil tu = new TokenUtil();
+    private static TokenUtil tu;
     private String admin = "admin@admin.com";
     private UserDbManager cu; //make EJB in future
     private Logger logger;
@@ -29,6 +29,7 @@ public class AuthService implements Serializable {
     public AuthService() {
         logger = LoggerFactory.getLogger(AuthService.class);
         cu = new UserDbManager();
+        tu =  new TokenUtil();
     }
 
 

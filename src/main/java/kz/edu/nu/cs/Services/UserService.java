@@ -26,7 +26,7 @@ public class UserService implements Serializable {
     @POST
     @Path("/getUserInfoById")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getEventById(String json) {
+    public Response getUserInfoById(String json) {
         JSONObject obj = new JSONObject(json);
         String tokenToCheck = obj.getString("token");
         String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
@@ -50,4 +50,40 @@ public class UserService implements Serializable {
             return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
     }
+
+
+    //added this
+    @POST
+    @Path("/getUserInfoByEmail")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getUserInfoByEmail(String json) {
+        JSONObject obj = new JSONObject(json);
+        String tokenToCheck = obj.getString("token");
+        String email = AuthService.getTokenUtil().isValidToken(tokenToCheck);
+
+        if (email == null) {
+            logger.error("token expired");
+            return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
+        }
+
+        String emailToGet = obj.getString("email");
+
+        if (emailToGet == null) {
+            logger.error("email is null");
+            return Response.status(Response.Status.FORBIDDEN).entity("email is null").build();
+        }
+
+        try {
+            User user = new UserDbManager().getUserByEmail(emailToGet);
+            logger.info("get user by email {} was sent", emailToGet);
+            String jsonText = new Gson().toJson(user);
+            return Response.ok(jsonText).build();
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+        }
+    }
+
+
+
 }

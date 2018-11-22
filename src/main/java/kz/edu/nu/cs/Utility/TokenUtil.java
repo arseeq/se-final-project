@@ -36,6 +36,7 @@ public class TokenUtil {
 			Jwts.parser().setSigningKey(key).parseClaimsJws(token);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
+			System.out.println("\n\n\n"+e.getMessage());
 			return null;
 		}
 		logger.info("token {} is valid", res);
@@ -47,7 +48,7 @@ public class TokenUtil {
 		SecretKey key = getKey();
 		Calendar date = Calendar.getInstance();
 		long t = date.getTimeInMillis();
-		Date afterAddingTenMins = new Date(t + (1000 * 60000000));
+		Date afterAddingTenMins = new Date(t + (1000 * 9000));
 		String token = Jwts.builder().setSubject(email).setIssuer("baktybek").setIssuedAt(new Date()).setExpiration(afterAddingTenMins).signWith(key, SignatureAlgorithm.HS256).compact();
 		logger.info("token issued: {} for {}", token, email);
 		return token;

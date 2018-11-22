@@ -1,6 +1,7 @@
 package kz.edu.nu.cs.Utility;
 import java.security.MessageDigest;
 public class PasswordHasher {
+
     public String getPasswordHash(String password) {
         String algorithm = "SHA";
         byte[] plainText = password.getBytes();

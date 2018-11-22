@@ -14,14 +14,32 @@
             <AppenderRef ref="File"/>
         </Root>
     </Loggers>
-    <!--<Appenders>-->
-        <!--<Console name="Console" target="SYSTEM_OUT">-->
-            <!--<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
-        <!--</Console>-->
-    <!--</Appenders>-->
-    <!--<Loggers>-->
-        <!--<Root level="error">-->
-            <!--<AppenderRef ref="Console"/>-->
-        <!--</Root>-->
-    <!--</Loggers>-->
+
+
+
+    <!--<?xml version="1.0"?>-->
+<!--<configuration>-->
+    <!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+        <!--<file>logfile.log</file>-->
+        <!--<append>true</append>-->
+        <!--<encoder>-->
+            <!--<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--<appender name="ANALYTICS-FILE" class="ch.qos.logback.core.FileAppender">-->
+        <!--<file>analytics.log</file>-->
+        <!--<append>true</append>-->
+        <!--<encoder>-->
+            <!--<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+    <!--&lt;!&ndash; additivity=false ensures analytics data only goes to the analytics log &ndash;&gt;-->
+    <!--<logger name="analytics" level="INFO" additivity="false">-->
+        <!--<appender-ref ref="ANALYTICS-FILE"/>-->
+    <!--</logger>-->
+    <!--<root>-->
+        <!--<appender-ref ref="FILE"/>-->
+    <!--</root>-->
+<!--</configuration>-->
+
 </Configuration>
