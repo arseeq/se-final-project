@@ -175,7 +175,7 @@ class CreateEvent extends Component {
             <div>
                 <Layout id="dashboard" auth={true} logout={self.props.logout}/>
                 <Row style={{margin: "0"}}>
-                    <EventsLayout/>
+                    <EventsLayout selected="createevent"/>
                     <AvForm id="eventCreate" style={{marginTop: "10px", marginLeft: "10%", marginBottom: "80px", width: "50%"}}>
                         <Label for="name">Name of the Event <span>*</span></Label>
                         <AvField name="name" id="name" onChange={this.handleChange} type="text"

@@ -37,13 +37,19 @@ class MyEvents extends Component {
             });
     }
 
+    removeEvent(ind){
+        let self = this;
+        this.state.list.splice(ind, 1);
+        this.setState({list: self.state.list});
+    }
+
     render() {
         let self = this;
         return (
             <div>
                 <Layout id="dashboard" auth={true} logout={self.props.logout}/>
                 <Row style={{margin: "0"}}>
-                    <EventsLayout />
+                    <EventsLayout selected="myevents" />
                     <Container className="border rounded" style={{width: "78%"}}>
                         <Row style={{width: "100%"}}>
                             {
@@ -53,7 +59,9 @@ class MyEvents extends Component {
                                             <Event name={item.name} id={item.id}
                                                    description={item.description} meetingdate={item.meetingdate}
                                                    img={item.img}
-                                                   />
+                                                   ind={index}
+                                                   removeEvent={self.removeEvent.bind(self)}
+                                            />
                                         </Col>
                                     )
                                 })

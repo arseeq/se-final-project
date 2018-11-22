@@ -41,8 +41,9 @@ class AllEvents extends Component {
                 self.setState({listt: self.state.listt});
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error.response);
                 // self.setState({authorized: false});
+                alert(error.response.data);
             });
     }
 
@@ -67,7 +68,8 @@ class AllEvents extends Component {
                 self.setState({listt: self.state.listt});
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error.response.data);
+                alert(error.response.data);
             });
     }
 
@@ -87,7 +89,7 @@ class AllEvents extends Component {
                 self.setState({listt: response.data});
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error.response);
                 self.setState({authorized: false});
             });
     }
@@ -98,7 +100,7 @@ class AllEvents extends Component {
             <div>
                 <Layout id="dashboard" auth={true} logout={self.props.logout}/>
                 <Row style={{margin: "0"}}>
-                    <EventsLayout />
+                    <EventsLayout selected="allevents"/>
                     <div className="border rounded" style={{marginLeft: "5%"}}>
                         <Table hover>
                             <thead>
@@ -110,6 +112,7 @@ class AllEvents extends Component {
                                 <th>Price</th>
                                 <th>Points</th>
                                 <th>Capacity</th>
+                                <th>current size</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -125,12 +128,17 @@ class AllEvents extends Component {
                                             <td>{item.price}</td>
                                             <td>{item.points}</td>
                                             <td>{item.maxsize}</td>
+                                            <td>{item.currentSize}</td>
                                             <td>
-                                                <Button color="info"><Link style={{color: "white"}} to={con.projectName + '/group/' + item.id}>Details</Link></Button>
-                                                <Button hidden={item.amIParticipant} color="success"
-                                                        onClick={self.join} name={index}>join</Button>
-                                                <Button hidden={!item.amIParticipant} color="danger"
-                                                        onClick={self.leave} name={index}>leave</Button>
+                                                <Link style={{marginRight: "5px", marginBottom: "7px"}} to={con.projectName + '/group/' + item.id}><Button style={{borderColor: "black", color: "white", backgroundColor: "#4E729A"}}>Details</Button></Link>
+                                                <Button hidden={item.amIParticipant}
+                                                        onClick={self.join} name={index}
+                                                        style={{backgroundColor: "green", borderColor: "black"}}
+                                                >join</Button>
+                                                <Button hidden={!item.amIParticipant}
+                                                        onClick={self.leave} name={index}
+                                                        style={{backgroundColor: "red", borderColor: "black"}}
+                                                >leave</Button>
                                             </td>
                                         </tr>
                                     )

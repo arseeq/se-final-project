@@ -46,14 +46,6 @@ export default class Layout extends Component {
                             </>
                         }
                         {
-                            (this.props.auth && self.props.id !== 'dashboard') &&
-                            <>
-                                <NavItem style={{marginTop: "7px"}}>
-                                    <Link className="navlink" to={con.projectName + '/dashboard'}>Dashboard</Link>
-                                </NavItem>
-                            </>
-                        }
-                        {
                             this.props.auth &&
                             <>
                                 <NavItem className="btn" onClick={self.props.logout} style={{color: "white"}}>Sign

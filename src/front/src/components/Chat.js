@@ -16,6 +16,7 @@ function sendMessage(ws, msg){
     });
 }
 
+
 function waitForSocketConnection(socket, callback){
     let self = this;
     setTimeout(
@@ -46,6 +47,14 @@ class Chat extends Component {
         };
         this.sendMsg = this.sendMsg.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+    componentDidMount() {
+        let elem = document.getElementById('chatContainer');
+        elem.scrollTop = elem.scrollHeight;
+    }
+    componentDidUpdate() {
+        let elem = document.getElementById('chatContainer');
+        elem.scrollTop = elem.scrollHeight;
     }
     componentWillMount() {
         let { match: { params } } = this.props;
@@ -103,6 +112,22 @@ class Chat extends Component {
         this.setState({msg: ""});
         console.log("sent");
     }
+    sendMsg2(event) {
+        let self = this;
+        if(event.keyCode == 13) {
+            //alert(self.state.msg.length);
+                let { match: { params } } = this.props;
+                let mySocketMsg = {
+                    type: "message",
+                    token: localStorage.getItem('token'),
+                    eventId: params.id,
+                    msg: self.state.msg
+                };
+                sendMessage(this.props.socket, JSON.stringify(mySocketMsg));
+                this.setState({msg: ""});
+                console.log("sent");
+        }
+    }
     handleChange(e){
         switch(e.target.name) {
             case("newMsg"):
@@ -118,26 +143,28 @@ class Chat extends Component {
             <div>
                 <Layout id = "dashboard" auth = {true} logout = {self.props.logout} />
                 <Row style={{margin:"0"}}>
-                    <EventsLayout />
-                    <Container className="text-center" style={{border: "1px solid #909090", borderRadius: "5px", marginTop: "10px", marginBottom: "10px", width:"75%", marginLeft: "30px"}}>
+                    <EventsLayout selected="" />
+                    <Container style={{border: "1px solid #909090", borderRadius: "5px", padding: "0px", width: "100%"}}>
                         <Row style={{borderBottom: "1px solid #C3CBD4", backgroundColor: "#4E729A",
-                            color: "white", paddingLeft:"420px", fontSize: "40px", fontFamily: "bold"}}>{self.state.data.name}</Row>
-                        {
-                            self.state.history.map((item) => {
-                                // console.log(item);
-                                return (
-                                    <div key={item.id} className={item.author.email === self.props.user ? "text-right" : "text-left"} style={{margin: "10px"}}>
-                                        <Message color={item.author.email === self.props.user ? "#edf0f5" : "white"} author={item.author.email} message={item.msg} time={item.date}/>
-                                    </div>
-                                )
-                            })
-                        }
-                        <Row style={{borderTop: "1px solid #C3CBD4", backgroundColor: "#F3F3F3", paddingTop: "10px", paddingBottom: "5px"}}>
+                            color: "white", paddingLeft:"420px", fontSize: "40px", fontFamily: "bold", width:"100%", margin: "0px"}}>{self.state.data.name}</Row>
+                        <Container id="chatContainer" className="text-center">
+                            {
+                                self.state.history.map((item) => {
+                                    // console.log(item);
+                                    return (
+                                        <div key={item.id} className={item.author.email === self.props.user ? "text-right" : "text-left"} style={{margin: "10px"}}>
+                                            <Message color={item.author.email === self.props.user ? "#edf0f5" : "white"} author={item.author.email} message={item.msg} time={item.date}/>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </Container>
+                        <Row style={{borderTop: "1px solid #C3CBD4", backgroundColor: "#F3F3F3", paddingTop: "10px", paddingBottom: "5px", margin: "0px"}}>
                             <Col md="10">
-                                    <textarea onChange={self.handleChange} name="newMsg" style={{width: "90%", padding: "5px", borderRadius: "5px"}}
-                                    value={self.state.msg}/>
+                                    <textarea onKeyUp={self.sendMsg2.bind(self)} onChange={self.handleChange} name="newMsg" style={{width: "90%", padding: "5px", borderRadius: "5px"}}
+                                              value={self.state.msg}/>
                             </Col>
-                            <Button disabled={self.state.msg === ""}  onClick={self.sendMsg} type="submit" style={{height: "45px", marginTop: "7px", backgroundColor: "#4E729A"}} >Send message</Button>
+                            <Button disabled={self.state.msg === ""}  onClick={self.sendMsg} type="submit" style={{height: "45px", marginTop: "7px", backgroundColor: "#4E729A"}}>Send message</Button>
                         </Row>
                     </Container>
                 </Row>

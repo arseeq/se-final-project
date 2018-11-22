@@ -11,9 +11,11 @@ import con from "../config";
 class User extends Component {
     constructor(props) {
         super(props);
+        let { match: { params } } = this.props;
         this.state = {
-            ready: false
-        }
+            ready: false,
+            id: params.id.toString()
+        };
     }
 
     componentWillMount(){
@@ -23,7 +25,7 @@ class User extends Component {
             method: "POST",
             data: JSON.stringify({
                 token: localStorage.getItem('token'),
-                id: params.id.toString()
+                id: params.id
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +65,7 @@ class User extends Component {
                 <div >
                     <Layout id="groupPage" auth = {true} />
                     <Row>
-                        <EventsLayout />
+                        <EventsLayout selected={self.state.id.toString() === localStorage.getItem('userId').toString() ? "myaccount" : ""}/>
                         <Container id = "groupPage" style={{width: "78%"}}>
                             <h2>{self.state.name} {self.state.surname}</h2>
                             <hr/>
@@ -92,7 +94,7 @@ class User extends Component {
                                             {
                                                 self.state.events.map((item, index) => {
                                                     return (
-                                                        <tr key={index}>
+                                                        <tr key={index} style={ item.isCompleted ? {backgroundColor: "SILVER"} : {} }>
                                                             <th scope="row">{index}</th>
                                                             <td>{item.name}</td>
                                                             <td>{item.meetingdate}</td>
@@ -101,7 +103,7 @@ class User extends Component {
                                                             <td>{item.points}</td>
                                                             <td>{item.maxsize}</td>
                                                             <td>
-                                                                <Button style={{marginBottom: "7px", backgroundColor: "#4E729A"}}><Link style={{color: "white"}} to={con.projectName + '/group/' + item.id}>Details</Link></Button>
+                                                                <Link style={{color: "white", marginBottom: "7px"}} to={con.projectName + '/group/' + item.id}><Button style={{backgroundColor: "#4E729A"}}>Details</Button></Link>
                                                             </td>
                                                         </tr>
                                                     )

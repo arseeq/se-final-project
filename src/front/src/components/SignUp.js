@@ -24,7 +24,7 @@ class SignUp extends Component {
     }
 
     signup() {
-        var self = this;
+        let self = this;
         axios(con.addr + '/mainServices/auth/signup', {
             method: "POST",
             data: JSON.stringify({
@@ -39,7 +39,8 @@ class SignUp extends Component {
         })
             .then(function (response) {
                 console.log(response);
-                localStorage.setItem('token', response.data);
+                localStorage.setItem('token', response.data[0]);
+                localStorage.setItem('userId', response.data[1]);
                 localStorage.setItem('email', self.state.email.toLowerCase());
                 self.props.login(self.state.email.toLowerCase());
             })
