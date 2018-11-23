@@ -21,8 +21,9 @@ class SignIn extends Component {
   }
 
   signin(){
+      let self = this;
       if (Validator.validateEmail(this.state.email) && Validator.validatePassword(this.state.password)){
-          var self = this;
+
           axios(con.addr+'/mainServices/auth/signin', {
               method: "POST",
               data: JSON.stringify({
@@ -34,9 +35,11 @@ class SignIn extends Component {
               }
           })
               .then(function (response) {
-                  localStorage.setItem('token', response.data);
-                  localStorage.setItem('email', self.state.email);
-                  self.props.login(self.state.email);
+                  console.log("    ----    ");
+                  console.log(response.data);
+                  localStorage.setItem('token', response.data[0]);
+                  localStorage.setItem('userId', response.data[1]);
+                  self.props.login(self.state.email.toLowerCase());
               })
               .catch(function (error) {
                   console.log(error);

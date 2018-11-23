@@ -3,6 +3,8 @@ import Event from './Event';
 import {Container, Row, Col, Button} from 'reactstrap';
 import con from "../config";
 import axios from "axios/index";
+import Layout from './Layout';
+import EventsLayout from './EventsLayout';
 
 class MyEvents extends Component {
     constructor(props) {
@@ -15,7 +17,7 @@ class MyEvents extends Component {
 
     componentWillMount() {
         let self = this;
-        axios(con.addr + '/mainServices/event/getmyevents', {
+        axios(con.addr + '/mainServices/event/getmyactiveevents', {
             method: "POST",
             data: JSON.stringify({
                 token: localStorage.getItem('token'),
@@ -26,7 +28,7 @@ class MyEvents extends Component {
         })
             .then(function (response) {
                 console.log("my List:");
-                console.log(response.data[0]);
+                console.log(response.data);
                 self.setState({list: response.data});
             })
             .catch(function (error) {
@@ -35,31 +37,39 @@ class MyEvents extends Component {
             });
     }
 
+    removeEvent(ind){
+        let self = this;
+        this.state.list.splice(ind, 1);
+        this.setState({list: self.state.list});
+    }
+
     render() {
         let self = this;
         return (
-            <Row className="border rounded">
-                <Row style={{width: "100%"}}>
-                    {
-                        self.state.list.map((item, index) => {
-                            return (
-                                <Col md="4" key={item.id}>
-                                    <Event name={item.name} id={item.id}
-                                           description={item.description} meetingdate={item.meetingdate}
-                                           img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkEpDkrqjSyqbwBci92SQoZxyNR7eKqoL8b8CBuBJqjsvkkFXgMA"
-                                           />
-                                </Col>
-                            )
-                        })
-                    }
+            <div>
+                <Layout id="dashboard" auth={true} logout={self.props.logout}/>
+                <Row style={{margin: "0"}}>
+                    <EventsLayout selected="myevents" />
+                    <Container className="border rounded" style={{width: "78%"}}>
+                        <Row style={{width: "100%"}}>
+                            {
+                                self.state.list.map((item, index) => {
+                                    return (
+                                        <Col md="4" key={item.id}>
+                                            <Event name={item.name} id={item.id}
+                                                   description={item.description} meetingdate={item.meetingdate}
+                                                   img={item.img}
+                                                   ind={index}
+                                                   removeEvent={self.removeEvent.bind(self)}
+                                            />
+                                        </Col>
+                                    )
+                                })
+                            }
+                        </Row>
+                    </Container>
                 </Row>
-                <Row className="paging">
-                    <Col md={{offset: 10}}>
-                        <Button color="primary">previous</Button>{' '}
-                        <Button color="info">next</Button>{' '}
-                    </Col>
-                </Row>
-            </Row>
+            </div>
         );
     }
 }

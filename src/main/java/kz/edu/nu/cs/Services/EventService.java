@@ -13,8 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Path("/event")
 public class EventService implements Serializable {
@@ -30,7 +29,16 @@ public class EventService implements Serializable {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createGroup(String json) {
         String email = getParamFromJson(json, "token");
-
+        String datetime = getParamFromJson(json, "meetingdate");
+        SimpleDateFormat readFormat=new SimpleDateFormat("yyyy-MM-dd HH-mm", Locale.getDefault());
+//        readFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = null;
+        try{
+            date = readFormat.parse(datetime);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
+        }
         if (email == null) {
             logger.error("token expired");
             return Response.status(Response.Status.FORBIDDEN).entity("token expired").build();
@@ -41,12 +49,16 @@ public class EventService implements Serializable {
             event = getEventFromJson(email, json);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return Response.status(Response.Status.FORBIDDEN).entity("check json parameters").build();
+            return Response.status(Response.Status.FORBIDDEN).entity(e.getMessage()).build();
         }
 
         logger.info("create group from {}", email);
 
         try {
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTime(date);
+//            cal.set(Calendar.MILLISECOND, 0);
+            event.setMeetingdate(date);
             new EventDbManager().createEvent(event);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -343,9 +355,9 @@ public class EventService implements Serializable {
         event.setName(getParamFromJson(json, "name"));
         event.setPoints(Integer.parseInt(getParamFromJson(json, "points")));
         event.setPrice(Integer.parseInt(getParamFromJson(json, "price")));
-        SimpleDateFormat formatter = new SimpleDateFormat("hh-mm dd/mm/yyyy");
-        Date d = formatter.parse(getParamFromJson(json, "meetingdate"));
-        event.setMeetingdate(d);
+//        SimpleDateFormat formatter = new SimpleDateFormat("hh-mm dd/mm/yyyy");
+//        Date d = formatter.parse(getParamFromJson(json, "meetingdate"));
+//        event.setMeetingdate(d);
         event.setAdmin(email);
         event.getParticipants().add(new UserDbManager().getUserByEmail(email));
         return event;

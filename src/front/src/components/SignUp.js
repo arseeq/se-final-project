@@ -24,13 +24,13 @@ class SignUp extends Component {
     }
 
     signup() {
-        var self = this;
+        let self = this;
         axios(con.addr + '/mainServices/auth/signup', {
             method: "POST",
             data: JSON.stringify({
                 name: self.state.name,
                 surname: self.state.surname,
-                email: self.state.email,
+                email: self.state.email.toLowerCase(),
                 password: self.state.password
             }),
             headers: {
@@ -39,9 +39,10 @@ class SignUp extends Component {
         })
             .then(function (response) {
                 console.log(response);
-                localStorage.setItem('token', response.data);
-                localStorage.setItem('email', self.state.email);
-                self.props.login(self.state.email);
+                localStorage.setItem('token', response.data[0]);
+                localStorage.setItem('userId', response.data[1]);
+                localStorage.setItem('email', self.state.email.toLowerCase());
+                self.props.login(self.state.email.toLowerCase());
             })
             .catch(function (error) {
                 console.log(error);

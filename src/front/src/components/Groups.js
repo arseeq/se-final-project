@@ -5,7 +5,6 @@ import CreateEvent from './CreateEvent';
 import Layout from './Layout';
 import {Container, Row, Col, Button} from 'reactstrap';
 
-
 class Groups extends Component {
     constructor(props) {
         super(props);
@@ -28,7 +27,7 @@ class Groups extends Component {
     }
 
     render() {
-        var self = this;
+        let self = this;
         if (this.state.st === 1) {
             return (
                 <div>

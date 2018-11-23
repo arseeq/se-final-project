@@ -15,3 +15,47 @@
 span {
 	color: red;
 }
+a.layout_link {
+	color: #4E729A;
+	width: 400px;
+	height: 30px;
+	padding-top: 3px;
+	margin: 0 0 0 10px;
+}
+a.layout_link:hover {
+	color: #4E729A;
+	text-decoration: none;
+	border-radius: 3px;
+	background-color: #E7EAED;
+}
+a.layout_link:hover {
+	color: #4E729A;
+	text-decoration: none;
+	border-radius: 3px;
+	background-color: #E7EAED;
+}
+a.navlink {
+	color:white;
+}
+a.navlink:hover {
+	color: white;
+	text-decoration: none;
+}
+#chatContainer {
+	height: 426px;
+	overflow: auto;
+	/*    margin-top: "10px";
+        margin-bottom: "10px";
+        width:"75%";
+        margin-left: "30px";*/
+}
+#logs {
+	height: 513px;
+	overflow: auto;
+	margin-top: 10px;
+	margin-bottom: "10px";
+	width:"75%";
+	margin-left: "30px";
+	border: solid 1px #4E729A;
+	padding-left: 10px;
+}

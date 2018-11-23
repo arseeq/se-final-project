@@ -16,22 +16,31 @@ import Dashboard from './components/Dashboard';
 import LayoutFooter from './components/LayoutFooter';
 import Groups from './components/Groups';
 import Chat from './components/Chat';
+import MyEvents from "./components/MyEvents";
+import AllEvents from "./components/AllEvents";
+import CreateEvent from "./components/CreateEvent";
+import Group from"./components/Group";
+import User from "./components/User";
+import MyCompletedEvents from "./components/MyCompletedEvents";
+import Admin from "./components/Admin";
 
 class IndexRouter extends React.Component{
     constructor(props){
         super(props);
-        this.state={authorized: null, user: "", socketReady: false, onMsg: (message) =>{
-            console.log(message);
-        }};
+        this.state={
+            authorized: null,
+            user: "",
+            socketReady: false,
+            onMsg: (message) =>{
+                console.log(message);
+            }
+        };
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
     }
     componentWillMount(){
         let self = this;
-        this.socket = new WebSocket(con.sockethost);
-        this.socket.onmessage = function(message) {
-            self.state.onMsg(message);
-        };
+
 
         console.log(con.addr+'/mainServices/auth/checktoken');
         if (localStorage.getItem('token')!=null){
@@ -46,7 +55,9 @@ class IndexRouter extends React.Component{
             })
                 .then(function (response) {
                     console.log(response.data);
-                    self.login(response.data);
+                    localStorage.setItem('email', response.data[0]);
+                    localStorage.setItem('userId', response.data[1]);
+                    self.login(response.data[0].toLowerCase());
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -59,10 +70,16 @@ class IndexRouter extends React.Component{
     }
 
     setOnMsg(onMsg){
+        let self = this;
         this.setState({onMsg: onMsg});
     }
 
     login(usr){
+        let self = this;
+        this.socket = new WebSocket(con.sockethost);
+        this.socket.onmessage = function(message) {
+            self.state.onMsg(message);
+        };
         console.log(usr);
         localStorage.setItem('email', usr);
         this.setState({authorized: true, user: usr});
@@ -84,9 +101,15 @@ class IndexRouter extends React.Component{
                     <Switch>
                         <Route exact path={con.projectName +  "/dashboard"} render={() => self.state.authorized ? <Dashboard user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
                         <Route exact path={con.projectName + "/chat/:id"} render={() => self.state.authorized ? <Chat setOnMsg={self.setOnMsg.bind(this)} socket={this.socket} user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
-                        <Route exact path={con.projectName +  "/groups"} render={() => self.state.authorized ? <Groups user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
-                        <Route exact path={con.projectName + "/signin"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/groups'} /> : <SignIn login={self.login.bind(this)} />} />
-                        <Route exact path={con.projectName + "/signup"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/groups'} /> : <SignUp login={self.login.bind(this)} />} />
+                        <Route exact path={con.projectName + "/group/:id"} render={() => self.state.authorized ? <Group user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/user/:id"} render={() => self.state.authorized ? <User user={self.state.user} logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/myevents"} render={() => self.state.authorized ? <MyEvents logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/mycompletedevents"} render={() => self.state.authorized ? <MyCompletedEvents logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/signin"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/myevents'} /> : <SignIn login={self.login.bind(this)} />} />
+                        <Route exact path={con.projectName + "/signup"} render={() => self.state.authorized ? <Redirect to={con.projectName + '/myevents'} /> : <SignUp login={self.login.bind(this)} />} />
+                        <Route exact path={con.projectName +  "/allevents"} render={() => self.state.authorized ? <AllEvents logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName +  "/createevent"} render={() => self.state.authorized ? <CreateEvent logout={self.logout.bind(this)} /> : <Redirect to={con.projectName + '/signin'} /> }/>
+                        <Route exact path={con.projectName + "/admin"} render={() => self.state.authorized ? <Admin/> : <Redirect to={con.projectName + '/signin'} /> }/>
                         <Route path={con.projectName + '/'} render={() => <Redirect to={con.projectName + '/signin'} />} />
                     </Switch>
                 </Router>
