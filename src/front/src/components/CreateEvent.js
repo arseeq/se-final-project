@@ -42,10 +42,13 @@ class CreateEvent extends Component {
                 this.setState({location: e.target.value});
                 break;
             case("date"):
+                console.log(" -----  "+e.target.value);
                 this.setState({date: e.target.value});
                 break;
             case("time"):
+                console.log("***********"+e.target.value.toString().split(':').join('-'));
                 this.setState({time: e.target.value});
+
                 break;
             case("description"):
                 this.setState({description: e.target.value});
@@ -69,77 +72,28 @@ class CreateEvent extends Component {
         }
     }
 
+    // isFutureTime(t){
+    //     let h = parseInt(t.split(':')[0]);
+    //     let m = parseInt(t.split(':')[1]);
+    //     let cur = new Date();
+    //     alert(h +' '+ cur.getHours() +' '+ m +' '+ cur.getMinutes());
+    //     return h > cur.getHours() || (h === cur.getHours() && m > cur.getMinutes());
+    // }
+
     send() {
         let self = this;
 
-        let dd = new Date().getDate();
-        let mm = new Date().getMonth() + 1;
-        let yy = new Date().getFullYear();
-
-        if (dd < 10) {
-            dd = "0" + dd;
-        }
-        if (mm < 10) {
-            mm = "0" + mm;
-        }
-
-        let enteredDate = self.state.date.split("-");
-        let enteredDay = enteredDate[2];
-        let enteredMonth = enteredDate[1];
-        let enteredYear = enteredDate[0];
-
-        let currentDateToCompare = yy + "-" + mm + "-" + dd;
-        let enteredDateToCompare = enteredYear + "-" + enteredMonth + "-" + enteredDay;
-
-        console.log(currentDateToCompare);
-        console.log(enteredDateToCompare);
-
-        let currentWholeDate = new Date().toLocaleString().split(', ');
-        let currentTime = currentWholeDate[1].split(':');
-        let curHours = currentTime[0];
-        let curMins = currentTime[1];
-        let variable = currentTime[2].split(' ');
-        let curAM_PM = variable[1];
-        let currentTime24Format = moment(curHours + ":" + curMins + " " + curAM_PM, "h:mm A").format("HH:mm");
-
-        let enteredTime = self.state.time.split(":");
-        let enteredHours = enteredTime[0];
-        let enteredMins = enteredTime[1];
-        let currentTime24 = currentTime24Format.split(":");
-        let currentHours = currentTime24[0];
-        let currentMins = currentTime24[1];
-        let currentTimeToCompare = currentHours + "-" + currentMins;
-        let enteredTimeToCompare = enteredHours + "-" + enteredMins;
-        console.log(currentTimeToCompare);
-        console.log(enteredTimeToCompare);
-
-        if (enteredDateToCompare < currentDateToCompare) {
+        if (Date.parse(self.state.date+'T'+self.state.time) <= Date.now()) {
+            //alert("1");
             self.setState({datemsg: true});
             self.setState({errormsg: false});
             self.setState({createmsg: false});
         } else {
-            if ((enteredTimeToCompare < currentTimeToCompare) && (enteredDateToCompare === currentDateToCompare)) {
-                self.setState({datemsg: true});
-                self.setState({errormsg: false});
-                self.setState({createmsg: false});
-            } else {
-                console.log({
-                    name: self.state.name,
-                    meetingdate: enteredHours + '-' + enteredMins + ' ' + enteredMonth + '/' + enteredDay + '/' + enteredYear,
-                    description: self.state.description,
-                    location: self.state.location,
-                    // category: self.state.category+'',
-                    price: self.state.price + '',
-                    points: self.state.points + '',
-                    maxsize: self.state.participants + '',
-                    img: self.state.img,
-                    token: localStorage.getItem('token')
-                });
                 axios(con.addr + '/mainServices/event/create', {
                     method: "POST",
                     data: JSON.stringify({
                         name: self.state.name,
-                        meetingdate: enteredHours + '-' + enteredMins + ' ' + enteredMonth + '/' + enteredDay + '/' + enteredYear,
+                        meetingdate: self.state.date + ' ' + self.state.time.toString().split(':').join('-'),
                         description: self.state.description,
                         location: self.state.location,
                         // category: self.state.category+'',
@@ -155,6 +109,7 @@ class CreateEvent extends Component {
                 })
                     .then(function (response) {
                         console.log(response);
+                        self.setState({name: ""});
                         self.setState({createmsg: true});
                         self.setState({datemsg: false});
                         self.setState({errormsg: false});
@@ -165,7 +120,6 @@ class CreateEvent extends Component {
                         self.setState({createmsg: false});
                         self.setState({datemsg: false});
                     });
-            }
         }
     }
 
